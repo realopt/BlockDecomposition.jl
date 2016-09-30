@@ -9,6 +9,7 @@ function BlockModel(;solver = JuMP.UnsetSolver(),
                      block_lb_func = x -> 1,
                      block_ub_func = x -> 1      )
   m = JuMP.Model(solver = solver)
+  JuMP.setsolvehook(m, bj_solve)
   m.ext[:BlockIdentification] = BlockIdentificationData(nb_block_indices,
                                                         block_lb_func,
                                                         block_ub_func    )
