@@ -1,4 +1,5 @@
 set_block_info!() = nothing
+setoracle!() = nothing
 
 function bj_solve(model;
                 suppress_warnings=false,
@@ -10,7 +11,12 @@ function bj_solve(model;
   else
     expand(model)
   end
-  JuMP.solve(model, suppress_warnings=suppress_warnings,
+
+  model.ext[:CurCost] = fill(NaN, model.numCols)
+
+  a = JuMP.solve(model, suppress_warnings=suppress_warnings,
                     ignore_solve_hook=true,
                     relaxation=relaxation)
+  #model.ext[:CurCost] = fill(NaN, model.numCols)
+  a
 end
