@@ -11,7 +11,7 @@ export  BlockModel,
         get_block_occurences,
         getvalue,
         addblockgrouporacle!,
-        getcurcost,
+        getcurcost
 
 include("bjmodel.jl")
 include("bjexpand.jl")
