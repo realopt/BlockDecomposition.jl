@@ -8,11 +8,13 @@ import MathProgBase.MathProgSolverInterface
 
 export  BlockModel,
         expand,
-        get_block_occurences,
-        getvalue,
+        getblockoccurences,
         addblockgrouporacle!,
-        getcurcost
+        getcurcost,
+        getdisaggregatedvalue,
+        show
 
+include("bjprint.jl")
 include("bjmodel.jl")
 include("bjexpand.jl")
 include("bjoracles.jl")

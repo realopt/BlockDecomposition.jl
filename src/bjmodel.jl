@@ -20,6 +20,7 @@ function BlockModel(;solver = JuMP.UnsetSolver(),
   m.ext[:VarNames] = m.varDict
   m.ext[:ConstrNames] = m.conDict
   m.ext[:CurCost] = Array(Cdouble, m.numCols)
+  m.ext[:BlockSolution] = nothing
   m
 end
 
