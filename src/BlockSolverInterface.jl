@@ -17,7 +17,7 @@ set_oraclesolution_objval() = nothing
 export set_oraclesolution_objval
 
 getcurrentcost() = nothing
-export set_oraclesolution_objval
+export getcurrentcost
 
 getblocksolution() = nothing
 export getblocksolution
