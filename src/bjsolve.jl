@@ -1,22 +1,21 @@
-set_block_info!() = nothing
-setoracle!() = nothing
-
 function bj_solve(model;
                 suppress_warnings=false,
                 relaxation=false,
                 kwargs...)
   # TODO : try to remove the importall BaPCod
-  if method_exists(set_block_info!, (typeof(model.solver), Dict{Symbol, Any}))
-    set_block_info!(model.solver, model.ext)
-  else
-    expand(model)
-  end
+  # if method_exists(set_block_info!, (typeof(model.solver), Dict{Symbol, Any}))
+  block = set_block_info!(model.solver, model.ext)
+  block || expand(model)
 
   model.ext[:CurCost] = fill(NaN, model.numCols)
 
   a = JuMP.solve(model, suppress_warnings=suppress_warnings,
                     ignore_solve_hook=true,
                     relaxation=relaxation)
+
+  if block && applicable(getblocksolution, model.internalModel)
+    getblocksolution(model.internalModel)
+  end
   a
 end
 

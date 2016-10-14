@@ -1,18 +1,26 @@
 module BlockJuMP
 
-importall BaPCod # TODO check if BaPCod exists
+include("BlockSolverInterface.jl")
+using .BlockSolverInterface
 
 import JuMP
 import MathProgBase
 import MathProgBase.MathProgSolverInterface
 
 export  BlockModel,
-        expand,
         getblockoccurences,
-        addblockgrouporacle!,
         getcurcost,
         getdisaggregatedvalue,
         show
+
+# Oracles
+export OracleSolverData,
+       addblockgrouporacle!, addtosolution, setsolutionobjval
+
+immutable CurCostApplicable end
+immutable CurCostNotApplicable end
+immutable OracleSolApplicable end
+immutable OracleSolNotApplicable end
 
 include("bjprint.jl")
 include("bjmodel.jl")

@@ -24,12 +24,12 @@ function BlockModel(;solver = JuMP.UnsetSolver(),
   m
 end
 
-function getcurcost(x::JuMP.Variable)
-  cc = x.m.ext[:CurCost][x.col]
-  (cc == NaN) && warn("current cost for the variable $x is not defined.")
-  cc
-end
-
-function getcurcost(arr::Array{JuMP.Variable})
-  error("getcurcost(Array{JuMP.Variable}) is not implemented")
-end
+# function getcurcost(x::JuMP.Variable)
+#   cc = x.m.ext[:CurCost][x.col]
+#   (cc == NaN) && warn("current cost for the variable $x is not defined.")
+#   cc
+# end
+#
+# function getcurcost(arr::Array{JuMP.Variable})
+#   error("getcurcost(Array{JuMP.Variable}) is not implemented")
+# end
