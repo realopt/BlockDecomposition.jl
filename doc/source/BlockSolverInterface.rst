@@ -4,6 +4,9 @@
 BlockSolverInterface module
 -----------------
 
+The content of this section is not useful to the user of BlockJuMP.
+It has implementation details about the connection with JuMP and the underlying solver.
+It is aimed mainly at developpers who would like to contribute to BlockJuMP.
 
 Block-identification data
 ^^^^^^^^^^^^^^^^^^^^^^^^^

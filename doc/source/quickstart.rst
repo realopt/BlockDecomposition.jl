@@ -30,7 +30,7 @@ BlockModel instantiation
 |
 * *(Optional)* ``block_group_func = s`` a function from :math:`\mathbb{N}^b`
   to :math:`\mathbb{N}^{\sigma}`,
-  assuming we want to use for block-identification, block groups with
+  assuming we want to group blocks into block groups with
   multi-indices that are made of :math:`\sigma` indices.
   This function returns the block group multi-index of a block multi-index.
   If it is not filled,
@@ -50,8 +50,8 @@ BlockModel instantiation
 
 Write the model
 ^^^^^^^^^^^^^^^
-The model is write as a JuMP model. If you are not familiar with the JuMP syntax,
-see the `documentation <https://jump.readthedocs.io/en/latest/quickstart.html#defining-variables>`_.
+The model is written as a JuMP model. If you are not familiar with the JuMP syntax,
+you may want to check its `documentation <https://jump.readthedocs.io/en/latest/quickstart.html#defining-variables>`_.
 
 The following example is the generalized assignement problem.
 Consider a set of machines ``Machines = 1:M`` and a set of jobs ``Jobs = 1:J``.
@@ -79,8 +79,7 @@ each machine ::
 
 Get the solution
 ^^^^^^^^^^^^^^^^
-You can use methods provided by JuMP. BlockJuMP offers an additional method to
-get the disaggregated solution when the solver support column generation.
+You can use methods provided by JuMP.
 
 Considering the cutting-stock problem solved with column generation, the solution
 given by JuMP is ::
@@ -99,8 +98,10 @@ given by JuMP is ::
     [1, 9] = 7.0
     [1,10] = 5.0
 
-
-The disaggregated solution permits to see block groups solutions.::
+When the block-group has a multiplicity upperbound greater than 1 (like the case of cutting stock problem),
+getvalue returns an aggregated solution of the block-group. In order to
+get the solution for each occurance of the block-group (from 1 to its upperbound),
+getdisaggregatedvalue should be used instead.::
 
   julia> getdisaggregatedvalue(x)
   Solution x : x: 2 dimensions:
