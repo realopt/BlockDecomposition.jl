@@ -7,8 +7,8 @@ abstract OracleSolverData
 export OracleSolverData
 
 # Interfaces
-set_block_info!() = nothing
-export set_block_info!
+set_blockmodel_info!() = nothing
+export set_blockmodel_info!
 
 set_oraclesolution_solution() = nothing
 export set_oraclesolution_solution
@@ -21,5 +21,14 @@ export getcurrentcost
 
 getblocksolution() = nothing
 export getblocksolution
+
+setobjectivevaluelb!() = nothing
+export setobjectivevaluelb!
+
+setobjectivevalueub!() = nothing
+export setobjectivevalueub!
+
+setobjectivevaluemagnitude!() = nothing
+export setobjectivevaluemagnitude!
 
 end

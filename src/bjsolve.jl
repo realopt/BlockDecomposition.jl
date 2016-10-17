@@ -4,7 +4,7 @@ function bj_solve(model;
                 kwargs...)
   # TODO : try to remove the importall BaPCod
   # if method_exists(set_block_info!, (typeof(model.solver), Dict{Symbol, Any}))
-  block = set_block_info!(model.solver, model.ext)
+  block = set_blockmodel_info!(model.solver, model.ext)
   block || expand(model)
 
   model.ext[:CurCost] = fill(NaN, model.numCols)

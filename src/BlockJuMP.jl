@@ -8,9 +8,15 @@ import MathProgBase
 import MathProgBase.MathProgSolverInterface
 
 export  BlockModel,
+        BlockIdentificationData,
+        defaultBlockIdeData,
         getblockoccurences,
         getcurcost,
         getdisaggregatedvalue,
+        objectivevaluemagnitude,
+        objectivevalueupperbound,
+        objectivevaluelowerbound,
+        variablebranchingpriority,
         show
 
 # Oracles
