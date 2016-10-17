@@ -32,7 +32,7 @@ each machine. The model is ::
 
 
 
-Imagine we have a julia function that can solve very easily the knapsack problem
+Imagine we have a julia function that can solve efficiently the knapsack problem
 and returns the solution and the value of the solution ::
 
   (sol, value) = solveKnapsack(costs::Vector{Float64}, weights::Vector{Integer}, capacity::Integer)
@@ -40,11 +40,10 @@ and returns the solution and the value of the solution ::
 Write the oracle solver
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-We define an oracle that call this function and solve the knapsack constraint for
-each block. ::
+We define an oracle that calls this functions and solves the knapsack problem of each block. ::
 
   function myKnapsackSolver(od::OracleSolverData)
-    machine = od.blockgroup[1] # get the machine index
+    machine = od.blockgroupid[1] # get the machine index
     costs = [getcurcost(x[machine,j]) for j in Jobs] # get the current cost with getcurcost
     (sol_x_m, value) = solveKnapsack(costs, Weight[m,:], Capacity[m]) # call the solver
 
@@ -86,6 +85,6 @@ the following function.
 
 In our example, we do ::
 
-  for m_id in data.machines
-    addblockgrouporacle!(gap, m_id, myKnapsackSolver)
+  for m in data.machines
+    addblockgrouporacle!(gap, m, myKnapsackSolver)
   end
