@@ -1,12 +1,24 @@
-function addblockgrouporacle!(model::JuMP.Model, blockgroup::Int, f::Function)
-  addblockgrouporacle!(model, [blockgroup], f)
+function addblockgrouporacle!{T}(model::JuMP.Model, blockgroup_id::T, f::Function)
+  if !haskey(model.ext, :oracles)
+    model.ext[:oracles] = Array{Tuple{T, Function}, 1}()
+  end
+  push!(model.ext[:oracles], (blockgroup_id, f))
 end
 
-function addblockgrouporacle!(model::JuMP.Model, blockgroup::Array{Int,1}, f::Function)
-  if !haskey(model.ext, :oracles)
-    model.ext[:oracles] = Array{Tuple{Array{Int, 1}, Function}, 1}()
+function getphaseofstageapproach(data::OracleSolverData)
+  if applicable(get_oracle_phaseofstageapproach, data)
+    get_oracle_phaseofstageapproach(data)
+  else
+    Base.warn("Solver does not appear to support phase of stage approach.")
   end
-  push!(model.ext[:oracles], (blockgroup, f))
+end
+
+function attachnewsolution(data::OracleSolverData)
+  if applicable(set_oraclesolution_newsolution, data)
+    set_oraclesolution_newsolution(data)
+  else
+    Base.warn("Solver does not appear to support multi solutions oracle.")
+  end
 end
 
 function addtosolution(data::OracleSolverData, x::JuMP.Variable, val::Real)
@@ -30,6 +42,10 @@ function getcurcost(x::JuMP.Variable)
     return getcurrentcost(x.m.internalModel, x.col)
   end
   error("Solver does not appear to support current cost.")
+end
+
+function getblockgroup(data::OracleSolverData)
+  return data.blockgroup
 end
 
 # function getcurcost(x::JuMP.Variable)

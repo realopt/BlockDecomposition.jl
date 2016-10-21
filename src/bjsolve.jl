@@ -2,9 +2,10 @@ function bj_solve(model;
                 suppress_warnings=false,
                 relaxation=false,
                 kwargs...)
-  # TODO : try to remove the importall BaPCod
-  # if method_exists(set_block_info!, (typeof(model.solver), Dict{Symbol, Any}))
-  block = set_blockmodel_info!(model.solver, model.ext)
+  block = false
+  if applicable(set_blockmodel_info!, model.solver, model.ext)
+    block = set_blockmodel_info!(model.solver, model.ext)
+  end
   block || expand(model)
 
   model.ext[:CurCost] = fill(NaN, model.numCols)
