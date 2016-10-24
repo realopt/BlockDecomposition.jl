@@ -16,8 +16,11 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-# import os
-# import sys
+import os
+import sys
+
+import juliadoc, sphinx_rtd_theme
+
 # sys.path.insert(0, os.path.abspath('.'))
 
 # -- General configuration ------------------------------------------------
@@ -29,7 +32,7 @@
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ['sphinx.ext.mathjax', 'sphinx.ext.todo', 'sphinx.ext.autodoc']
+extensions = ['sphinx.ext.mathjax', 'juliadoc.julia', 'juliadoc.jlhelp']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -49,8 +52,8 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'BlockJuMP.jl'
-copyright = u'2016, Guillaume Marques, Issam Tahiri'
-author = u'Guillaume Marques, Issam Tahiri'
+copyright = u'2016, REALOPT'
+author = u'REALOPT'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -107,6 +110,9 @@ pygments_style = 'sphinx'
 # A list of ignored prefixes for module index sorting.
 # modindex_common_prefix = []
 
+primary_domain = 'jl'
+highlight_language = 'julia'
+
 # If true, keep warnings as "system message" paragraphs in the built documents.
 # keep_warnings = False
 
@@ -128,7 +134,7 @@ html_theme = 'sphinx_rtd_theme'
 # html_theme_options = {}
 
 # Add any paths that contain custom themes here, relative to this directory.
-# html_theme_path = []
+html_theme_path = [juliadoc.get_theme_dir()]
 
 # The name for this set of Sphinx documents.
 # "<project> v<release> documentation" by default.
@@ -174,7 +180,7 @@ html_static_path = ['_static']
 
 # Custom sidebar templates, maps document names to template names.
 #
-# html_sidebars = {}
+html_sidebars = juliadoc.default_sidebars()
 
 # Additional templates that should be rendered to pages, maps page names to
 # template names.
@@ -260,7 +266,7 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
     (master_doc, 'BlockJuMP.tex', u'BlockJuMP Documentation',
-     u'Guillaume Marques, Issam Tahiri', 'manual'),
+     u'REALOPT', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of

@@ -43,7 +43,7 @@ Write the oracle solver
 We define an oracle that calls this functions and solves the knapsack problem of each block. ::
 
   function myKnapsackSolver(od::OracleSolverData)
-    machine = od.blockgroupid[1] # get the machine index
+    machine = getblockgroup(od) # get the machine index
     costs = [getcurcost(x[machine,j]) for j in Jobs] # get the current cost with getcurcost
     (sol_x_m, value) = solveKnapsack(costs, Weight[m,:], Capacity[m]) # call the solver
 
@@ -57,7 +57,11 @@ We define an oracle that calls this functions and solves the knapsack problem of
     setsolutionobjval(od, value)
   end
 
-In this code, we use the three functions for oracles provided by BlockJuMP.
+In this code, we use the four main functions for oracles provided by BlockJuMP.
+
+.. function:: getblockgroup(od::OracleSolverData)
+
+  Returns the block-group index for which the oracle has been assigned.
 
 .. function:: getcurcost(x::JuMP.Variable)
 
@@ -68,23 +72,41 @@ In this code, we use the three functions for oracles provided by BlockJuMP.
   Assigns the value ``value`` to the variable ``x`` in the solution of the
   oracle solver
 
-
 .. function:: setsolutionobjval(od::OracleSolverData, value::real)
 
   Sets the objective value of the oracle solver solution.
-
 
 Attach the oracle solver
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 Once the oracle solver function defined, we assign it to some block groups using
 the following function.
 
-.. function:: addblockgrouporacle!(m::JuMP.Model, id, oraclesolver::Function)
+.. function:: addblockgrouporacle!(m::JuMP.Model, bgid, oraclesolver::Function)
 
-  Attaches the ``oraclesolver`` function to the block group ``id``.
+  Attaches the :func:`oraclesolver` function to the block group ``bgid``.
 
 In our example, we do ::
 
   for m in data.machines
     addblockgrouporacle!(gap, m, myKnapsackSolver)
   end
+
+Notice that ``m`` is a block index and a block-group index. The block-group
+identification function has not been initialized, so the default function,
+which is the identity, is used.
+
+Advanced features
+^^^^^^^^^^^^^^^^^^
+
+For one call, the oracle solver can return several solution by using the
+following function :
+
+.. function:: attachnewsolution(od::OracleSolverData)
+
+  It ends the current solution and create a new solution in the oracle solver
+  solution. Note that the previous solutions cannot be modified anymore.
+
+
+.. function:: getphaseofstageapproach(od::OracleSolverData)
+
+  Returns the phase of stage approach.

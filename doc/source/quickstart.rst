@@ -77,6 +77,31 @@ each machine ::
   status = solve(gap)
 
 
+The following example is the cutting stock problem. Consider a mill of paper
+which has paper rolls of fixed width ``stocksheetwidth``. Clients order
+`nborders` paper rolls which are stored in the array ``orders``. Each order
+``o`` has the attributes ``width``, the width of the paper roll ordered and
+``demand``, the number of paper rolls ordered. The goal is to minimize the
+number of paper rolls used by the mill ::
+
+  totaldemand = sum([orders[o] for o in orders])
+
+  csp = BlockModel(solver = solver, nb_block_indices = 1,
+                                      block_group_lb_func = m -> 0,
+                                      block_group_ub_func = m -> totaldemand)
+
+  @variable(csp, y[1], Bin)
+  @variable(csp, x[1, o in nborders], Bin)
+
+  @constraint(csp, cov[0, o in nborders],
+      x[1, o] == orders[o].demand)
+
+  @constraint(csp, knp[1],
+      sum{ x[1, o] * orders[o].width, o in nborders} - y[1] * stocksheetswidth <= 0)
+
+  @objective(csp, Min, y[1])
+
+
 Get the solution
 ^^^^^^^^^^^^^^^^
 You can use methods provided by JuMP.
@@ -98,10 +123,11 @@ given by JuMP is ::
     [1, 9] = 7.0
     [1,10] = 5.0
 
-When the block-group has a multiplicity upperbound greater than 1 (like the case of cutting stock problem),
-getvalue returns an aggregated solution of the block-group. In order to
-get the solution for each occurance of the block-group (from 1 to its upperbound),
-getdisaggregatedvalue should be used instead.::
+When the block-group has a multiplicity upper bound greater than 1
+(like the case of cutting stock problem),
+:func:`getvalue` returns an aggregated solution of the block-group. In order to
+get the solution for each occurance of the block-group (from 1 to its
+upperbound), :func:`getdisaggregatedvalue` should be used instead.::
 
   julia> getdisaggregatedvalue(x)
   Solution x : x: 2 dimensions:
