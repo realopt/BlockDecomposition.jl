@@ -1,8 +1,25 @@
-function addblockgrouporacle!{T}(model::JuMP.Model, blockgroup_id::T, f::Function)
-  if !haskey(model.ext, :oracles)
-    model.ext[:oracles] = Array{Tuple{T, Function}, 1}()
-  end
-  push!(model.ext[:oracles], (blockgroup_id, f))
+function add_oracle_to_DWsp!(model::JuMP.Model, sp_id::Integer, f::Function)
+  add_oracle_to_DWsp!(model, (sp_id,), f)
+end
+
+function add_oracle_to_DWsp!(model::JuMP.Model, sp_id::Tuple, f::Function)
+  addoracletosp!(model, sp_id, :DW_SP, f)
+end
+
+function add_oracle_to_Bsp!(model::JuMP.Model, sp_id::Integer, f::Function)
+  add_oracle_to_Bsp!(model, (sp_id,), f)
+end
+
+function add_oracle_to_Bsp(model::JuMP.Model, sp_id::Tuple, f::Function)
+  addoracletosp!(model, sp_id, :B_SP, f)
+end
+
+function addoracletosp!(model::JuMP.Model, sp_id::Tuple, sp_type::Symbol, f::Function)
+  push!(model.ext[:oracles], (sp_id, sp_type, f))
+end
+
+function addoracletosp!(model::JuMP.Model, sp_id::Integer, sp_type::Symbol, f::Function)
+  addoracletosp!(model, (sp_id,), sp_type, f)
 end
 
 function getphaseofstageapproach(data::OracleSolverData)
@@ -41,21 +58,13 @@ function getcurcost(x::JuMP.Variable)
   if applicable(getcurrentcost, x.m.internalModel, x.col)
     return getcurrentcost(x.m.internalModel, x.col)
   end
-  error("Solver does not appear to support current cost.")
+  bjerror("Solver does not appear to support current cost.")
 end
 
-function getblockgroup(data::OracleSolverData)
-  return data.blockgroup
+function getspid(data::OracleSolverData)::Tuple
+  return data.sp_id
 end
 
-# function getcurcost(x::JuMP.Variable)
-#   return getcurcost(x, x.m.ext[:curcost_trait])
-# end
-
-# function getcurcost(x::JuMP.Variable, trait::CurCostApplicable)
-#   return getcurrentcost(x.m.internalModel, x.col)
-# end
-#
-# function getcurcost(x::JuMP.Variable, trait::CurCostNotApplicable)
-#   error("Solver does not appear to support current costsy")
-# end
+function getsptype(data::OracleSolverData)::Symbol
+  return data.sp_type
+end

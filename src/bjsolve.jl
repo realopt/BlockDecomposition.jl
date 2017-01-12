@@ -2,25 +2,57 @@ function bj_solve(model;
                 suppress_warnings=false,
                 relaxation=false,
                 kwargs...)
-  block = false
-  if applicable(set_blockmodel_info!, model.solver, model.ext)
-    block = set_blockmodel_info!(model.solver, model.ext)
+  # Step 1 : Create variables & constraints report
+  report_cstrs_and_vars!(model)
+  create_cstrs_vars_decomposition_list!(model)
+  create_sp_mult_tab!(model)
+  create_sp_prio_tab!(model)
+
+  # Step 2 : Send decomposition (& others) data to the solver
+  # Cstrs decomposition : mandatory
+  send_to_solver!(model, load_cstrs_decomposition!, :cstrs_decomposition_list, true)
+  # Vars decomposition : mandatory
+  send_to_solver!(model, load_vars_decomposition!, :vars_decomposition_list, true)
+  # Subproblems multiplicities
+  send_to_solver!(model, load_sp_mult!, :sp_mult_tab, false)
+  # Subproblems priorities
+  send_to_solver!(model, load_sp_prio!, :sp_prio_tab, false)
+  # Oracles
+  send_to_solver!(model, load_oracles!, :oracles, false)
+  # Objective bounds and magnitude
+  obj = model.ext[:objective_data]
+  if applicable(load_objective_bounds_and_magnitude!, model.solver, obj.magnitude, obj.lb, obj.ub)
+    load_objective_bounds_and_magnitude!(model.solver, obj.magnitude, obj.lb, obj.ub)
   end
-  block || expand(model)
 
-  model.ext[:CurCost] = fill(NaN, model.numCols)
-
+  # Step 3 : Build + solve
   a = JuMP.solve(model, suppress_warnings=suppress_warnings,
                     ignore_solve_hook=true,
                     relaxation=relaxation)
 
-  if block && applicable(getblocksolution, model.internalModel)
-    getblocksolution(model.internalModel)
+  # Step 4 : Get the column generation solution if it's a Dantzig Wolfe decomposition
+  if use_DantzigWolfe(model) && applicable(getblocksolution, model.internalModel)
+    model.ext[:dw_solution] = getblocksolution(model.internalModel)
   end
+  # TODO expand model to take account of sp multiplicities
   a
 end
 
-_get_values(v::JuMP.Variable) = v.m.ext[:BlockSolution][v.col]
+function send_to_solver!(model::JuMP.Model, f::Function, k::Symbol, mandatory::Bool)
+  if haskey(model.ext, k)
+    if applicable(f, model.solver, model.ext[k])
+      f(model.solver, model.ext[k])
+    else
+      if mandatory
+        bjerror("Your solver does not support function $f.")
+      end
+    end
+  else
+    bjerror("Key $(k) does not exist in model.ext.")
+  end
+end
+
+_get_values(v::JuMP.Variable) = v.m.ext[:dw_solution][v.col]
 
 function _getblockvalue_inner(x)
   vars = x.innerArray
@@ -37,16 +69,16 @@ JuMPContainer_from(x::JuMP.JuMPDict,inner) = JuMP.JuMPDict(inner)
 JuMPContainer_from(x::JuMP.JuMPArray,inner) = JuMP.JuMPArray(inner, x.indexsets)
 
 function getdisaggregatedvalue(x::JuMP.Variable)
-  if !haskey(x.m.ext, :BlockIdentification)
+  if !haskey(x.m.ext, :dw_solution)
     return JuMP.getvalue(x)
   end
   (x.m.ext[:BlockSolution] == nothing) &&
-    error("Make sure that the problem has been solved.")
-  x.m.ext[:BlockSolution][x.col]
+    bjerror("Make sure that the problem has been solved.")
+  x.m.ext[:dw_solution][x.col]
 end
 
 function getdisaggregatedvalue(x::JuMP.JuMPContainer)
-  if !haskey(first(x.innerArray).m.ext, :BlockIdentification)
+  if !haskey(first(x.innerArray).m.ext, :dw_solution)
     return JuMP.getvalue(x)
   end
   ret = JuMPContainer_from(x, _getblockvalue_inner(x))

@@ -1,3 +1,5 @@
+
+
 function vec(v::Vector{Float64})
   outstr = ""
   for value in v

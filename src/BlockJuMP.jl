@@ -1,3 +1,5 @@
+__precompile__()
+
 module BlockJuMP
 
 include("BlockSolverInterface.jl")
@@ -8,6 +10,7 @@ import MathProgBase.MathProgSolverInterface
 
 export  BlockModel,
         BlockIdentificationData,
+        BlockDecompositionData,
         defaultBlockIdeData,
         getcurcost,
         getdisaggregatedvalue,
@@ -15,19 +18,33 @@ export  BlockModel,
         objectivevalueupperbound,
         objectivevaluelowerbound,
         variablebranchingpriority,
-        attachnewsolution,
-        getphaseofstageapproach,
-        getblockgroup,
+        add_Dantzig_Wolfe_decomposition,
+        add_Benders_decomposition,
+        addspmultiplicity,
         show
 
 # Oracles
 export OracleSolverData,
-       addblockgrouporacle!, addtosolution, setsolutionobjval
+       addoracletosp!,
+       add_oracle_to_DWsp!,
+       add_oracle_to_Bsp!,
+       addtosolution,
+       setsolutionobjval,
+       getspid,
+       getsptype,
+       attachnewsolution,
+       getphaseofstageapproach
 
+
+import Base.convert, Base.show, Base.copy, Base.pointer
+
+include("bjutils.jl")
+include("bjreport.jl")
 include("bjprint.jl")
 include("bjmodel.jl")
 include("bjexpand.jl")
 include("bjoracles.jl")
 include("bjsolve.jl")
+include("bjdecomposition.jl")
 
 end # module
