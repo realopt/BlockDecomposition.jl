@@ -31,21 +31,21 @@ each machine. The model is ::
                    sum{Cost[m,j]*x[m,j], m in Machines, j in Jobs})
 
 
-
+Generalized Assignment problem can be solved using a Dantzig-Wolfe decomposition.
 Imagine we have a julia function that can solve efficiently the knapsack problem
 and returns the solution and the value of the solution ::
 
-  (sol, value) = solveKnapsack(costs::Vector{Float64}, weights::Vector{Integer}, capacity::Integer)
+  (sol, value) = solveKnp(costs::Vector{Float64}, weights::Vector{Integer}, capacity::Integer)
 
 Write the oracle solver
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-We define an oracle that calls this functions and solves the knapsack problem of each block. ::
+We define an oracle that calls this function and solves each knapsack subproblem. ::
 
   function myKnapsackSolver(od::OracleSolverData)
-    machine = getblockgroup(od) # get the machine index
+    machine = getspid(od)[0] # get the machine index
     costs = [getcurcost(x[machine,j]) for j in Jobs] # get the current cost with getcurcost
-    (sol_x_m, value) = solveKnapsack(costs, Weight[m,:], Capacity[m]) # call the solver
+    (sol_x_m, value) = solveKnp(costs, Weight[m,:], Capacity[m]) # call the solver
 
     # Building the oracle solution
     for j in data.jobs
@@ -59,9 +59,9 @@ We define an oracle that calls this functions and solves the knapsack problem of
 
 In this code, we use the four main functions for oracles provided by BlockJuMP.
 
-.. function:: getblockgroup(od::OracleSolverData)
+.. function:: getspid(od::OracleSolverData) :: Tuple
 
-  Returns the block-group index for which the oracle has been assigned.
+  Returns the subproblem index for which the oracle has been assigned.
 
 .. function:: getcurcost(x::JuMP.Variable)
 
@@ -78,22 +78,20 @@ In this code, we use the four main functions for oracles provided by BlockJuMP.
 
 Attach the oracle solver
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
-Once the oracle solver function defined, we assign it to some block groups using
+Once the oracle solver function defined, we assign it to some subproblems using
 the following function.
 
-.. function:: addblockgrouporacle!(m::JuMP.Model, bgid, oraclesolver::Function)
+.. function:: addoracletosp!(m::JuMP.Model, spid::Union{Tuple,Integer}, oraclesolver::Function)
 
-  Attaches the :func:`oraclesolver` function to the block group ``bgid``.
+  Attaches the :func:`oraclesolver` function to the subproblem which has the index ``spid``.
+  The argument ``spid`` must be a ``Tuple`` or an ``Integer``.
 
 In our example, we do ::
 
   for m in data.machines
-    addblockgrouporacle!(gap, m, myKnapsackSolver)
+    addoracletosp!(gap, m, myKnapsackSolver)
   end
 
-Notice that ``m`` is a block index and a block-group index. The block-group
-identification function has not been initialized, so the default function,
-which is the identity, is used.
 
 Advanced features
 ^^^^^^^^^^^^^^^^^^

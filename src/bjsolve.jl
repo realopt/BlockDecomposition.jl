@@ -10,19 +10,19 @@ function bj_solve(model;
 
   # Step 2 : Send decomposition (& others) data to the solver
   # Cstrs decomposition : mandatory
-  send_to_solver!(model, load_cstrs_decomposition!, :cstrs_decomposition_list, true)
+  send_to_solver!(model, set_cstrs_decomposition!, :cstrs_decomposition_list, true)
   # Vars decomposition : mandatory
-  send_to_solver!(model, load_vars_decomposition!, :vars_decomposition_list, true)
+  send_to_solver!(model, set_vars_decomposition!, :vars_decomposition_list, true)
   # Subproblems multiplicities
-  send_to_solver!(model, load_sp_mult!, :sp_mult_tab, false)
+  send_to_solver!(model, set_sp_mult!, :sp_mult_tab, false)
   # Subproblems priorities
-  send_to_solver!(model, load_sp_prio!, :sp_prio_tab, false)
+  send_to_solver!(model, set_sp_prio!, :sp_prio_tab, false)
   # Oracles
-  send_to_solver!(model, load_oracles!, :oracles, false)
+  send_to_solver!(model, set_oracles!, :oracles, false)
   # Objective bounds and magnitude
   obj = model.ext[:objective_data]
-  if applicable(load_objective_bounds_and_magnitude!, model.solver, obj.magnitude, obj.lb, obj.ub)
-    load_objective_bounds_and_magnitude!(model.solver, obj.magnitude, obj.lb, obj.ub)
+  if applicable(set_objective_bounds_and_magnitude!, model.solver, obj.magnitude, obj.lb, obj.ub)
+    set_objective_bounds_and_magnitude!(model.solver, obj.magnitude, obj.lb, obj.ub)
   end
 
   # Step 3 : Build + solve

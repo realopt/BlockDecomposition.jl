@@ -7,23 +7,23 @@ abstract OracleSolverData
 export OracleSolverData
 
 # Interfaces
-load_cstrs_decomposition!() = nothing
-export load_cstrs_decomposition!
+set_cstrs_decomposition!() = nothing
+export set_cstrs_decomposition!
 
-load_vars_decomposition!() = nothing
-export load_vars_decomposition!
+set_vars_decomposition!() = nothing
+export set_vars_decomposition!
 
-load_sp_mult!() = nothing
-export load_sp_mult!
+set_sp_mult!() = nothing
+export set_sp_mult!
 
-load_sp_prio!() = nothing
-export load_sp_prio!
+set_sp_prio!() = nothing
+export set_sp_prio!
 
-load_oracles!() = nothing
-export load_oracles!
+set_oracles!() = nothing
+export set_oracles!
 
-load_objective_bounds_and_magnitude!() = nothing
-export load_objective_bounds_and_magnitude!
+set_objective_bounds_and_magnitude!() = nothing
+export set_objective_bounds_and_magnitude!
 
 set_oraclesolution_newsolution() = nothing
 export set_oraclesolution_newsolution

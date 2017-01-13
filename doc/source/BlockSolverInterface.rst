@@ -1,52 +1,33 @@
 .. _block-solver-interface:
 
 -----------------
-BlockSolverInterface module
+BlockSolverInterface module (dev)
 -----------------
 
 The content of this section is not useful to the user of BlockJuMP.
-It has implementation details about the connection with JuMP and the underlying solver.
+It has implementation details about the connection of BlockJuMP with the underlying solver.
 It is aimed mainly at developpers who would like to contribute to BlockJuMP.
-
-Block-identification data
-^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Block-identification data are storred in the dict ``ext`` of the ``JuMP.Model``.::
-
-  model.ext[:BlockIdentification]
-
-It contains block-identification data given by the user when he instanciates
-``BlockModel``. Attributes are :
-
-- ``nb_block_indices::Int`` number of indices used for block identification
-- ``block_group_func::Function`` returning the block group multi-index of a
-  block multi-index
-- ``block_group_lb_func::Function`` providing the lower bound multiplicity of
-  the block group
-- ``block_group_ub_func::Function`` providing the upper bound multiplicity of
-  the block group
-
-::
-
-  m.ext[:BlockSolution]
-
-Containing the disaggregrated solution.
-
-::
-
-  m.ext[:VarNames]
-  m.ext[:ConstrNames]
-
-Names of variables and constraints
 
 
 Instanciation
 ^^^^^^^^^^^^^^
 
-.. function:: set_block_info!(s::AbstractMathProgSolver, d::Dict{Symbol, Any})
+.. function:: set_cstrs_decomposition!(s::AbstractMathProgSolver, data::Array)
 
-  Variable ``d`` contains block-identification data.
-  Returns ``true`` if the solver takes benefit of the block-identification, ``false`` else.
+  Send to the solver ``s`` in which subproblems are the constraints.
+
+.. function:: set_vars_decomposition!(s::AbstractMathProgSolver, data::Array)
+
+  Send to the solver ``s`` in which subproblems are the variables.
+
+.. function:: set_sp_mult!(s::AbstractMathProgSolver, data::Array)
+
+  Send to the solver ``s`` the multiplicity of each subproblem.
+
+.. function:: set_oracles!(s::AbstractMathProgSolver, list::Array)
+
+  Send to the solver ``s`` the ``list`` with subproblems and oracles functions.
+
 
 
 Additional data to the model
