@@ -5,7 +5,9 @@ Oracle solver
 -----------------
 
 
-We introduce oracles with the generalized assignment problem.
+
+Oracles are customized solvers that can be used to solve efficiently subproblems.
+We introduce them using the example of Generalized Assignment Problem.
 
 Introduction
 ^^^^^^^^^^^^^^

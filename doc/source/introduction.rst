@@ -45,9 +45,9 @@ The user must create a function to describe this decomposition. Such function co
 
   function b_decomp(var_name, var_id)
     if var_name == :y
-      return (:B_MASTER, (0,))
+      return (:B_MASTER, 0)
     else
-      return (:B_SP, (var_id[1],))
+      return (:B_SP, var_id[1])
     end
   end
   add_Benders_decomposition(m, b_decomp)
@@ -92,9 +92,9 @@ to create function to describe this decomposition. Such function could be: ::
 
   function dw_decomp(constr_name, constr_id)
     if constr_name == :mc
-      return (:DW_MASTER, (0,))
+      return (:DW_MASTER, 0)
     else
-      return (:DW_SP, (constr_id[1],))
+      return (:DW_SP, constr_id[1])
     end
   end
   add_Dantzig_Wolfe_decomposition(m, dw_decomp)

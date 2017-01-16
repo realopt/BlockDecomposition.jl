@@ -87,13 +87,13 @@ This function is call by BlockJuMP to build the decomposition data.
 for Benders decomposition, the arguments will be ``varname`` the name
 of the variable and ``varid`` the index of the variable. ::
 
-  function B_decomp(varname::Symbol, varid::Tuple) :: Tuple{Symbol, Tuple}
+  function B_decomp(varname::Symbol, varid::Tuple) :: Tuple{Symbol, Union{Int, Tuple}}
 
 The function returns a ``Tuple`` that contains a ``Symbol`` and
-a ``Tuple``. The ``Symbol`` is the type of problem to which
+a ``Union{Int, Tuple}``. The ``Symbol`` is the type of problem to which
 the variable belongs.
 It may be ``:B_MASTER`` or ``:B_SP``.
-The ``Tuple`` is the index of this problem.
+The ``Union{Int, Tuple}`` is the index of this problem.
 
 ..  It may be ``:DW_MASTER`` and ``:DW_SP``
       or ``:B_MASTER`` and ``:B_SP`` depending on the decomposition.
@@ -112,11 +112,11 @@ Now, we can write the decomposition function of our two ewamples. For the
 Capacitated Facility Location problem, we want to put variables :math:`y` in
 the master and variables :math:`x` in the unique subproblem. It can be write ::
 
-  function benders_fct(varname::Symbol, varid::Tuple) :: Tuple{Symbol, Tuple}
+  function benders_fct(varname::Symbol, varid::Tuple) :: Tuple{Symbol, Union{Int, Tuple}}
     if varname == :x              # variables x will be assigned to the
-      return (:B_SP, (0,))        # subproblem that has the index 0
+      return (:B_SP, 0)        # subproblem that has the index 0
     else                          # variables y will be assigned to the
-      return (:B_MASTER, (0,))    # master that has the index 0
+      return (:B_MASTER, 0)    # master that has the index 0
     end
   end
   add_Benders_decomposition(fl, benders_fct)
