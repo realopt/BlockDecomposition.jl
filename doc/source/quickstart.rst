@@ -16,11 +16,12 @@ BlockModel instantiation
 
   gap = BlockModel(solver = decomp_solver)
 
-* ``decomp_solver`` must be a MIP solver of JuMP models that additionally supports Benders and/or Dantzig-Wolfe decomposition.
+The instantiation is similar to the one of ``JuMP.Model``.
+However ``decomp_solver`` must be a MIP solver of JuMP models that additionally supports Benders and/or Dantzig-Wolfe decomposition.
 
 Write the model
 ^^^^^^^^^^^^^^^
-The model is written as a JuMP model. If you are not familiar with the JuMP syntax,
+The model is written as a JuMP model. If you are not familiar with JuMP syntax,
 you may want to check its `documentation <https://jump.readthedocs.io/en/latest/quickstart.html#defining-variables>`_.
 
 ..
@@ -49,13 +50,13 @@ you may want to check its `documentation <https://jump.readthedocs.io/en/latest/
 
 
 The following example is the capacitated facility location problem.
-Consider a set of potential facilities sites ``Facilities = 1:F`` where a
+Consider a set of potential facility sites ``Facilities = 1:F`` where a
 facility can be opened and a set of customers ``Customers = 1:C`` that must be
 serviced. Assign a customer ``c`` to a facility ``f`` has a cost ``DistanceCosts[c, f]``.
-Moreover, open a facility has a cost ``Fixedcosts[f]`` and each facility has a capacity ``Capacities[f]``.
+Moreover, opening a facility has a cost ``Fixedcosts[f]`` and each facility has a capacity ``Capacities[f]``.
 All customers must be assigned to a facility. ::
 
-  fl = BlockModel(solver = solver)
+  fl = BlockModel(solver = decomp_solver)
 
   @variable(fl, 0 <= x[c in Customers, f in Factories] <= 1 )
   @variable(fl, y[f in Facilities], Bin)
@@ -74,7 +75,7 @@ All customers must be assigned to a facility. ::
 Decomposition
 ^^^^^^^^^^^^^
 
-The decomposition is describe with a function that takes two arguments.
+The decomposition is described with a function that takes two arguments.
 This function is call by BlockJuMP to build the decomposition data.
 
 ..
@@ -83,14 +84,14 @@ This function is call by BlockJuMP to build the decomposition data.
 
         function DW_decomp(cstrid::Symbol, cstrid::Tuple) :: Tuple{Symbol, Tuple}
 
-If it is a Benders decomposition, the arguments will be ``varname`` the name
+for Benders decomposition, the arguments will be ``varname`` the name
 of the variable and ``varid`` the index of the variable. ::
 
-  function B_decomp(varid::Symbol, cstrid::Tuple) :: Tuple{Symbol, Tuple}
+  function B_decomp(varname::Symbol, varid::Tuple) :: Tuple{Symbol, Tuple}
 
 The function returns a ``Tuple`` that contains a ``Symbol`` and
-a ``Tuple``. The ``Symbol`` is the type of problem in which the constraint
-the variable will be affected.
+a ``Tuple``. The ``Symbol`` is the type of problem to which
+the variable belongs.
 It may be ``:B_MASTER`` or ``:B_SP``.
 The ``Tuple`` is the index of this problem.
 
@@ -101,15 +102,15 @@ The ``Tuple`` is the index of this problem.
       add_Dantzig_Wolfe_decomposition(model, DW_decomp) # DW_decomp is our decomposition function
       add_Benders_decomposition(model, B_decomp) # B_decomp is our decomposition function
 
-To assign the decomposition function to the model, BlockJuMP provide the function
+To assign the decomposition function to the model, BlockJuMP provides the function
 
 .. function:: add_Benders_decomposition(model::JuMP.Model, B_decomp::Function)
 
-  with ``model`` the BlockModel and ``B_decomp`` the Benders decomposition function.
+  with ``model`` the model and ``B_decomp`` the Benders decomposition function.
 
 Now, we can write the decomposition function of our two ewamples. For the
 Capacitated Facility Location problem, we want to put variables :math:`y` in
-the master and variables :math:`x` in a subproblem. It can be write ::
+the master and variables :math:`x` in the unique subproblem. It can be write ::
 
   function benders_fct(varname::Symbol, varid::Tuple) :: Tuple{Symbol, Tuple}
     if varname == :x              # variables x will be assigned to the

@@ -14,7 +14,7 @@ it, run::
 
 This command will, recursively, install BlockJuMP.jl and its dependencies.
 
-To start using BlockJUMP.jl, it should be imported together with JuMP into the
+To start using BlockJuMP.jl, it should be imported together with JuMP into the
 local scope::
 
     using JuMP, BlockJuMP

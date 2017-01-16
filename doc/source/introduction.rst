@@ -5,8 +5,8 @@ Introduction
 -----------------
 
 BlockJuMP.jl is a package providing features to take advantage of the shape
-of block structured problem. In other words, problems on which a Dantzig-Wolfe
-decomposition or a Benders decomposition can be applied.
+of block structured problem; in other words, problems on which Dantzig-Wolfe
+decomposition or Benders decomposition can be applied.
 
 Benders decomposition
 ^^^^^^^^^^^^^^^^^^^^^
@@ -32,16 +32,16 @@ The coefficients matrix has the following block structure :
 .. image:: _static/matrixA_B.png
    :align: center
 
-Hence, we can apply the `Benders decomposition <https://en.wikipedia.org/wiki/Benders_decomposition>`_ on this problem.
+Hence, we can apply `Benders decomposition <https://en.wikipedia.org/wiki/Benders_decomposition>`_ on this problem.
 
-Then, we partition the variables.
-Variables :math:`y_\alpha`, :math:`\alpha\in \{1 \ldots h\}` will be in the master.
-Variables :math:`x_{1,\alpha}`, :math:`\alpha \in \{1 \ldots i\}` will be in the first subproblem.
-Variables :math:`x_{2,\alpha}`, :math:`\alpha \in \{1 \ldots j\}` will be in the second subproblem.
-Variables :math:`x_{3,\alpha}`, :math:`\alpha \in \{1 \ldots k\}` will be in the third subproblem.
+We partition the variables.
+Variables :math:`y_\alpha`, :math:`\alpha\in \{1 \ldots h\}` are in the master.
+Variables :math:`x_{1,\alpha}`, :math:`\alpha \in \{1 \ldots i\}` are in the first subproblem.
+Variables :math:`x_{2,\alpha}`, :math:`\alpha \in \{1 \ldots j\}` are in the second subproblem.
+Variables :math:`x_{3,\alpha}`, :math:`\alpha \in \{1 \ldots k\}` are in the third subproblem.
 
-Assume that ``m`` is the compact formulation written with `JuMP <https://github.com/JuliaOpt/JuMP.jl>`_. User has
-to create the following function to describe this decomposition ::
+Assume that ``m`` is the compact formulation written with `JuMP <https://github.com/JuliaOpt/JuMP.jl>`_.
+The user must create a function to describe this decomposition. Such function could be: ::
 
   function b_decomp(var_name, var_id)
     if var_name == :y
@@ -79,15 +79,16 @@ The coefficients matrix has the following block structure :
 .. image:: _static/matrixA_DW.png
    :align: center
 
-Hence, we can apply the `Dantzig-Wolfe decomposition <https://en.wikipedia.org/wiki/Dantzig%E2%80%93Wolfe_decomposition>`_ on this problem.
+Hence, we can apply `Dantzig-Wolfe decomposition <https://en.wikipedia.org/wiki/Dantzig%E2%80%93Wolfe_decomposition>`_ on this problem.
 
-Then, we partition the constraints. Constraints :math:`\text{mc}_1` to :math:`\text{mc}_m`
-will be in the master. Constraints :math:`\text{sc}_{1,1}` to :math:`\text{sc}_{1,n}` will be in the first subproblem.
-Constraints :math:`\text{sc}_{2,1}` to :math:`\text{sc}_{2,p}` will be in the second subproblem.
-Constraints :math:`\text{sc}_{3,1}` to :math:`\text{sc}_{3,q}` will be in the third subproblem.
+We partition the constraints.
+Constraints :math:`\text{mc}_1` to :math:`\text{mc}_m` are in the master.
+Constraints :math:`\text{sc}_{1,1}` to :math:`\text{sc}_{1,n}` are in the first subproblem.
+Constraints :math:`\text{sc}_{2,1}` to :math:`\text{sc}_{2,p}` are in the second subproblem.
+Constraints :math:`\text{sc}_{3,1}` to :math:`\text{sc}_{3,q}` are in the third subproblem.
 
-As the Benders decomposition, the user has
-to create the following function to describe this decomposition ::
+As for Benders decomposition, the user must
+to create function to describe this decomposition. Such function could be: ::
 
   function dw_decomp(constr_name, constr_id)
     if constr_name == :mc
