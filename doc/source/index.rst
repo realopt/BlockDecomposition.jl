@@ -24,6 +24,6 @@ Contents
 
    installation.rst
    introduction.rst
-   quickstart.rst
-   oracle.rst
+   basic.rst
+   advanced.rst
    BlockSolverInterface.rst

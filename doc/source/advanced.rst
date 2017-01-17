@@ -1,10 +1,11 @@
 .. _oracle:
 
 -----------------
-Oracle solver
+Advanced usage
 -----------------
 
-
+.. note ::
+  No solver over Julia supports this feature yet.
 
 Oracles are customized solvers that can be used to solve efficiently subproblems.
 We introduce them using the example of Generalized Assignment Problem.
@@ -31,6 +32,15 @@ each machine. The model is ::
 
     @objective(gap, Min,
                    sum{Cost[m,j]*x[m,j], m in Machines, j in Jobs})
+
+    function dw_fct(cstrname::Symbol, cstrid::Tuple) :: Tuple{Symbol, Tuple}
+      if cstrname == :cov            # cov constraints will be assigned in the
+        return (:DW_MASTER, (0,))    # master that has the index 0
+      else                           # others constraints will be assigned in a
+        return (:DW_SP, cstrid)      # subproblem that has the same index as the constraint
+      end
+    end
+    add_Dantzig_Wolfe_decomposition(gap, dw_fct)
 
 
 Generalized Assignment problem can be solved using a Dantzig-Wolfe decomposition.
@@ -95,7 +105,7 @@ In our example, we do ::
   end
 
 
-Advanced features
+Advanced feature
 ^^^^^^^^^^^^^^^^^^
 
 For one call, the oracle solver can return several solution by using the
@@ -105,8 +115,3 @@ following function :
 
   It ends the current solution and create a new solution in the oracle solver
   solution. Note that the previous solutions cannot be modified anymore.
-
-
-.. function:: getphaseofstageapproach(od::OracleSolverData)
-
-  Returns the phase of stage approach.

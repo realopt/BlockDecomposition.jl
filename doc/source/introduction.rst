@@ -8,6 +8,14 @@ BlockJuMP.jl is a package providing features to take advantage of the shape
 of block structured problem; in other words, problems on which Dantzig-Wolfe
 decomposition or Benders decomposition can be applied.
 
+.. note::
+  This package provides:
+    1. a JuMP modeling layer for describing Benders decomposition
+    2. a JuMP modeling layer for describing Dantzig-Wolfe decomposition
+    3. an interface to write customized oracles for (Benders/Dantzig-Wolfe) subproblems
+
+  Only the first feature is supported by a solver for now (CPLEX 12.7)
+
 Benders decomposition
 ^^^^^^^^^^^^^^^^^^^^^
 
