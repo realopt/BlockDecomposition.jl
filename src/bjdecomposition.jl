@@ -24,8 +24,8 @@ function DW_decomposition(DW_dec_f, cstr_name, cstr_id)
   (sp_type, sp_id) = (nothing, nothing)
   if applicable(DW_dec_f, cstr_name, cstr_id)
     (sp_type, sp_id) = DW_dec_f(cstr_name, cstr_id)
-    if (sp_type != :DW_MASTER && sp_type != :DW_SP) || !isa(sp_id, Tuple)
-      info = """ The Dantzig-Wolfe decomposition function must return a tuple (sp_type::Symbol, sp_id::Tuple)
+    if (sp_type != :DW_MASTER && sp_type != :DW_SP) || (!isa(sp_id, Tuple) && !isa(sp_id, Integer))
+      info = """ The Dantzig-Wolfe decomposition function must return a tuple (sp_type::Symbol, sp_id::Union{Integer,Tuple})
                  - sp_type is the type of the problem to which the constraint is assigned
                    it must be :DW_MASTER for the master or :DW_SP for the subproblem
                  - sp_id is a the index of the subproblem.
@@ -35,10 +35,13 @@ function DW_decomposition(DW_dec_f, cstr_name, cstr_id)
   else
     info = """ The Dantzig-Wolfe decomposition function must take the two following arguments :
                - cstr_name::Symbol, the name of the constraint
-               - cstr_id::Tuple, the index of the constraint.
+               - cstr_id::Union{Integer, Tuple}, the index of the constraint.
            """
     errmsg = "Cannot applicate the function with the arguments $cstr_name::$(typeof(cstr_name)) and $cstr_id::$(typeof(cstr_id))"
     bjerror(info, errmsg)
+  end
+  if isa(sp_id, Integer)
+    sp_id = (sp_id,)
   end
   (sp_type, sp_id)
 end
@@ -47,8 +50,8 @@ function B_decomposition(B_dec_f, var_name, var_id)
   (sp_type, sp_id) = (nothing, nothing)
   if applicable(B_dec_f, var_name, var_id)
     (sp_type, sp_id) = B_dec_f(var_name, var_id)
-    if (sp_type != :B_MASTER && sp_type != :B_SP) || !isa(sp_id, Tuple)
-      info = """ The Benders decomposition function must return a tuple (sp_type::Symbol, sp_id::Tuple)
+    if (sp_type != :B_MASTER && sp_type != :B_SP) || (!isa(sp_id, Tuple) && !isa(sp_id, Integer))
+      info = """ The Benders decomposition function must return a tuple (sp_type::Symbol, sp_id::Union{Integer, Tuple})
                  - sp_type is the type of the problem to which the constraint is assigned
                    it must be :B_MASTER for the master or :B_SP for the subproblem
                  - sp_id is a the index of the subproblem.
@@ -59,10 +62,13 @@ function B_decomposition(B_dec_f, var_name, var_id)
   else
     info = """ The Benders decomposition function must take the two following arguments :
                - var_name::Symbol, the name of the variable
-               - var_id::Tuple, the index of the variable.
+               - var_id::Union{Integer, Tuple}, the index of the variable.
            """
     errmsg = "Cannot applicate the function with the arguments $var_name::$(typeof(var_name)) and $var_id::$(typeof(var_id))"
     bjerror(info, errmsg)
+  end
+  if isa(sp_id, Integer)
+    sp_id = (sp_id,)
   end
   (sp_type, sp_id)
 end
