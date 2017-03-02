@@ -16,11 +16,8 @@ end
 
 function create_cstrs_vars_decomposition_list!(m::JuMP.Model)
   A = prepConstrMatrix(m)
-  if m.ext[:block_decomposition].DantzigWolfe_decomposition_fct != nothing ||
-     m.ext[:block_decomposition].Benders_decomposition_fct != nothing
-    m.ext[:cstrs_decomposition_list] = create_cstrs_decomposition_list(m, A')
-    m.ext[:vars_decomposition_list] = create_vars_decomposition_list(m, A)
-  end
+  m.ext[:cstrs_decomposition_list] = create_cstrs_decomposition_list(m, A')
+  m.ext[:vars_decomposition_list] = create_vars_decomposition_list(m, A)
 end
 
 function DW_decomposition(DW_dec_f, cstr_name, cstr_id)
