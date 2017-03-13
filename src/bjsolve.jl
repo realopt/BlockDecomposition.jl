@@ -52,40 +52,57 @@ function send_to_solver!(model::JuMP.Model, f::Function, k::Symbol, mandatory::B
   end
 end
 
-_get_values(v::JuMP.Variable) = v.m.ext[:dw_solution][v.col]
-
-function _getblockvalue_inner(x)
-  vars = x.innerArray
-  vals = Array(Vector{Cdouble}, JuMP.size(x))
-  data = x.meta[:model].varData[x] # to remove
-  for k in eachindex(vars)
-    vals[k] = _get_values(vars[k]) # todo
-  end
-  vals
-end
+# _get_values(v::JuMP.Variable) = v.m.ext[:dw_solution][v.col]
+#
+# function _getblockvalue_inner(x)
+#   vars = x.innerArray
+#   vals = Array(Vector{Cdouble}, JuMP.size(x))
+#   data = x.meta[:model].varData[x] # to remove
+#   for k in eachindex(vars)
+#     vals[k] = _get_values(vars[k]) # todo
+#   end
+#   vals
+# end
 
 # Copied from JuMP
-JuMPContainer_from(x::JuMP.JuMPDict,inner) = JuMP.JuMPDict(inner)
-JuMPContainer_from(x::JuMP.JuMPArray,inner) = JuMP.JuMPArray(inner, x.indexsets)
+# JuMPContainer_from(x::JuMP.JuMPDict,inner) = JuMP.JuMPDict(inner)
+# JuMPContainer_from(x::JuMP.JuMPArray,inner) = JuMP.JuMPArray(inner, x.indexsets)
+
+# function getdisaggregatedvalue(x::JuMP.Variable)
+#   if !haskey(x.m.ext, :dw_solution)
+#     return JuMP.getvalue(x)
+#   end
+#   (x.m.ext[:BlockSolution] == nothing) &&
+#     bjerror("Make sure that the problem has been solved.")
+#   x.m.ext[:dw_solution][x.col]
+# end
 
 function getdisaggregatedvalue(x::JuMP.Variable)
   if !haskey(x.m.ext, :dw_solution)
-    return JuMP.getvalue(x)
+     return JuMP.getvalue(x)
   end
-  (x.m.ext[:BlockSolution] == nothing) &&
+  (x.m.ext[:dw_solution] == nothing) &&
     bjerror("Make sure that the problem has been solved.")
-  x.m.ext[:dw_solution][x.col]
+  x.m.ext[:dw_solution][x.col, :]
 end
 
+# function getdisaggregatedvalue(x::JuMP.JuMPContainer)
+#   if !haskey(first(x.innerArray).m.ext, :dw_solution)
+#     return JuMP.getvalue(x)
+#   end
+#   ret = JuMPContainer_from(x, _getblockvalue_inner(x))
+#   for (k,v) in x.meta
+#     ret.meta[k] = v
+#   end
+#   m = x.meta[:model]
+#   m.varData[ret] = m.varData[x]
+#   ret
+# end
+
 function getdisaggregatedvalue(x::JuMP.JuMPContainer)
-  if !haskey(first(x.innerArray).m.ext, :dw_solution)
-    return JuMP.getvalue(x)
-  end
-  ret = JuMPContainer_from(x, _getblockvalue_inner(x))
-  for (k,v) in x.meta
-    ret.meta[k] = v
-  end
-  m = x.meta[:model]
-  m.varData[ret] = m.varData[x]
-  ret
+  warn("getdisaggregatedvalue of a JuMPContainer not implemented. Use getdisaggregatedvalue(x::JuMP.Variable).")
+end
+
+function getdisaggregatedvalue(model::JuMP.Model)
+  return model.ext[:dw_solution]
 end
