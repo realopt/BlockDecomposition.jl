@@ -199,3 +199,12 @@ function fill_sp_prio_tab!(m::JuMP.Model, tab::Symbol, sp_type::Symbol)
     push!(m.ext[:sp_prio_tab], (sp_id, sp_type, priority))
   end
 end
+
+function create_var_branching_prio_tab!(m::JuMP.Model)
+  if length(m.ext[:var_branch_prio_dict]) > 0
+    m.ext[:var_branch_prio_tab] = zeros(m.numCols)
+    for kv in m.ext[:var_branch_prio_dict]
+      m.ext[:var_branch_prio_tab][kv[1]] = kv[2]
+    end
+  end
+end

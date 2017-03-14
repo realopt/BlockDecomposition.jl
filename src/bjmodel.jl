@@ -31,8 +31,9 @@ function BlockModel(;solver = JuMP.UnsetSolver())
   m.ext[:vars_decomposition_list] = nothing
   m.ext[:sp_mult_tab] = nothing
   m.ext[:sp_prio_tab] = nothing
+  m.ext[:var_branch_prio_tab] = nothing
   m.ext[:objective_data] = ObjectiveData(NaN, -Inf, Inf)
-  m.ext[:vars_branching_priorities] = Array(Cint,0)
+  m.ext[:var_branch_prio_dict] = Dict{Int, Cdouble}() # var.col => priority
   m.ext[:oracles] = Array(Tuple{Tuple, Symbol, Function},0)
 
   m
@@ -61,8 +62,7 @@ function update_tab_size!(tab, newsize, dfv)
 end
 
 function variablebranchingpriority(x::JuMP.Variable, priority)
-  update_tab_size!(x.m.ext[:vars_branching_priorities], x.m.numCols, 1)
-  x.m.ext[:vars_branching_priorities][x.col] = priority
+  x.m.ext[:var_branch_prio_dict][x.col] = priority
 end
 
 function addspmultiplicity(m::JuMP.Model, sp_mult)

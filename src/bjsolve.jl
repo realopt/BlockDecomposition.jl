@@ -7,6 +7,7 @@ function bj_solve(model;
   create_cstrs_vars_decomposition_list!(model)
   create_sp_mult_tab!(model)
   create_sp_prio_tab!(model)
+  create_var_branching_prio_tab!(model)
 
   # Step 2 : Send decomposition (& others) data to the solver
   # Cstrs decomposition : mandatory
@@ -17,6 +18,8 @@ function bj_solve(model;
   send_to_solver!(model, set_sp_mult!, :sp_mult_tab, false)
   # Subproblems priorities
   send_to_solver!(model, set_sp_prio!, :sp_prio_tab, false)
+  # Variables branching priority
+  send_to_solver!(model, set_var_branching_prio!, :var_branch_prio_tab, false)
   # Oracles
   send_to_solver!(model, set_oracles!, :oracles, false)
   # Objective bounds and magnitude

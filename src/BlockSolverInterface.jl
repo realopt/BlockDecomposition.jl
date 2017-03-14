@@ -19,6 +19,9 @@ export set_sp_mult!
 set_sp_prio!() = nothing
 export set_sp_prio!
 
+set_var_branching_prio!() = nothing
+export set_var_branching_prio!
+
 set_oracles!() = nothing
 export set_oracles!
 

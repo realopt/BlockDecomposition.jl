@@ -6,6 +6,7 @@ include("BlockSolverInterface.jl")
 using .BlockSolverInterface
 
 import JuMP
+using JuMP
 import MathProgBase.MathProgSolverInterface
 
 export  BlockModel,
