@@ -5,9 +5,13 @@ module BlockJuMP
 include("BlockSolverInterface.jl")
 using .BlockSolverInterface
 
+# Usefull
+if Pkg.installed("BlockJuMPExtras") != nothing
+       using BlockJuMPExtras
+end
+
 import JuMP
 using JuMP
-import MathProgBase.MathProgSolverInterface
 
 export  BlockModel,
         BlockIdentificationData,
@@ -35,7 +39,6 @@ export OracleSolverData,
        getsptype,
        attachnewsolution,
        getphaseofstageapproach
-
 
 import Base.convert, Base.show, Base.copy, Base.pointer
 

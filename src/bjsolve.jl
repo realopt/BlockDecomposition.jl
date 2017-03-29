@@ -22,11 +22,20 @@ function bj_solve(model;
   send_to_solver!(model, set_var_branching_prio!, :var_branch_prio_tab, false)
   # Oracles
   send_to_solver!(model, set_oracles!, :oracles, false)
+  #  TODO find antoher way to do that
+  if Pkg.installed("BlockJuMPExtras") != nothing
+    if applicable(BlockJuMPExtras.send_extras_to_solver!, model)
+      BlockJuMPExtras.send_extras_to_solver!(model)
+    end
+  end
   # Objective bounds and magnitude
   obj = model.ext[:objective_data]
   if applicable(set_objective_bounds_and_magnitude!, model.solver, obj.magnitude, obj.lb, obj.ub)
     set_objective_bounds_and_magnitude!(model.solver, obj.magnitude, obj.lb, obj.ub)
   end
+
+  model.ext[:colscounter] = model.numCols
+  model.ext[:rowscounter] = length(model.ext[:cstrs_decomposition_list])
 
   # Step 3 : Build + solve
   a = JuMP.solve(model, suppress_warnings=suppress_warnings,

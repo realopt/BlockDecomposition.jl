@@ -6,6 +6,9 @@ using Compat
 abstract OracleSolverData
 export OracleSolverData
 
+abstract OracleCallbackData
+export OracleCallbackData
+
 # Interfaces
 set_cstrs_decomposition!() = nothing
 export set_cstrs_decomposition!
@@ -54,4 +57,5 @@ export setobjectivevalueub!
 
 setobjectivevaluemagnitude!() = nothing
 export setobjectivevaluemagnitude!
+
 end

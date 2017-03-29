@@ -104,10 +104,24 @@ function create_cstrs_decomposition_list(m::JuMP.Model, A)
         nb_vars += 1
       end
     end
+
+    # Is it a generated constraint ?
+    if sp_type == :DW_MASTER || sp_type == :B_MASTER || sp_type == :MIP
+      is_genericcstr(m, row_id) && (sp_type = :GEN_MASTER)
+    end
+
     cstrs_list[row_id] = (name, cstr_id, sp_type, sp_id)
     list_sp!(m, sp_type, sp_id)
   end
   cstrs_list
+end
+
+function is_genericvar(m::JuMP.Model, varname::Symbol)
+  return haskey(m.ext[:generic_vars], varname)
+end
+
+function is_genericcstr(m::JuMP.Model, cstrid::Int)
+  return haskey(m.ext[:generic_cstrs], cstrid)
 end
 
 function create_vars_decomposition_list(m::JuMP.Model, A)
@@ -141,6 +155,12 @@ function create_vars_decomposition_list(m::JuMP.Model, A)
         nb_cstrs += 1
       end
     end
+
+    # Is it a generated variable ?
+    if sp_type == :DW_MASTER || sp_type == :B_MASTER || sp_type == :MIP
+      is_genericvar(m, name) && (sp_type = :GEN_MASTER)
+    end
+
     vars_list[column_id] = (name, var_id, sp_type, sp_id)
     list_sp!(m, sp_type, sp_id)
   end
