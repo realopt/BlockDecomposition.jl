@@ -20,6 +20,10 @@ function create_cstrs_vars_decomposition_list!(m::JuMP.Model)
   m.ext[:vars_decomposition_list] = create_vars_decomposition_list(m, A)
 end
 
+function isgeneratedmaster(m::JuMP.Model)
+  return !isempty(m.ext[:oracles]) || !isempty(m.ext[:generic_vars]) || !isempty(m.ext[:generic_cstrs])
+end
+
 function DW_decomposition(DW_dec_f, cstr_name, cstr_id)
   (sp_type, sp_id) = (nothing, nothing)
   if applicable(DW_dec_f, cstr_name, cstr_id)
@@ -76,6 +80,9 @@ end
 function create_cstrs_decomposition_list(m::JuMP.Model, A)
   sp_id = 0
   sp_type = :MIP
+  if isgeneratedmaster(m)
+    sp_type = :DW_MASTER
+  end
   rows = rowvals(A)
   DW_dec_f = m.ext[:block_decomposition].DantzigWolfe_decomposition_fct
   B_dec_f = m.ext[:block_decomposition].Benders_decomposition_fct
@@ -127,6 +134,9 @@ end
 function create_vars_decomposition_list(m::JuMP.Model, A)
   sp_id = 0
   sp_type = :MIP
+  if isgeneratedmaster(m)
+    sp_type = :DW_MASTER
+  end
   rows = rowvals(A)
   DW_dec_f = m.ext[:block_decomposition].DantzigWolfe_decomposition_fct
   B_dec_f = m.ext[:block_decomposition].Benders_decomposition_fct
@@ -156,7 +166,7 @@ function create_vars_decomposition_list(m::JuMP.Model, A)
       end
     end
 
-    # Is it a generated variable ?
+    #Is it a generated variable ?
     if sp_type == :DW_MASTER || sp_type == :B_MASTER || sp_type == :MIP
       is_genericvar(m, name) && (sp_type = :GEN_MASTER)
     end

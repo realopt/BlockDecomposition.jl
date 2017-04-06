@@ -116,5 +116,7 @@ function getdisaggregatedvalue(x::JuMP.JuMPContainer)
 end
 
 function getdisaggregatedvalue(model::JuMP.Model)
-  return model.ext[:dw_solution]
+  if haskey(model.ext, :dw_solution)
+    return model.ext[:dw_solution]
+  end
 end
