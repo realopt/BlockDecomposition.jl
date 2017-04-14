@@ -10,7 +10,7 @@ Getting BlockJuMP.jl
 BlockJuMP.jl can be installed using the package manager of Julia. To install
 it, run::
 
-  julia> Pkg.clone("git@git.math.cnrs.fr:forge/realopt/BlockJuMP.jl")
+  julia> Pkg.clone("git@github.com:realopt/BlockJuMP.jl.git")
 
 This command will, recursively, install BlockJuMP.jl and its dependencies.
 
