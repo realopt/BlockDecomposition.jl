@@ -4,13 +4,13 @@
 Basic usage
 -----------------
 
-This quick start guide introduces features of BlockJuMP.jl package.
+This quick start guide introduces features of BlockDecomposition.jl package.
 
 
 BlockModel instantiation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. A BlockJuMP model can be instantiated as
+.. A BlockDecomposition model can be instantiated as
 
 ::
 
@@ -51,7 +51,7 @@ Decomposition
 ^^^^^^^^^^^^^
 
 The decomposition is described with a function that takes two arguments.
-This function is call by BlockJuMP to build the decomposition data.
+This function is call by BlockDecomposition to build the decomposition data.
 For Benders decomposition, the arguments will be ``varname`` the name
 of the variable and ``varid`` the index of the variable. ::
 
@@ -64,7 +64,7 @@ It may be ``:B_MASTER`` or ``:B_SP``.
 The ``Union{Int, Tuple}`` is the index of this problem.
 
 
-To assign the decomposition function to the model, BlockJuMP provides the function
+To assign the decomposition function to the model, BlockDecomposition provides the function
 
 .. function:: add_Benders_decomposition(model::JuMP.Model, B_decomp::Function)
 

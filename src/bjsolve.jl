@@ -23,9 +23,9 @@ function bj_solve(model;
   # Oracles
   send_to_solver!(model, set_oracles!, :oracles, false)
   #  TODO find antoher way to do that
-  if Pkg.installed("BlockJuMPExtras") != nothing
-    if applicable(BlockJuMPExtras.send_extras_to_solver!, model)
-      BlockJuMPExtras.send_extras_to_solver!(model)
+  if Pkg.installed("BlockDecompositionExtras") != nothing
+    if applicable(BlockDecompositionExtras.send_extras_to_solver!, model)
+      BlockDecompositionExtras.send_extras_to_solver!(model)
     end
   end
   # Objective bounds and magnitude

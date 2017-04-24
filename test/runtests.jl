@@ -1,4 +1,4 @@
-using BlockJuMP
+using BlockDecomposition
 using Base.Test
 
 # write your own tests here

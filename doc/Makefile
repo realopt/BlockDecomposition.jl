@@ -91,9 +91,9 @@ qthelp:
 	@echo
 	@echo "Build finished; now you can run "qcollectiongenerator" with the" \
 	      ".qhcp project file in $(BUILDDIR)/qthelp, like this:"
-	@echo "# qcollectiongenerator $(BUILDDIR)/qthelp/BlockJuMP.qhcp"
+	@echo "# qcollectiongenerator $(BUILDDIR)/qthelp/BlockDecomposition.qhcp"
 	@echo "To view the help file:"
-	@echo "# assistant -collectionFile $(BUILDDIR)/qthelp/BlockJuMP.qhc"
+	@echo "# assistant -collectionFile $(BUILDDIR)/qthelp/BlockDecomposition.qhc"
 
 .PHONY: applehelp
 applehelp:
@@ -110,8 +110,8 @@ devhelp:
 	@echo
 	@echo "Build finished."
 	@echo "To view the help file:"
-	@echo "# mkdir -p $$HOME/.local/share/devhelp/BlockJuMP"
-	@echo "# ln -s $(BUILDDIR)/devhelp $$HOME/.local/share/devhelp/BlockJuMP"
+	@echo "# mkdir -p $$HOME/.local/share/devhelp/BlockDecomposition"
+	@echo "# ln -s $(BUILDDIR)/devhelp $$HOME/.local/share/devhelp/BlockDecomposition"
 	@echo "# devhelp"
 
 .PHONY: epub

@@ -1,4 +1,4 @@
-The BlockJuMP.jl package is licensed under the MIT "Expat" License:
+The BlockDecomposition.jl package is licensed under the MIT "Expat" License:
 
 > Copyright (c) 2016: Guillaume Marques.
 >

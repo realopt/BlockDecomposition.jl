@@ -69,7 +69,7 @@ We define an oracle that calls this function and solves each knapsack subproblem
     setsolutionobjval(od, value)
   end
 
-In this code, we use the four main functions for oracles provided by BlockJuMP.
+In this code, we use the four main functions for oracles provided by BlockDecomposition.
 
 .. function:: getspid(od::OracleSolverData) :: Tuple
 

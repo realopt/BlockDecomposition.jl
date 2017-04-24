@@ -1,13 +1,13 @@
 __precompile__()
 
-module BlockJuMP
+module BlockDecomposition
 
 include("BlockSolverInterface.jl")
 using .BlockSolverInterface
 
 # Usefull
-if Pkg.installed("BlockJuMPExtras") != nothing
-       using BlockJuMPExtras
+if Pkg.installed("BlockDecompositionExtras") != nothing
+       using BlockDecompositionExtras
 end
 
 import JuMP

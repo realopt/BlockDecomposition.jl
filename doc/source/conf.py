@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# BlockJuMP documentation build configuration file, created by
+# BlockDecomposition documentation build configuration file, created by
 # sphinx-quickstart on Fri Oct 14 11:32:13 2016.
 #
 # This file is execfile()d with the current directory set to its
@@ -35,7 +35,7 @@ import juliadoc, sphinx_rtd_theme
 extensions = ['sphinx.ext.mathjax', 'juliadoc.julia', 'juliadoc.jlhelp']
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path = ['_templates']
+templates_path = ['templates']
 
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
@@ -51,7 +51,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'BlockJuMP.jl'
+project = u'BlockDecomposition.jl'
 copyright = u'2016, REALOPT'
 author = u'REALOPT'
 
@@ -139,7 +139,7 @@ html_theme_path = [juliadoc.get_theme_dir()]
 # The name for this set of Sphinx documents.
 # "<project> v<release> documentation" by default.
 #
-# html_title = u'BlockJuMP v0.0'
+# html_title = u'BlockDecomposition v0.0'
 
 # A shorter title for the navigation bar.  Default is the same as html_title.
 #
@@ -159,7 +159,7 @@ html_theme_path = [juliadoc.get_theme_dir()]
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
+html_static_path = ['static']
 
 # Add any extra paths that contain custom files (such as robots.txt or
 # .htaccess) here, relative to this directory. These files are copied
@@ -239,7 +239,7 @@ html_sidebars = juliadoc.default_sidebars()
 # html_search_scorer = 'scorer.js'
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'BlockJuMPdoc'
+htmlhelp_basename = 'BlockDecompositiondoc'
 
 # -- Options for LaTeX output ---------------------------------------------
 
@@ -265,7 +265,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'BlockJuMP.tex', u'BlockJuMP Documentation',
+    (master_doc, 'BlockDecomposition.tex', u'BlockDecomposition Documentation',
      u'REALOPT', 'manual'),
 ]
 
@@ -307,7 +307,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'blockjump', u'BlockJuMP Documentation',
+    (master_doc, 'blockjump', u'BlockDecomposition Documentation',
      [author], 1)
 ]
 
@@ -322,8 +322,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'BlockJuMP', u'BlockJuMP Documentation',
-     author, 'BlockJuMP', 'One line description of project.',
+    (master_doc, 'BlockDecomposition', u'BlockDecomposition Documentation',
+     author, 'BlockDecomposition', 'One line description of project.',
      'Miscellaneous'),
 ]
 

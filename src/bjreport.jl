@@ -19,7 +19,7 @@ function check_for_anonymous(report)
   for i in 1:length(report)
     if !isdefined(report, i)
       info = "Make sure that all variables and constraints have a name."
-      errmsg = "BlockJuMP does not support anonymous variables or constraints."
+      errmsg = "BlockDecomposition does not support anonymous variables or constraints."
       bjerror(info, errmsg)
     end
   end

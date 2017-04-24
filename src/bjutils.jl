@@ -1,13 +1,13 @@
-type BlockJuMPError <: Exception
+type BlockDecompositionError <: Exception
   info
   message
 end
 
-bjerror(message) = throw(BlockJuMPError(nothing, message))
-bjerror(info,message) = throw(BlockJuMPError(info, message))
-function Base.showerror(io::IO, e::BlockJuMPError)
+bjerror(message) = throw(BlockDecompositionError(nothing, message))
+bjerror(info,message) = throw(BlockDecompositionError(info, message))
+function Base.showerror(io::IO, e::BlockDecompositionError)
   println(io, " ")
-  println(io, "BlockJuMPError : ", e.message)
+  println(io, "BlockDecompositionError : ", e.message)
   if e.info != nothing
     println(io, " ")
     println(io, e.info)

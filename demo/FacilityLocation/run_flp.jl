@@ -1,4 +1,4 @@
-using JuMP, BlockJuMP, Scanner, CPLEX
+using JuMP, BlockDecomposition, Scanner, CPLEX
 
 include("data_flp.jl")
 include("model_flp.jl")

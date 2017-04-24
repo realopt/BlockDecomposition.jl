@@ -4,9 +4,9 @@
 BlockSolverInterface module (dev)
 -----------------
 
-The content of this section is not useful to the user of BlockJuMP.
-It has implementation details about the connection of BlockJuMP with the underlying solver.
-It is aimed mainly at developpers who would like to contribute to BlockJuMP.
+The content of this section is not useful to the user of BlockDecomposition.
+It has implementation details about the connection of BlockDecomposition with the underlying solver.
+It is aimed mainly at developpers who would like to contribute to BlockDecomposition.
 
 
 Instanciation

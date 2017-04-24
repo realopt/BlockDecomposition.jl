@@ -4,7 +4,7 @@
 Introduction
 -----------------
 
-BlockJuMP.jl is a package providing features to take advantage of the shape
+BlockDecomposition.jl is a package providing features to take advantage of the shape
 of block structured problem; in other words, problems on which Dantzig-Wolfe
 decomposition or Benders decomposition can be applied.
 

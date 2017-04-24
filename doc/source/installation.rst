@@ -2,19 +2,19 @@
 Installation Guide
 ----------------------
 
-BlockJuMP requires Julia, JuMP.jl and MathProgBase.jl
+BlockDecomposition requires Julia, JuMP.jl and MathProgBase.jl
 
-Getting BlockJuMP.jl
+Getting BlockDecomposition.jl
 ^^^^^^^^^^^^^^^^^^^^^
 
-BlockJuMP.jl can be installed using the package manager of Julia. To install
+BlockDecomposition.jl can be installed using the package manager of Julia. To install
 it, run::
 
-  julia> Pkg.clone("git@github.com:realopt/BlockJuMP.jl.git")
+  julia> Pkg.clone("git@github.com:realopt/BlockDecomposition.jl.git")
 
-This command will, recursively, install BlockJuMP.jl and its dependencies.
+This command will, recursively, install BlockDecomposition.jl and its dependencies.
 
-To start using BlockJuMP.jl, it should be imported together with JuMP into the
+To start using BlockDecomposition.jl, it should be imported together with JuMP into the
 local scope::
 
-    using JuMP, BlockJuMP
+    using JuMP, BlockDecomposition
