@@ -6,9 +6,9 @@ include("BlockSolverInterface.jl")
 using .BlockSolverInterface
 
 # Usefull
-if Pkg.installed("BlockDecompositionExtras") != nothing
-       using BlockDecompositionExtras
-end
+#if Pkg.installed("BlockDecompositionExtras") != nothing
+#       using BlockDecompositionExtras
+#end
 
 import JuMP
 using JuMP
