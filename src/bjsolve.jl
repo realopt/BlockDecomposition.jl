@@ -11,9 +11,9 @@ function bj_solve(model;
 
   # Step 2 : Send decomposition (& others) data to the solver
   # Cstrs decomposition : mandatory
-  send_to_solver!(model, set_cstrs_decomposition!, :cstrs_decomposition_list, true)
+  send_to_solver!(model, set_cstrs_decomposition!, :cstrs_decomposition_list, false)
   # Vars decomposition : mandatory
-  send_to_solver!(model, set_vars_decomposition!, :vars_decomposition_list, true)
+  send_to_solver!(model, set_vars_decomposition!, :vars_decomposition_list, false)
   # Subproblems multiplicities
   send_to_solver!(model, set_sp_mult!, :sp_mult_tab, false)
   # Subproblems priorities
@@ -37,6 +37,12 @@ function bj_solve(model;
   model.ext[:colscounter] = model.numCols
   model.ext[:rowscounter] = length(model.ext[:cstrs_decomposition_list])
 
+  #todo
+  if Pkg.installed("CPLEX") != nothing && isa(model.solver, CplexSolver)
+    JuMP.build(model)
+    defineannotations(model.internalModel, model.ext[:vars_decomposition_list])
+  end
+
   # Step 3 : Build + solve
   a = JuMP.solve(model, suppress_warnings=suppress_warnings,
                     ignore_solve_hook=true,
@@ -56,7 +62,7 @@ function send_to_solver!(model::JuMP.Model, f::Function, k::Symbol, mandatory::B
       f(model.solver, model.ext[k])
     else
       if mandatory
-        bjerror("Your solver does not support function $f.")
+        warn("Your solver does not support function $f.")
       end
     end
   else

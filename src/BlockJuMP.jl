@@ -13,6 +13,11 @@ end
 import JuMP
 using JuMP
 
+# todo
+if Pkg.installed("CPLEX") != nothing
+       using CPLEX
+end
+
 export  BlockModel,
         BlockIdentificationData,
         BlockDecompositionData,
@@ -50,5 +55,10 @@ include("bjexpand.jl")
 include("bjoracles.jl")
 include("bjsolve.jl")
 include("bjdecomposition.jl")
+
+# todo : enhance
+if Pkg.installed("CPLEX") != nothing
+       include("bjcplex.jl")
+end
 
 end # module
