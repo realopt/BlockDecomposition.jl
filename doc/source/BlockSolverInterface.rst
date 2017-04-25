@@ -9,48 +9,66 @@ It has implementation details about the connection of BlockDecomposition with th
 It is aimed mainly at developpers who would like to contribute to BlockDecomposition.
 
 
-Instanciation
+Decomposition data
 ^^^^^^^^^^^^^^
 
-.. function:: set_cstrs_decomposition!(s::AbstractMathProgSolver, data::Array)
+.. function:: set_constrs_decomposition!(s::AbstractMathProgSolver, data::Array)
 
   Send to the solver ``s`` in which subproblems are the constraints.
+  Each element of the ``data`` array is a ``Tuple`` containing  ``(constr_name::Symbol, constr_id::Tuple, sp_type::Symbol, sp_id::Tuple)``.
+  ``constr_name`` and ``constr_id`` are the name and the index of the constraint in the JuMP model.
+  ``sp_type`` and ``sp_id`` are the type and the index of the subproblem to which the constraint is assigned.
 
 .. function:: set_vars_decomposition!(s::AbstractMathProgSolver, data::Array)
 
   Send to the solver ``s`` in which subproblems are the variables.
+  Each element of the ``data`` array is a ``Tuple`` containing  ``(var_name::Symbol, var_id::Tuple, sp_type::Symbol, sp_id::Tuple)``.
+  ``var_name`` and ``var_id`` are the name and the index of the variable in the JuMP model.
+  ``sp_type`` and ``sp_id`` are the type and the index of the subproblem to which the variable is assigned.
+
+
+BlockDecomposition creates the decomposition list for both constraints and
+variables regardless of the type of decomposition used. Types of subproblem are :
+   - ``:DW_MASTER`` Dantzig-Wolfe master problem
+   - ``:B_MASTER`` Benders master problem
+   - ``:DW_SP`` Dantzig-Wolfe subproblem
+   - ``:B_SP`` Benders subproblem
+
+
+Additional data to the decomposition
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. function:: set_oracles!(s::AbstractMathProgSolver, list::Array)
+
+  Send to the solver ``s`` the ``list`` with subproblems and oracles functions.
 
 .. function:: set_sp_mult!(s::AbstractMathProgSolver, data::Array)
 
   Send to the solver ``s`` the multiplicity of each subproblem.
 
-.. function:: set_oracles!(s::AbstractMathProgSolver, list::Array)
+.. function:: set_sp_prio!(s::AbstractMathProgSolver, priorities::Array)
 
-  Send to the solver ``s`` the ``list`` with subproblems and oracles functions.
+  Send to the solver ``s`` the list of subproblem priorities.
 
+.. function:: set_var_branching_prio!(s::AbstractMathProgSolver, priorities::Array)
+
+  Send to the solver ``s`` the list of variables branching priorities.
 
 
 Additional data to the model
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. function:: setobjectivevaluelb!(m::AbstractMathProgModel, lb)
+.. function:: set_objective_bounds_and_magnitude!(s::AbstractMathProgSolver, magnitude, lb, ub)
 
-  Set the upper bound of the objective function of the model ``m`` to ``lb``.
+  Send to the solver ``s`` the magnitude ``magnitude``, the lower bound ``lb``
+  and the upper bound ``ub`` of the objective function.
 
-.. function:: setobjectivevalueub!(m::AbstractMathProgModel, ub)
-
-  Set the lower bound of the objective function of the model ``m`` to ``ub``.
-
-.. function :: setobjectivevaluemagnitude!(m::AbstractMathProgModel, magnitude)
-
-  Set the magnitude of the objective function of the model ``m`` to ``magnitude``.
 
 Costs and solutions
 ^^^^^^^^^^^^^^^^^^^^^
 
 .. function:: getblocksolution(m::AbstractMathProgModel)
 
-  Get the disaggregated solution and store it in ``m.ext[:BlockSolution]``.
+  Get the disaggregated solution and store it in the attribute``ext[:BlockSolution]`` of the JuMP model.
 
 .. function:: getcurrentcost(m::AbstractMathProgModel, vcol::Integer)
 

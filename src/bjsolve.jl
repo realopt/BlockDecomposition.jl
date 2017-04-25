@@ -11,7 +11,7 @@ function bj_solve(model;
 
   # Step 2 : Send decomposition (& others) data to the solver
   # Cstrs decomposition : mandatory
-  send_to_solver!(model, set_cstrs_decomposition!, :cstrs_decomposition_list, false)
+  send_to_solver!(model, set_constrs_decomposition!, :cstrs_decomposition_list, false)
   # Vars decomposition : mandatory
   send_to_solver!(model, set_vars_decomposition!, :vars_decomposition_list, false)
   # Subproblems multiplicities

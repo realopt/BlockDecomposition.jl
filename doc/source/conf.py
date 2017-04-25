@@ -52,8 +52,8 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'BlockDecomposition.jl'
-copyright = u'2016, REALOPT'
-author = u'REALOPT'
+copyright = u'2017, ReAlOpt'
+author = u'ReAlOpt'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the

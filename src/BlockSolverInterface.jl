@@ -10,8 +10,8 @@ abstract OracleCallbackData
 export OracleCallbackData
 
 # Interfaces
-set_cstrs_decomposition!() = nothing
-export set_cstrs_decomposition!
+set_constrs_decomposition!() = nothing
+export set_constrs_decomposition!
 
 set_vars_decomposition!() = nothing
 export set_vars_decomposition!
@@ -48,14 +48,5 @@ export getcurrentcost
 
 getblocksolution() = nothing
 export getblocksolution
-
-setobjectivevaluelb!() = nothing
-export setobjectivevaluelb!
-
-setobjectivevalueub!() = nothing
-export setobjectivevalueub!
-
-setobjectivevaluemagnitude!() = nothing
-export setobjectivevaluemagnitude!
 
 end
