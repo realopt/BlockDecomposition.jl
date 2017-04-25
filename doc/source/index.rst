@@ -16,6 +16,12 @@ The user must be familiar with the syntax of JuMP, which is described in its
 `documentation <https://jump.readthedocs.io/en/latest/>`_.
 
 
+.. note::
+  This package is under development. Although it is a JuMP extension,
+  it is not written nor maintained by the primary developers of JuMP.
+  Therefore, do not expect high reactiveness on the issues.
+
+
 Contents
 ---------
 
