@@ -1,5 +1,7 @@
 # BlockDecomposition
 
+[![Join the chat at https://gitter.im/realopt/BlockDecomposition.jl](https://badges.gitter.im/realopt/BlockDecomposition.jl.svg)](https://gitter.im/realopt/BlockDecomposition.jl?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![](https://img.shields.io/badge/docs-latest-blue.svg)](https://realopt.github.io/BlockDecomposition.jl/latest/)
 [![Join the chat at https://gitter.im/realopt/BlockDecomposition.jl](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/realopt/BlockDecomposition.jl)
 
