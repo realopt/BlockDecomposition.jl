@@ -23,11 +23,11 @@ function bj_solve(model;
   # Oracles
   send_to_solver!(model, set_oracles!, :oracles, false)
   #  TODO find antoher way to do that
-  # if Pkg.installed("BlockDecompositionExtras") != nothing
-  #   if applicable(BlockDecompositionExtras.send_extras_to_solver!, model)
-  #     BlockDecompositionExtras.send_extras_to_solver!(model)
-  #   end
-  # end
+  if Pkg.installed("BlockDecompositionExtras") != nothing
+    if applicable(BlockDecompositionExtras.send_extras_to_solver!, model)
+      BlockDecompositionExtras.send_extras_to_solver!(model)
+    end
+  end
   # Objective bounds and magnitude
   obj = model.ext[:objective_data]
   if applicable(set_objective_bounds_and_magnitude!, model.solver, obj.magnitude, obj.lb, obj.ub)
