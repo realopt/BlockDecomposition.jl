@@ -1,5 +1,7 @@
 # BlockDecomposition
 
+[![Join the chat at https://gitter.im/realopt/BlockDecomposition.jl](https://badges.gitter.im/realopt/BlockDecomposition.jl.svg)](https://gitter.im/realopt/BlockDecomposition.jl?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![](https://img.shields.io/badge/docs-latest-blue.svg)](https://realopt.github.io/BlockDecomposition.jl/latest/)
 
 BlockDecomposition.jl is a package providing features to take advantage of the shape of block structured problem; in other words, problems on which Dantzig-Wolfe decomposition or Benders decomposition can be applied.
