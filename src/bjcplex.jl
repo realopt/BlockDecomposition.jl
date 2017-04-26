@@ -4,9 +4,9 @@ function defineannotations(m, vars_decomposition)
   iblock = 1
   newlongannotation(m.inner, "cpxBendersPartition", Clong(-1))
   for (col, (v_name, v_id, sp_type, sp_id)) in enumerate(vars_decomposition)
-      indexArr = Array(Cint,1)
+      indexArr = Array{Cint}(1)
       indexArr[1] = col - 1
-      valArr = Array(Clong,1)
+      valArr = Array{Clong}(1)
       if sp_type == :B_MASTER
           valArr[1] = 0
       elseif sp_type == :B_SP

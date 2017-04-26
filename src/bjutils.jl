@@ -85,11 +85,11 @@ function prepConstrMatrix(m::JuMP.Model)
         nnz += length(linconstr[c].terms.coeffs)
     end
     # Non-zero row indices
-    I = Array(Int,nnz)
+    I = Array{Int}(nnz)
     # Non-zero column indices
-    J = Array(Int,nnz)
+    J = Array{Int}(nnz)
     # Non-zero values
-    V = Array(Float64,nnz)
+    V = Array{Float64}(nnz)
 
     # Fill it up!
     # Number of nonzeros seen so far

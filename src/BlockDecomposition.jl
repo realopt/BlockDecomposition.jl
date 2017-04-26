@@ -1,5 +1,3 @@
-__precompile__()
-
 module BlockDecomposition
 
 include("BlockSolverInterface.jl")

@@ -3,10 +3,10 @@ module BlockSolverInterface
 using Base.Meta
 using Compat
 
-abstract OracleSolverData
+abstract type OracleSolverData end
 export OracleSolverData
 
-abstract OracleCallbackData
+abstract type OracleCallbackData end
 export OracleCallbackData
 
 # Interfaces
