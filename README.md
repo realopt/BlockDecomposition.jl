@@ -1,5 +1,7 @@
 # BlockDecomposition
 
+[![Build Status](https://travis-ci.org/realopt/BlockDecomposition.jl.svg?branch=master)](https://travis-ci.org/realopt/BlockDecomposition.jl)
+[![codecov](https://codecov.io/gh/realopt/BlockDecomposition.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/realopt/BlockDecomposition.jl)
 [![](https://img.shields.io/badge/docs-latest-blue.svg)](https://realopt.github.io/BlockDecomposition.jl/latest/)
 [![Join the chat at https://gitter.im/realopt/BlockDecomposition.jl](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/realopt/BlockDecomposition.jl)
 
