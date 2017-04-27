@@ -48,7 +48,6 @@ function getpos(vc) :: Integer
   if isa_jumpvar(vc)
     return vc.col
   end
-  bjerror("Error!")
 end
 
 function add_names_and_indexes!(report, collection)
