@@ -31,6 +31,7 @@ export  BlockModel,
         add_Dantzig_Wolfe_decomposition,
         add_Benders_decomposition,
         addspmultiplicity,
+#        addsppriority, TODO
         show
 
 # Oracles
