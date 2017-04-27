@@ -10,17 +10,7 @@ solver = MockSolver()
 
 (fl, x, y) = model_fl(data, solver)
 
-println(fl)
 status = solve(fl)
-
-println("solver variables = $(solver.vars_decomposition)")
-println("solver constraints = $(solver.cstrs_decomposition)")
-
-println("solver priority = $(solver.sp_prio)")
-println("solver magnitude = $(solver.obj_magnitude)")
-
-println("solver oracles = $(solver.oracles)")
-
 
 @testset "GAP Objective function" begin
  @test isnan(solver.obj_lb)
