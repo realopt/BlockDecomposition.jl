@@ -22,12 +22,11 @@ function bj_solve(model;
   send_to_solver!(model, set_var_branching_prio!, :var_branch_prio_tab, false)
   # Oracles
   send_to_solver!(model, set_oracles!, :oracles, false)
-  #  TODO find antoher way to do that
-  if Pkg.installed("BlockDecompositionExtras") != nothing
-    if applicable(BlockDecompositionExtras.send_extras_to_solver!, model)
-      BlockDecompositionExtras.send_extras_to_solver!(model)
-    end
+
+  if applicable(send_extras!, model) # works with BlockDecompositionExtras
+    send_extras!(model)
   end
+
   # Objective bounds and magnitude
   obj = model.ext[:objective_data]
   if applicable(set_objective_bounds_and_magnitude!, model.solver, obj.magnitude, obj.lb, obj.ub)
@@ -37,10 +36,8 @@ function bj_solve(model;
   model.ext[:colscounter] = model.numCols
   model.ext[:rowscounter] = length(model.ext[:cstrs_decomposition_list])
 
-  #todo
-  if Pkg.installed("CPLEX") != nothing && isa(model.solver, CplexSolver)
-    JuMP.build(model)
-    defineannotations(model.internalModel, model.ext[:vars_decomposition_list])
+  if applicable(defineannotations, model, model.ext[:vars_decomposition_list])
+    defineannotations(model, model.ext[:vars_decomposition_list])
   end
 
   # Step 3 : Build + solve
@@ -67,6 +64,17 @@ function send_to_solver!(model::JuMP.Model, f::Function, k::Symbol, mandatory::B
     end
   else
     bjerror("Key $(k) does not exist in model.ext.")
+  end
+end
+
+## Send data to BlockDecompositionExtras package
+send_extras!() = nothing
+
+@require BlockDecompositionExtras begin
+  function send_extras!(model::JuMP.Model)
+    if applicable(BlockDecompositionExtras.send_extras_to_solver!, model)
+      BlockDecompositionExtras.send_extras_to_solver!(model)
+    end
   end
 end
 
