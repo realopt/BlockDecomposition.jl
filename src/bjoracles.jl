@@ -10,7 +10,7 @@ function add_oracle_to_Bsp!(model::JuMP.Model, sp_id::Integer, f::Function)
   add_oracle_to_Bsp!(model, (sp_id,), f)
 end
 
-function add_oracle_to_Bsp(model::JuMP.Model, sp_id::Tuple, f::Function)
+function add_oracle_to_Bsp!(model::JuMP.Model, sp_id::Tuple, f::Function)
   addoracletosp!(model, sp_id, :B_SP, f)
 end
 

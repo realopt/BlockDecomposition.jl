@@ -11,7 +11,6 @@ function trytosolve(model::JuMP.Model, errortype::Type)
   return error
 end
 
-## Wrong Subproblem Mutiplicity
 A = 1:5
 B = 1:10
 

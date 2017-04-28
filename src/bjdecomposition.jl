@@ -2,10 +2,6 @@ function use_DantzigWolfe(m::JuMP.Model)
   return m.ext[:block_decomposition].DantzigWolfe_decomposition_fct != nothing
 end
 
-function use_Benders(m::JuMP.Model)
-  return m.ext[:block_decomposition].Benders_decomposition_fct != nothing
-end
-
 function add_Dantzig_Wolfe_decomposition(m::JuMP.Model, f::Function)
   m.ext[:block_decomposition].DantzigWolfe_decomposition_fct = f
 end

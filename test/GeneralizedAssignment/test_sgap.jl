@@ -51,5 +51,5 @@ end
 end
 
 @testset "GAP Oracles" begin
-  @test solver.oracles == nothing
+  @test length(solver.oracles) == 0
 end

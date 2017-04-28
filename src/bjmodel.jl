@@ -59,16 +59,6 @@ function objectivevaluelowerbound(m::JuMP.Model, lb)
   m.ext[:objective_data].lb = lb
 end
 
-function update_tab_size!(tab, newsize, dfv)
-  l = length(tab)
-  if l <= newsize
-    resize!(tab, newsize)
-    for i in l+1:newsize
-      tab[i] = dfv
-    end
-  end
-end
-
 function variablebranchingpriority(x::JuMP.Variable, priority)
   x.m.ext[:var_branch_prio_dict][x.col] = priority
 end
