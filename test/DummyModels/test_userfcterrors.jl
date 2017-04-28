@@ -11,7 +11,6 @@ function trytosolve(model::JuMP.Model, errortype::Type)
   return error
 end
 
-## Wrong Subproblem Mutiplicity
 A = 1:5 # decomposition on a
 B = 1:10
 
@@ -44,6 +43,10 @@ end
 
 wrongmultiplicity1(spid::Tuple, sptype::Symbol) = (3, 2) # ub > lb
 wrongmultiplicity2(spid::Tuple, sptype::Symbol) = ("wrong", "output") # output must be a tuple of integer
+wrongmultiplicity3(wronginput) = (2, 3)
+
+wrongspprio1(spid::Tuple, sptype::Symbol) = (66,) # priority must be an Integer
+wrongspprio2(wronginput) = 66
 
 model1 = dummymodel(MockSolver())
 add_Dantzig_Wolfe_decomposition(model1, wrong_dw1)
@@ -75,10 +78,26 @@ model1 = dummymodel(MockSolver())
 add_Dantzig_Wolfe_decomposition(model1, right_dw)
 model2 = dummymodel(MockSolver())
 add_Dantzig_Wolfe_decomposition(model2, right_dw)
+model3 = dummymodel(MockSolver())
+add_Dantzig_Wolfe_decomposition(model3, right_dw)
 addspmultiplicity(model1, wrongmultiplicity1)
 addspmultiplicity(model2, wrongmultiplicity2)
+addspmultiplicity(model3, wrongmultiplicity3)
 
 @testset "Wrong sp mult user functions" begin
+  @test trytosolve(model1, BlockDecomposition.BlockDecompositionError)
+  @test trytosolve(model2, BlockDecomposition.BlockDecompositionError)
+  @test trytosolve(model3, BlockDecomposition.BlockDecompositionError)
+end
+
+model1 = dummymodel(MockSolver())
+add_Dantzig_Wolfe_decomposition(model1, right_dw)
+model2 = dummymodel(MockSolver())
+add_Dantzig_Wolfe_decomposition(model2, right_dw)
+addsppriority(model1, wrongspprio1)
+addsppriority(model2, wrongspprio2)
+
+@testset "Wrong sp priority functions" begin
   @test trytosolve(model1, BlockDecomposition.BlockDecompositionError)
   @test trytosolve(model2, BlockDecomposition.BlockDecompositionError)
 end

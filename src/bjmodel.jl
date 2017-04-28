@@ -78,5 +78,5 @@ function addspmultiplicity(m::JuMP.Model, sp_mult)
 end
 
 function addsppriority(m::JuMP.Model, sp_prio)
-  m.ext[:sp_prio_func] = sp_prio
+  m.ext[:sp_prio_fct] = sp_prio
 end

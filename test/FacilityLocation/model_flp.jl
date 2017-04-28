@@ -24,5 +24,12 @@ function model_fl(data::DataFl, solver)
                 + sum( data.fixedcosts[j] * y[j] for j in data.factories) )
 
   add_Benders_decomposition(fl, benders_fct)
+
+  # priority of subproblems : There is only one subprblem
+  function spprio(spid::Tuple, sptype::Symbol)
+    return 66
+  end
+  addsppriority(fl, spprio)
+
   return (fl, x, y)
 end

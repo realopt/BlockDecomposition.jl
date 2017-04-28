@@ -198,16 +198,25 @@ function create_sp_mult_tab!(m::JuMP.Model)
 end
 
 function fill_sp_mult_tab!(m::JuMP.Model, tab::Symbol, sp_type::Symbol)
-  mult_fct = m.ext[:sp_mult_fct]
-  for sp_id in keys(m.ext[tab])
-    (lb, ub) = mult_fct(sp_id, sp_type)
-    if ub < lb
-      bjerror("Multiplicity (ub < lb) : ($ub < $lb)")
+  if length(m.ext[tab]) > 0
+    mult_fct = m.ext[:sp_mult_fct]
+    fkspid = first(m.ext[tab])[1] # Get the key of the first entry
+    # Check is the function is applicable only on the first subproblem
+    if !applicable(mult_fct, fkspid, sp_type)
+      info = """First argument = $fkspid (type = $(typeof(fkspid)))
+                Second argument = $sp_type (type = $(typeof(fkspid))) """
+      bjerror(info, "The function defining multiplicities of subproblems is not applicable.")
     end
-    if lb == -Inf || ub == Inf
-      bjerror("You use $Multiplicity", "Multiplicity must be an integer.")
+    for sp_id in keys(m.ext[tab])
+      (lb, ub) = mult_fct(sp_id, sp_type)
+      if !isa(lb, Integer) || !isa(ub, Integer)
+        bjerror("You use lb = $lb and ub = $ub", "Multiplicity must be an integer.")
+      end
+      if ub < lb
+        bjerror("Multiplicity (ub < lb) : ($ub < $lb)")
+      end
+      push!(m.ext[:sp_mult_tab], (sp_id, sp_type, lb, ub))
     end
-    push!(m.ext[:sp_mult_tab], (sp_id, sp_type, lb, ub))
   end
 end
 
@@ -220,13 +229,22 @@ function create_sp_prio_tab!(m::JuMP.Model)
 end
 
 function fill_sp_prio_tab!(m::JuMP.Model, tab::Symbol, sp_type::Symbol)
-  priority_fct = m.ext[:sp_prio_fct]
-  for sp_id in keys(m.ext[tab])
-    priority = priority_fct(sp_id, sp_type)
-    if priority < 0 || priority >= Inf
-      bjerror("You use $priority.", "Priority must be a positive integer.")
+  if length(m.ext[tab]) > 0
+    priority_fct = m.ext[:sp_prio_fct]
+    fkspid = first(m.ext[tab])[1] # Get the key of the first entry
+    # Check is the function is applicable only on the first subproblem
+    if !applicable(priority_fct, fkspid, sp_type)
+      info = """First argument = $fkspid (type = $(typeof(fkspid)))
+                Second argument = $sp_type (type = $(typeof(fkspid))) """
+      bjerror(info, "The function defining priorities of subproblems is not applicable.")
     end
-    push!(m.ext[:sp_prio_tab], (sp_id, sp_type, priority))
+    for sp_id in keys(m.ext[tab])
+      priority = priority_fct(sp_id, sp_type)
+      if !isa(priority, Integer) || priority < 0 || priority >= Inf
+        bjerror("You use $priority.", "Priority must be a positive integer.")
+      end
+      push!(m.ext[:sp_prio_tab], (sp_id, sp_type, priority))
+    end
   end
 end
 

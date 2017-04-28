@@ -36,9 +36,9 @@ function model_sgap(data::DataGap, solver)
 
   # priority of subproblems
   function spprio(spid::Tuple, sptype::Symbol)
-    return spid
+    return spid[1]
   end
-  # addsppriority(gap, spprio)
+  addsppriority(gap, spprio)
 
   # branching priority of few variables
   variablebranchingpriority(x[1,1], 2)

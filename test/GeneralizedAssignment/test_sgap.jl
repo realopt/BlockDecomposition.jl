@@ -44,7 +44,10 @@ end
 end
 
 @testset "GAP Subproblem priority" begin
-  @test solver.sp_prio == nothing
+  for (sp_id, sp_type, sp_prio) in solver.sp_prio
+    @test sp_id[1] == sp_prio
+    @test sp_type == :DW_SP
+  end
 end
 
 @testset "GAP Oracles" begin

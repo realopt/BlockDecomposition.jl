@@ -40,7 +40,8 @@ end
 end
 
 @testset "GAP Subproblem priority" begin
-  @test solver.sp_prio == nothing
+  @test length(solver.sp_prio) == 1 # Only one subproblem
+  @test solver.sp_prio[1] == ((0,), :B_SP, 66) # Its priority is 66
 end
 
 @testset "GAP Oracles" begin
