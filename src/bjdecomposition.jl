@@ -99,7 +99,7 @@ function create_cstrs_decomposition_list(m::JuMP.Model, A)
         if nb_vars == 0 || (nb_vars > 0 && var_sp_type != :B_MASTER)
           # Check if the constraint is in the same subproblem
           if nb_vars > 0 && sp_type != :B_MASTER && var_sp_id != sp_id
-            bjerror("A single constraint cannot belongs to two different subproblems.")
+            bjerror("A single constraint cannot belongs to two different subproblems. (constraint = $name & id = $cstr_id)")
           end
           sp_type = var_sp_type
           sp_id = var_sp_id
@@ -153,7 +153,7 @@ function create_vars_decomposition_list(m::JuMP.Model, A)
         if (nb_cstrs == 0) || (nb_cstrs > 0 && cstr_sp_type != :DW_MASTER)
           # Check if the variable is in the same subproblem (except MASTER)
           if nb_cstrs > 0 && sp_type != :DW_MASTER && cstr_sp_id != sp_id
-            bjerror("A single variable cannot belong to two different subproblems.")
+            bjerror("A single variable cannot belong to two different subproblems. (variable = $name & id = $var_id).")
           end
           sp_type = cstr_sp_type
           sp_id = cstr_sp_id
