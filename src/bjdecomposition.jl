@@ -92,6 +92,7 @@ function create_cstrs_decomposition_list(m::JuMP.Model, A)
 
     # Benders decomposition
     if B_dec_f != nothing
+      sp_type = :B_MASTER
       nb_vars = 0
       for i in nzrange(A, row_id)
         (var_name, var_id) = m.ext[:varcstr_report].vars_report[rows[i]]
@@ -146,6 +147,7 @@ function create_vars_decomposition_list(m::JuMP.Model, A)
 
     # Dantzig-Wolfe decomposition
     if DW_dec_f != nothing
+      sp_type = :DW_MASTER # If the variable is not used in cstrs => go to master
       nb_cstrs = 0
       for j in nzrange(A, column_id)
         (cstr_name, cstr_id) = m.ext[:varcstr_report].cstrs_report[rows[j]]
@@ -166,7 +168,6 @@ function create_vars_decomposition_list(m::JuMP.Model, A)
     if sp_type == :DW_MASTER || sp_type == :B_MASTER || sp_type == :MIP
       is_genericvar(m, name) && (sp_type = :GEN_MASTER)
     end
-
     vars_list[column_id] = (name, var_id, sp_type, sp_id)
     list_sp!(m, sp_type, sp_id)
   end
