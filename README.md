@@ -15,14 +15,13 @@ This package is under development. Although it is a JuMP extension, It is not wr
 BlockDecomposition.jl can be installed using the package manager of Julia. To install it, run:
 
 ```
+ julia> Pkg.clone("git@github.com:realopt/BlockDecomposition.jl.git")
+```
+or
+```
  julia> Pkg.clone("https://github.com/realopt/BlockDecomposition.jl.git")
 ```
 
-or
-
-```
- julia> Pkg.clone("git@github.com:realopt/BlockDecomposition.jl.git")
-```
 
 This command will, recursively, install BlockDecomposition.jl and its dependencies.
 
