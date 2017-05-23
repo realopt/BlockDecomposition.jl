@@ -76,15 +76,16 @@ end
 function create_cstrs_decomposition_list(m::JuMP.Model, A)
   sp_id = 0
   sp_type = :MIP
-  if isgeneratedmaster(m)
-    sp_type = :DW_MASTER
-  end
   rows = rowvals(A)
   DW_dec_f = m.ext[:block_decomposition].DantzigWolfe_decomposition_fct
   B_dec_f = m.ext[:block_decomposition].Benders_decomposition_fct
   cstrs_list = Array(Tuple, size(m.ext[:varcstr_report].cstrs_report))
 
   for (row_id, (name, cstr_id)) in enumerate(m.ext[:varcstr_report].cstrs_report)
+    if isgeneratedmaster(m)
+      sp_type = :DW_MASTER
+    end
+
     # Dantzig-Wolfe decomposition
     if DW_dec_f != nothing
       (sp_type, sp_id) = DW_decomposition(DW_dec_f, name, cstr_id)
@@ -131,15 +132,16 @@ end
 function create_vars_decomposition_list(m::JuMP.Model, A)
   sp_id = 0
   sp_type = :MIP
-  if isgeneratedmaster(m)
-    sp_type = :DW_MASTER
-  end
   rows = rowvals(A)
   DW_dec_f = m.ext[:block_decomposition].DantzigWolfe_decomposition_fct
   B_dec_f = m.ext[:block_decomposition].Benders_decomposition_fct
   vars_list = Array(Tuple, size(m.ext[:varcstr_report].vars_report))
 
   for (column_id, (name, var_id)) in enumerate(m.ext[:varcstr_report].vars_report)
+    if isgeneratedmaster(m)
+      sp_type = :DW_MASTER
+    end
+
     # Benders decomposition
     if B_dec_f != nothing
       (sp_type, sp_id) = B_decomposition(B_dec_f, name, var_id)
