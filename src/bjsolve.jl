@@ -44,12 +44,6 @@ function bj_solve(model;
   a = JuMP.solve(model, suppress_warnings=suppress_warnings,
                     ignore_solve_hook=true,
                     relaxation=relaxation)
-
-  # Step 4 : Get the column generation solution if it's a Dantzig Wolfe decomposition
-  if use_DantzigWolfe(model) && applicable(getblocksolution, model.internalModel)
-    model.ext[:dw_solution] = getblocksolution(model.internalModel)
-  end
-  # TODO expand model to take account of sp multiplicities
   a
 end
 
@@ -78,59 +72,13 @@ send_extras!() = nothing
   end
 end
 
-# _get_values(v::JuMP.Variable) = v.m.ext[:dw_solution][v.col]
-#
-# function _getblockvalue_inner(x)
-#   vars = x.innerArray
-#   vals = Array(Vector{Cdouble}, JuMP.size(x))
-#   data = x.meta[:model].varData[x] # to remove
-#   for k in eachindex(vars)
-#     vals[k] = _get_values(vars[k]) # todo
-#   end
-#   vals
-# end
-
-# Copied from JuMP
-# JuMPContainer_from(x::JuMP.JuMPDict,inner) = JuMP.JuMPDict(inner)
-# JuMPContainer_from(x::JuMP.JuMPArray,inner) = JuMP.JuMPArray(inner, x.indexsets)
-
-# function getdisaggregatedvalue(x::JuMP.Variable)
-#   if !haskey(x.m.ext, :dw_solution)
-#     return JuMP.getvalue(x)
-#   end
-#   (x.m.ext[:BlockSolution] == nothing) &&
-#     bjerror("Make sure that the problem has been solved.")
-#   x.m.ext[:dw_solution][x.col]
-# end
+getdisaggregatedvalue(x::JuMP.JuMPContainer) = warn("getdisaggregatedvalue of a JuMPContainer no longer available. Use getdisaggregatedvalue(x::JuMP.Variable).")
+getdisaggregatedvalue(model::JuMP.Model) = warn("getdisaggregatedvalue of a JuMP.Model no longer available. Use getdisaggregatedvalue(x::JuMP.Variable).")
 
 function getdisaggregatedvalue(x::JuMP.Variable)
-  if !haskey(x.m.ext, :dw_solution)
-     return JuMP.getvalue(x)
-  end
-  (x.m.ext[:dw_solution] == nothing) &&
-    bjerror("Make sure that the problem has been solved.")
-  x.m.ext[:dw_solution][x.col, :]
-end
-
-# function getdisaggregatedvalue(x::JuMP.JuMPContainer)
-#   if !haskey(first(x.innerArray).m.ext, :dw_solution)
-#     return JuMP.getvalue(x)
-#   end
-#   ret = JuMPContainer_from(x, _getblockvalue_inner(x))
-#   for (k,v) in x.meta
-#     ret.meta[k] = v
-#   end
-#   m = x.meta[:model]
-#   m.varData[ret] = m.varData[x]
-#   ret
-# end
-
-function getdisaggregatedvalue(x::JuMP.JuMPContainer)
-  warn("getdisaggregatedvalue of a JuMPContainer not implemented. Use getdisaggregatedvalue(x::JuMP.Variable).")
-end
-
-function getdisaggregatedvalue(model::JuMP.Model)
-  if haskey(model.ext, :dw_solution)
-    return model.ext[:dw_solution]
+  if applicable(getdisaggregatedvalueofvariable, x.m.internalModel, x.col)
+    return getdisaggregatedvalueofvariable(x.m.internalModel, x.col)
+  else
+    warn("Your solver seems to not support disaggregated solutions.")
   end
 end
