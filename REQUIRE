@@ -1,4 +1,4 @@
 julia 0.5
 Compat
-JuMP
+JuMP 0.17.0
 Requires
