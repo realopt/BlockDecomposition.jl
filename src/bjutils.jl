@@ -22,6 +22,8 @@ isa_jumpcontnr(contnr) = (isa_jumpdict(contnr) || isa_jumparray(contnr))
 isa_array(contnr) = isa(contnr, Array)
 isa_jumpcstr(contnr) = isa(contnr, JuMP.ConstraintRef)
 isa_jumpvar(contnr) = isa(contnr, JuMP.Variable)
+contains_jumpcstr(contnr) = contains("$(typeof(contnr))", "JuMP.ConstraintRef")
+contains_jumpvar(contnr) = contains("$(typeof(contnr))", "JuMP.Variable")
 
 # Get the keys of an array of dimension dim
 type KeyArrayIterator

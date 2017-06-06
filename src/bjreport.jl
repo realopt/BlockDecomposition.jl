@@ -9,8 +9,7 @@ function report_cstrs_and_vars!(m::JuMP.Model)
   nbcols = length(m.colNames)
   m.ext[:varcstr_report].cstrs_report = Array(Tuple{Symbol, Union{Tuple,Void}}, nbrows)
   m.ext[:varcstr_report].vars_report = Array(Tuple{Symbol, Union{Tuple,Void}}, nbcols)
-  report_names_and_indexes!(m.ext[:varcstr_report].cstrs_report, m.conDict)
-  report_names_and_indexes!(m.ext[:varcstr_report].vars_report, m.varDict)
+  report_names_and_indexes!(m.ext[:varcstr_report], m.objDict)
   check_for_anonymous(m.ext[:varcstr_report].cstrs_report)
   check_for_anonymous(m.ext[:varcstr_report].vars_report)
 end
@@ -25,17 +24,21 @@ function check_for_anonymous(report)
   end
 end
 
-function report_names_and_indexes!(report::Array{Tuple{Symbol, Union{Tuple,Void}}}, dict)
+function report_names_and_indexes!(report, dict)
   for collection in dict
     name = string(collection.first)
     # Is it a JuMP Container ? or an array ?
     isjumpcontnr = isa_jumpcontnr(collection.second)
     isarray = isa_array(collection.second)
-    (isjumpcontnr || isarray) && add_names_and_indexes!(report, collection)
+    if isjumpcontnr || isarray
+      contains_jumpcstr(collection.second) && add_names_and_indexes!(report.cstrs_report, collection)
+      contains_jumpvar(collection.second) && add_names_and_indexes!(report.vars_report, collection)
+    end
     # Is it a single constraint or a single variable ?
     isjumpcstr = isa_jumpcstr(collection.second)
     isjumpvar = isa_jumpvar(collection.second)
-    (isjumpcstr || isjumpvar) && add_name_and_index!(report, collection)
+    isjumpcstr && add_name_and_index!(report.cstrs_report, collection)
+    isjumpvar && add_name_and_index!(report.vars_report, collection)
     # error
     (!isjumpcontnr && !isarray && !isjumpcstr && !isjumpvar) && bjerror("Unsupported type : collection name = $name and type = $(typeof(collection.second))") #TODO
   end
