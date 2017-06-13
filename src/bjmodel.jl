@@ -33,8 +33,7 @@ function BlockModel(;solver = JuMP.UnsetSolver())
   m.ext[:sp_prio_tab] = nothing
   m.ext[:objective_data] = ObjectiveData(NaN, -Inf, Inf)
 
-  m.ext[:var_branch_prio_dict] = Dict{Int, Cdouble}() # var.col => priority
-  m.ext[:var_branch_prio_tab] = nothing
+  m.ext[:var_branch_prio_dict] = Dict{Symbol, Cdouble}() # varname => priority
 
   # Callbacks
   m.ext[:oracles] = Array(Tuple{Tuple, Symbol, Function},0)
@@ -60,7 +59,13 @@ function objectivevaluelowerbound(m::JuMP.Model, lb)
 end
 
 function variablebranchingpriority(x::JuMP.Variable, priority)
-  x.m.ext[:var_branch_prio_dict][x.col] = priority
+  varname = Symbol(x.m.colNames[x.col])
+  x.m.ext[:var_branch_prio_dict][varname] = priority
+end
+
+function variablebranchingpriority(x::JuMP.JuMPContainer, priority)
+  varname = Symbol(x.meta[:model].varData[x].name)
+  x.meta[:model].ext[:var_branch_prio_dict][varname] = priority
 end
 
 function addspmultiplicity(m::JuMP.Model, sp_mult)
