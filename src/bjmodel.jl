@@ -59,8 +59,11 @@ function objectivevaluelowerbound(m::JuMP.Model, lb)
 end
 
 function variablebranchingpriority(x::JuMP.Variable, priority)
-  varname = Symbol(x.m.colNames[x.col])
-  x.m.ext[:var_branch_prio_dict][varname] = priority
+  varname = x.m.colNames[x.col]
+  if varname == ""
+    bjerror("Cannot set the priority of a variable is in a variable container.")
+  end
+  x.m.ext[:var_branch_prio_dict][Symbol(varname)] = priority
 end
 
 function variablebranchingpriority(x::JuMP.JuMPContainer, priority)
