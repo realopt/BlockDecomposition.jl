@@ -19,7 +19,7 @@ status = solve(fl)
 end
 
 @testset "GAP Variable branching priority" begin
-  @test solver.vars_branching_priorities == nothing
+  @test length(solver.vars_branching_priorities) == 0
 end
 
 @testset "GAP Subproblem multiplicity" begin

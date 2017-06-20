@@ -41,8 +41,8 @@ function model_sgap(data::DataGap, solver)
   addsppriority(gap, spprio)
 
   # branching priority of few variables
-  variablebranchingpriority(x[1,1], 2)
-  variablebranchingpriority(x[2,1], 8)
+  #variablebranchingpriority(x[1,1], 2)
+  #variablebranchingpriority(x[2,1], 8)
 
   return (gap, x)
 end
