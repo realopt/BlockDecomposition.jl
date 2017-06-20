@@ -36,7 +36,7 @@ function BlockModel(;solver = JuMP.UnsetSolver())
   m.ext[:var_branch_prio_dict] = Dict{Symbol, Cdouble}() # varname => priority
 
   # Callbacks
-  m.ext[:oracles] = Array(Tuple{Tuple, Symbol, Function},0)
+  m.ext[:oracles] = Array{Tuple{Tuple, Symbol, Function}}(0)
   m.ext[:generic_vars] = Dict{Symbol, Tuple{JuMP.Variable, Function}}()
   m.ext[:generic_cstrs] = Dict{Int, Tuple{JuMP.JuMP.ConstraintRef, String, Function}}()
 

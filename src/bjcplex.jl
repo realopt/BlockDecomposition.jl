@@ -2,16 +2,16 @@ defineannotations() = nothing
 
 @require CPLEX begin
   function defineannotations(m::JuMP.Model, vars_decomposition)
-    if isa(m.solver, CPLEX.CplexSolver)
+    if m.solver isa CPLEX.CplexSolver
       JuMP.build(m)
       model = m.internalModel
       blocks = Dict{Tuple,Clong}()
       iblock = 1
       newlongannotation(model.inner, "cpxBendersPartition", Clong(-1))
       for (col, (v_name, v_id, sp_type, sp_id)) in enumerate(vars_decomposition)
-          indexArr = Array(Cint,1)
+          indexArr = Array{Cint}(1)
           indexArr[1] = col - 1
-          valArr = Array(Clong,1)
+          valArr = Array{Clong}(1)
           if sp_type == :B_MASTER
               valArr[1] = 0
           elseif sp_type == :B_SP

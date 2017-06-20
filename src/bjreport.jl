@@ -7,8 +7,8 @@ VarCstrReport() = VarCstrReport(nothing, nothing)
 function report_cstrs_and_vars!(m::JuMP.Model)
   nbrows = length(m.linconstr)
   nbcols = length(m.colNames)
-  m.ext[:varcstr_report].cstrs_report = Array(Tuple{Symbol, Union{Tuple,Void}}, nbrows)
-  m.ext[:varcstr_report].vars_report = Array(Tuple{Symbol, Union{Tuple,Void}}, nbcols)
+  m.ext[:varcstr_report].cstrs_report = Array{Tuple{Symbol, Union{Tuple,Void}}}(nbrows)
+  m.ext[:varcstr_report].vars_report = Array{Tuple{Symbol, Union{Tuple,Void}}}(nbcols)
   report_names_and_indexes!(m.ext[:varcstr_report], m.objDict)
   check_for_anonymous(m.ext[:varcstr_report].cstrs_report)
   check_for_anonymous(m.ext[:varcstr_report].vars_report)
@@ -16,7 +16,7 @@ end
 
 function check_for_anonymous(report)
   for i in 1:length(report)
-    if !isdefined(report, i)
+    if !isassigned(report, i)
       info = "Make sure that all variables and constraints have a name."
       errmsg = "BlockDecomposition does not support anonymous variables or constraints."
       bjerror(info, errmsg)

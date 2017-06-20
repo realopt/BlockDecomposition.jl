@@ -79,7 +79,7 @@ function create_cstrs_decomposition_list(m::JuMP.Model, A)
   rows = rowvals(A)
   DW_dec_f = m.ext[:block_decomposition].DantzigWolfe_decomposition_fct
   B_dec_f = m.ext[:block_decomposition].Benders_decomposition_fct
-  cstrs_list = Array(Tuple, size(m.ext[:varcstr_report].cstrs_report))
+  cstrs_list = Array{Tuple}(size(m.ext[:varcstr_report].cstrs_report))
 
   for (row_id, (name, cstr_id)) in enumerate(m.ext[:varcstr_report].cstrs_report)
     if isgeneratedmaster(m)
@@ -135,7 +135,7 @@ function create_vars_decomposition_list(m::JuMP.Model, A)
   rows = rowvals(A)
   DW_dec_f = m.ext[:block_decomposition].DantzigWolfe_decomposition_fct
   B_dec_f = m.ext[:block_decomposition].Benders_decomposition_fct
-  vars_list = Array(Tuple, size(m.ext[:varcstr_report].vars_report))
+  vars_list = Array{Tuple}(size(m.ext[:varcstr_report].vars_report))
 
   for (column_id, (name, var_id)) in enumerate(m.ext[:varcstr_report].vars_report)
     if isgeneratedmaster(m)
