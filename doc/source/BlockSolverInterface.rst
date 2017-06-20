@@ -37,21 +37,30 @@ variables regardless of the type of decomposition used. Types of subproblem are 
 
 Additional data to the decomposition
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-.. function:: set_oracles!(s::AbstractMathProgSolver, list::Array)
+.. function:: set_oracles!(s::AbstractMathProgSolver, oracles::Array)
 
   Send to the solver ``s`` the ``list`` with subproblems and oracles functions.
+  Each element of the ``oracles`` array is a ``Tuple`` containing
+  ``(sp_id::Tuple, sp_type::Symbol, oracle::Function)`` with ``oracle``, the
+  function defined by the user.
 
-.. function:: set_sp_mult!(s::AbstractMathProgSolver, data::Array)
+.. function:: set_sp_mult!(s::AbstractMathProgSolver, multiplicities::Array)
 
-  Send to the solver ``s`` the multiplicity of each subproblem.
+  Send to the solver ``s`` the multiplicity of each subproblem. Each element of
+  the ``multiplicities`` array is a ``Tuple`` containing ``(sp_id::Tuple, sp_type::Symbol, mult_lb, mult_ub)``
+  with ``mult_lb`` the lower bound of the multiplicity and ``mult_ub`` the upper
+  bound of the multiplicity.
 
 .. function:: set_sp_prio!(s::AbstractMathProgSolver, priorities::Array)
 
-  Send to the solver ``s`` the list of subproblem priorities.
+  Send to the solver ``s`` the list of subproblem priorities. Each element of
+  the ``data`` array is a ``Tuple`` containing ``(sp_id::Tuple, sp_type::Symbol, sp_prio)``.
 
 .. function:: set_var_branching_prio!(s::AbstractMathProgSolver, priorities::Array)
 
   Send to the solver ``s`` the list of variables branching priorities.
+  The number stored at the row ``i`` is the branching priority of the variable
+  stored at the column ``i`` in the JuMP model.
 
 
 Additional data to the model

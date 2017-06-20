@@ -3,16 +3,16 @@ module BlockDecomposition
 include("BlockSolverInterface.jl")
 using .BlockSolverInterface
 
+import JuMP
+
+using Requires
+using JuMP
 # Usefull
-if Pkg.installed("BlockDecompositionExtras") != nothing
+
+@require BlockDecompositionExtras begin
        using BlockDecompositionExtras
 end
-
-import JuMP
-using JuMP
-
-# todo
-if Pkg.installed("CPLEX") != nothing
+@require CPLEX begin
        using CPLEX
 end
 
@@ -29,6 +29,7 @@ export  BlockModel,
         add_Dantzig_Wolfe_decomposition,
         add_Benders_decomposition,
         addspmultiplicity,
+        addsppriority,
         show
 
 # Oracles
@@ -53,10 +54,6 @@ include("bjexpand.jl")
 include("bjoracles.jl")
 include("bjsolve.jl")
 include("bjdecomposition.jl")
-
-# todo : enhance
-if Pkg.installed("CPLEX") != nothing
-       include("bjcplex.jl")
-end
+include("bjcplex.jl")
 
 end # module

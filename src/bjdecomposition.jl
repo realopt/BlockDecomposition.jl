@@ -2,10 +2,6 @@ function use_DantzigWolfe(m::JuMP.Model)
   return m.ext[:block_decomposition].DantzigWolfe_decomposition_fct != nothing
 end
 
-function use_Benders(m::JuMP.Model)
-  return m.ext[:block_decomposition].Benders_decomposition_fct != nothing
-end
-
 function add_Dantzig_Wolfe_decomposition(m::JuMP.Model, f::Function)
   m.ext[:block_decomposition].DantzigWolfe_decomposition_fct = f
 end
@@ -80,15 +76,16 @@ end
 function create_cstrs_decomposition_list(m::JuMP.Model, A)
   sp_id = 0
   sp_type = :MIP
-  if isgeneratedmaster(m)
-    sp_type = :DW_MASTER
-  end
   rows = rowvals(A)
   DW_dec_f = m.ext[:block_decomposition].DantzigWolfe_decomposition_fct
   B_dec_f = m.ext[:block_decomposition].Benders_decomposition_fct
   cstrs_list = Array{Tuple}(size(m.ext[:varcstr_report].cstrs_report))
 
   for (row_id, (name, cstr_id)) in enumerate(m.ext[:varcstr_report].cstrs_report)
+    if isgeneratedmaster(m)
+      sp_type = :DW_MASTER
+    end
+
     # Dantzig-Wolfe decomposition
     if DW_dec_f != nothing
       (sp_type, sp_id) = DW_decomposition(DW_dec_f, name, cstr_id)
@@ -96,6 +93,7 @@ function create_cstrs_decomposition_list(m::JuMP.Model, A)
 
     # Benders decomposition
     if B_dec_f != nothing
+      sp_type = :B_MASTER
       nb_vars = 0
       for i in nzrange(A, row_id)
         (var_name, var_id) = m.ext[:varcstr_report].vars_report[rows[i]]
@@ -103,7 +101,7 @@ function create_cstrs_decomposition_list(m::JuMP.Model, A)
         if nb_vars == 0 || (nb_vars > 0 && var_sp_type != :B_MASTER)
           # Check if the constraint is in the same subproblem
           if nb_vars > 0 && sp_type != :B_MASTER && var_sp_id != sp_id
-            bjerror("A single constraint cannot belongs to two different subproblems.")
+            bjerror("A single constraint cannot belongs to two different subproblems. (constraint = $name & id = $cstr_id)")
           end
           sp_type = var_sp_type
           sp_id = var_sp_id
@@ -134,15 +132,16 @@ end
 function create_vars_decomposition_list(m::JuMP.Model, A)
   sp_id = 0
   sp_type = :MIP
-  if isgeneratedmaster(m)
-    sp_type = :DW_MASTER
-  end
   rows = rowvals(A)
   DW_dec_f = m.ext[:block_decomposition].DantzigWolfe_decomposition_fct
   B_dec_f = m.ext[:block_decomposition].Benders_decomposition_fct
   vars_list = Array{Tuple}(size(m.ext[:varcstr_report].vars_report))
 
   for (column_id, (name, var_id)) in enumerate(m.ext[:varcstr_report].vars_report)
+    if isgeneratedmaster(m)
+      sp_type = :DW_MASTER
+    end
+
     # Benders decomposition
     if B_dec_f != nothing
       (sp_type, sp_id) = B_decomposition(B_dec_f, name, var_id)
@@ -150,6 +149,7 @@ function create_vars_decomposition_list(m::JuMP.Model, A)
 
     # Dantzig-Wolfe decomposition
     if DW_dec_f != nothing
+      sp_type = :DW_MASTER # If the variable is not used in cstrs => go to master
       nb_cstrs = 0
       for j in nzrange(A, column_id)
         (cstr_name, cstr_id) = m.ext[:varcstr_report].cstrs_report[rows[j]]
@@ -157,7 +157,7 @@ function create_vars_decomposition_list(m::JuMP.Model, A)
         if (nb_cstrs == 0) || (nb_cstrs > 0 && cstr_sp_type != :DW_MASTER)
           # Check if the variable is in the same subproblem (except MASTER)
           if nb_cstrs > 0 && sp_type != :DW_MASTER && cstr_sp_id != sp_id
-            bjerror("A single variable cannot belong to two different subproblems.")
+            bjerror("A single variable cannot belong to two different subproblems. (variable = $name & id = $var_id).")
           end
           sp_type = cstr_sp_type
           sp_id = cstr_sp_id
@@ -170,7 +170,6 @@ function create_vars_decomposition_list(m::JuMP.Model, A)
     if sp_type == :DW_MASTER || sp_type == :B_MASTER || sp_type == :MIP
       is_genericvar(m, name) && (sp_type = :GEN_MASTER)
     end
-
     vars_list[column_id] = (name, var_id, sp_type, sp_id)
     list_sp!(m, sp_type, sp_id)
   end
@@ -198,16 +197,25 @@ function create_sp_mult_tab!(m::JuMP.Model)
 end
 
 function fill_sp_mult_tab!(m::JuMP.Model, tab::Symbol, sp_type::Symbol)
-  mult_fct = m.ext[:sp_mult_fct]
-  for sp_id in keys(m.ext[tab])
-    (lb, ub) = mult_fct(sp_id, sp_type)
-    if ub < lb
-      bjerror("Multiplicity (ub < lb) : ($ub < $lb)")
+  if length(m.ext[tab]) > 0
+    mult_fct = m.ext[:sp_mult_fct]
+    fkspid = first(m.ext[tab])[1] # Get the key of the first entry
+    # Check is the function is applicable only on the first subproblem
+    if !applicable(mult_fct, fkspid, sp_type)
+      info = """First argument = $fkspid (type = $(typeof(fkspid)))
+                Second argument = $sp_type (type = $(typeof(fkspid))) """
+      bjerror(info, "The function defining multiplicities of subproblems is not applicable.")
     end
-    if lb == -Inf || ub == Inf
-      bjerror("You use $Multiplicity", "Multiplicity must be an integer.")
+    for sp_id in keys(m.ext[tab])
+      (lb, ub) = mult_fct(sp_id, sp_type)
+      if !isa(lb, Integer) || !isa(ub, Integer)
+        bjerror("You use lb = $lb and ub = $ub", "Multiplicity must be an integer.")
+      end
+      if ub < lb
+        bjerror("Multiplicity (ub < lb) : ($ub < $lb)")
+      end
+      push!(m.ext[:sp_mult_tab], (sp_id, sp_type, lb, ub))
     end
-    push!(m.ext[:sp_mult_tab], (sp_id, sp_type, lb, ub))
   end
 end
 
@@ -220,21 +228,21 @@ function create_sp_prio_tab!(m::JuMP.Model)
 end
 
 function fill_sp_prio_tab!(m::JuMP.Model, tab::Symbol, sp_type::Symbol)
-  priority_fct = m.ext[:sp_prio_fct]
-  for sp_id in keys(m.ext[tab])
-    priority = priority_fct(sp_id, sp_type)
-    if priority < 0 || priority >= Inf
-      bjerror("You use $priority.", "Priority must be a positive integer.")
+  if length(m.ext[tab]) > 0
+    priority_fct = m.ext[:sp_prio_fct]
+    fkspid = first(m.ext[tab])[1] # Get the key of the first entry
+    # Check is the function is applicable only on the first subproblem
+    if !applicable(priority_fct, fkspid, sp_type)
+      info = """First argument = $fkspid (type = $(typeof(fkspid)))
+                Second argument = $sp_type (type = $(typeof(fkspid))) """
+      bjerror(info, "The function defining priorities of subproblems is not applicable.")
     end
-    push!(m.ext[:sp_prio_tab], (sp_id, sp_type, priority))
-  end
-end
-
-function create_var_branching_prio_tab!(m::JuMP.Model)
-  if length(m.ext[:var_branch_prio_dict]) > 0
-    m.ext[:var_branch_prio_tab] = zeros(m.numCols)
-    for kv in m.ext[:var_branch_prio_dict]
-      m.ext[:var_branch_prio_tab][kv[1]] = kv[2]
+    for sp_id in keys(m.ext[tab])
+      priority = priority_fct(sp_id, sp_type)
+      if !isa(priority, Integer) || priority < 0 || priority >= Inf
+        bjerror("You use $priority.", "Priority must be a positive integer.")
+      end
+      push!(m.ext[:sp_prio_tab], (sp_id, sp_type, priority))
     end
   end
 end

@@ -46,7 +46,7 @@ export get_oracle_phaseofstageapproach
 getcurrentcost() = nothing
 export getcurrentcost
 
-getblocksolution() = nothing
-export getblocksolution
+getdisaggregatedvalueofvariable() = nothing
+export getdisaggregatedvalueofvariable
 
 end
