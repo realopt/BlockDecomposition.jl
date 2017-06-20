@@ -190,7 +190,7 @@ end
 
 function create_sp_mult_tab!(m::JuMP.Model)
   if m.ext[:sp_mult_fct] != nothing
-    m.ext[:sp_mult_tab] = Array(Tuple, 0)
+    m.ext[:sp_mult_tab] = Array{Tuple}(0)
     fill_sp_mult_tab!(m, :sp_list_dw, :DW_SP)
     fill_sp_mult_tab!(m, :sp_list_b, :B_SP)
   end
@@ -221,7 +221,7 @@ end
 
 function create_sp_prio_tab!(m::JuMP.Model)
   if m.ext[:sp_prio_fct] != nothing
-    m.ext[:sp_prio_tab] = Array(Tuple,0)
+    m.ext[:sp_prio_tab] = Array{Tuple}(0)
     fill_sp_prio_tab!(m, :sp_list_dw, :DW_SP)
     fill_sp_prio_tab!(m, :sp_list_b, :B_SP)
   end
