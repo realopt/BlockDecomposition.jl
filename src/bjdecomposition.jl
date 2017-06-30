@@ -6,8 +6,17 @@ function add_Dantzig_Wolfe_decomposition(m::JuMP.Model, f::Function)
   m.ext[:block_decomposition].DantzigWolfe_decomposition_fct = f
 end
 
+function add_Dantzig_Wolfe_decomposition_on_variables(m::JuMP.Model, f::Function)
+  m.ext[:block_decomposition].DantzigWolfe_decomposition_on_vars_fct = f
+end
+
 function add_Benders_decomposition(m::JuMP.Model, f::Function)
   m.ext[:block_decomposition].Benders_decomposition_fct = f
+end
+
+function add_Benders_decomposition_on_constraints(m::JuMP.Model, f::Function)
+  error("Not supported")
+  m.ext[:block_decomposition].Benders_decomposition_on_cstrs_fct = f
 end
 
 function create_cstrs_vars_decomposition_list!(m::JuMP.Model)
@@ -18,6 +27,13 @@ end
 
 function isgeneratedmaster(m::JuMP.Model)
   return !isempty(m.ext[:oracles]) || !isempty(m.ext[:generic_vars]) || !isempty(m.ext[:generic_cstrs])
+end
+
+function ismip(m::JuMP.Model)
+  DW_dec_f = m.ext[:block_decomposition].DantzigWolfe_decomposition_fct
+  B_dec_f = m.ext[:block_decomposition].Benders_decomposition_fct
+  ret = isempty(m.ext[:generic_vars]) && isempty(m.ext[:generic_cstrs]) && DW_dec_f == nothing && B_dec_f == nothing
+  return ret
 end
 
 function DW_decomposition(DW_dec_f, cstr_name, cstr_id)
@@ -82,7 +98,7 @@ function create_cstrs_decomposition_list(m::JuMP.Model, A)
   cstrs_list = Array{Tuple}(size(m.ext[:varcstr_report].cstrs_report))
 
   for (row_id, (name, cstr_id)) in enumerate(m.ext[:varcstr_report].cstrs_report)
-    if isgeneratedmaster(m)
+    if isgeneratedmaster(m) # the subproblem can't be a MIP
       sp_type = :DW_MASTER
     end
 
@@ -112,9 +128,8 @@ function create_cstrs_decomposition_list(m::JuMP.Model, A)
 
     # Is it a generated constraint ?
     if sp_type == :DW_MASTER || sp_type == :B_MASTER || sp_type == :MIP
-      is_genericcstr(m, row_id) && (sp_type = :GEN_MASTER)
+      is_genericcstr(m, row_id) && (sp_type = :ALL)
     end
-
     cstrs_list[row_id] = (name, cstr_id, sp_type, sp_id)
     list_sp!(m, sp_type, sp_id)
   end
@@ -134,41 +149,39 @@ function create_vars_decomposition_list(m::JuMP.Model, A)
   sp_type = :MIP
   rows = rowvals(A)
   DW_dec_f = m.ext[:block_decomposition].DantzigWolfe_decomposition_fct
+  DW_dec_on_vars_f = m.ext[:block_decomposition].DantzigWolfe_decomposition_on_vars_fct
   B_dec_f = m.ext[:block_decomposition].Benders_decomposition_fct
   vars_list = Array{Tuple}(size(m.ext[:varcstr_report].vars_report))
+  mip = ismip(m)
 
   for (column_id, (name, var_id)) in enumerate(m.ext[:varcstr_report].vars_report)
-    if isgeneratedmaster(m)
+    if !mip
       sp_type = :DW_MASTER
-    end
-
-    # Benders decomposition
-    if B_dec_f != nothing
-      (sp_type, sp_id) = B_decomposition(B_dec_f, name, var_id)
-    end
-
-    # Dantzig-Wolfe decomposition
-    if DW_dec_f != nothing
-      sp_type = :DW_MASTER # If the variable is not used in cstrs => go to master
-      nb_cstrs = 0
-      for j in nzrange(A, column_id)
-        (cstr_name, cstr_id) = m.ext[:varcstr_report].cstrs_report[rows[j]]
-        (cstr_sp_type, cstr_sp_id) = DW_decomposition(DW_dec_f, cstr_name, cstr_id)
-        if (nb_cstrs == 0) || (nb_cstrs > 0 && cstr_sp_type != :DW_MASTER)
-          # Check if the variable is in the same subproblem (except MASTER)
-          if nb_cstrs > 0 && sp_type != :DW_MASTER && cstr_sp_id != sp_id
-            bjerror("A single variable cannot belong to two different subproblems. (variable = $name & id = $var_id).")
+      if is_genericvar(m, name) #Is it a dynamic variable ?
+        sp_type = :ALL
+      elseif B_dec_f != nothing # benders decomposition
+        (sp_type, sp_id) = B_decomposition(B_dec_f, name, var_id)
+      elseif DW_dec_f != nothing # Dantzig-Wolfe decomposition
+        if DW_dec_on_vars_f != nothing
+          (sp_type, sp_id) = DW_decomposition(DW_dec_on_vars_f, name, var_id)
+        else
+          sp_type = :DW_MASTER # If the variable is not used in cstrs => go to master
+          nb_cstrs = 0
+          for j in nzrange(A, column_id)
+            (cstr_name, cstr_id) = m.ext[:varcstr_report].cstrs_report[rows[j]]
+            (cstr_sp_type, cstr_sp_id) = DW_decomposition(DW_dec_f, cstr_name, cstr_id)
+            if (nb_cstrs == 0) || (nb_cstrs > 0 && cstr_sp_type != :DW_MASTER)
+              # Check if the variable is in the same subproblem (except MASTER)
+              if nb_cstrs > 0 && sp_type != :DW_MASTER && cstr_sp_id != sp_id
+                bjerror("A single variable cannot belong to two different subproblems. (variable = $name & id = $var_id).")
+              end
+              sp_type = cstr_sp_type
+              sp_id = cstr_sp_id
+            end
+            nb_cstrs += 1
           end
-          sp_type = cstr_sp_type
-          sp_id = cstr_sp_id
         end
-        nb_cstrs += 1
       end
-    end
-
-    #Is it a generated variable ?
-    if sp_type == :DW_MASTER || sp_type == :B_MASTER || sp_type == :MIP
-      is_genericvar(m, name) && (sp_type = :GEN_MASTER)
     end
     vars_list[column_id] = (name, var_id, sp_type, sp_id)
     list_sp!(m, sp_type, sp_id)

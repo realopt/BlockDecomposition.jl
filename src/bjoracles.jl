@@ -38,7 +38,7 @@ function attachnewsolution(data::OracleSolverData)
   end
 end
 
-function addtosolution(data::OracleSolverData, x::JuMP.Variable, val::Real)
+function addtosolution(data::OracleSolverData, x, val::Real)
   if applicable(set_oraclesolution_solution, data, x, val)
     set_oraclesolution_solution(data, x, val)
   else

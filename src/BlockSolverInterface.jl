@@ -16,6 +16,9 @@ export set_constrs_decomposition!
 set_vars_decomposition!() = nothing
 export set_vars_decomposition!
 
+set_sp_ids!() = nothing
+export set_sp_ids!
+
 set_sp_mult!() = nothing
 export set_sp_mult!
 

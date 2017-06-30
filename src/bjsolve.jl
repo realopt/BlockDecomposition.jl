@@ -5,6 +5,7 @@ function bj_solve(model;
   # Step 1 : Create variables & constraints report
   report_cstrs_and_vars!(model)
   create_cstrs_vars_decomposition_list!(model)
+  create_sp_tab!(model)
   create_sp_mult_tab!(model)
   create_sp_prio_tab!(model)
 
@@ -13,6 +14,8 @@ function bj_solve(model;
   send_to_solver!(model, set_constrs_decomposition!, :cstrs_decomposition_list, false)
   # Vars decomposition : mandatory
   send_to_solver!(model, set_vars_decomposition!, :vars_decomposition_list, false)
+  # Subproblems
+  send_to_solver!(model, set_sp_ids!, :sp_tab, true)
   # Subproblems multiplicities
   send_to_solver!(model, set_sp_mult!, :sp_mult_tab, false)
   # Subproblems priorities
@@ -44,6 +47,19 @@ function bj_solve(model;
                     ignore_solve_hook=true,
                     relaxation=relaxation)
   a
+end
+
+function create_sp_tab!(model::JuMP.Model)
+  for (sp_id, sp_type, f) in model.ext[:oracles]
+    list_sp!(model, sp_type, sp_id)
+  end
+  model.ext[:sp_tab] = Vector{Tuple{Tuple, Symbol}}()
+  for spid in collect(keys(model.ext[:sp_list_dw]))
+    push!(model.ext[:sp_tab], (spid, :DW_SP))
+  end
+  for spid in collect(keys(model.ext[:sp_list_b]))
+    push!(model.ext[:sp_tab], (spid, :B_SP))
+  end
 end
 
 function send_to_solver!(model::JuMP.Model, f::Function, k::Symbol, mandatory::Bool)

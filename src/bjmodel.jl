@@ -6,9 +6,11 @@ end
 
 type BlockDecompositionData
   DantzigWolfe_decomposition_fct
+  DantzigWolfe_decomposition_on_vars_fct
   Benders_decomposition_fct
+  Benders_decomposition_on_cstrs_fct
 end
-BlockDecompositionData() = BlockDecompositionData(nothing, nothing)
+BlockDecompositionData() = BlockDecompositionData(nothing, nothing, nothing, nothing)
 
 function BlockModel(;solver = JuMP.UnsetSolver())
   m = JuMP.Model(solver = solver)
@@ -25,6 +27,7 @@ function BlockModel(;solver = JuMP.UnsetSolver())
   # Storage (to list all subproblems)
   m.ext[:sp_list_dw] = Dict{Tuple, Integer}()
   m.ext[:sp_list_b] = Dict{Tuple, Integer}()
+  m.ext[:sp_tab] = nothing
 
   # Data sent to the solver
   m.ext[:cstrs_decomposition_list] = nothing
