@@ -70,42 +70,30 @@ end
 
 In this code, we use the four main functions for oracles provided by BlockDecomposition.
 
-```julia
-function:: getspid(od::OracleSolverData) :: Tuple
+```@docs
+getspid
 ```
 
-Returns the subproblem index for which the oracle has been assigned.
-
-```julia
-function:: getcurcost(x::JuMP.Variable)
+```@docs
+getcurcost
 ```
 
-Returns the current cost of the varibale `x`.
-
-```julia
-function::addtosolution(od::OracleSolverData, x::JuMP.Variable, value::Real)
+```@docs
+addtosolution
 ```
 
-Assigns the value `value` to the variable `x` in the solution of the
-oracle solver
-
-```julia
-function::setsolutionobjval(od::OracleSolverData, value::real)
+```@docs
+setsolutionobjval
 ```
-
-Sets the objective value of the oracle solver solution.
 
 ## Attach the oracle solver
 
 Once the oracle solver function defined, we assign it to some subproblems using
 the following function.
 
-```julia
-function::addoracletosp!(m::JuMP.Model, spid::Union{Tuple,Integer}, oraclesolver::Function)
-```    
-
-Attaches the function `oraclesolver` function to the subproblem which has the index `spid `.
-The argument `spid` must be a  `Tuple` or an  `Integer`.
+```@docs
+addoracletosp!
+```
 
 In our example, we do
 
@@ -118,11 +106,8 @@ end
 ## Advanced feature
 
 For one call, the oracle solver can return several solution by using the
-following function :
+following function
 
-```julia
-function:: attachnewsolution(od::OracleSolverData)
+```@docs
+attachnewsolution
 ```
-
-It ends the current solution and create a new solution in the oracle solver
-solution. Note that the previous solutions cannot be modified anymore.

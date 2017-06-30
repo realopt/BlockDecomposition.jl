@@ -48,8 +48,8 @@ fl = BlockModel(solver = decomp_solver)
 
 The decomposition is described with a function that takes two arguments.
 This function is call by BlockDecomposition to build the decomposition data.
-For Benders decomposition, the arguments will be ``varname`` the name
-of the variable and ``varid`` the index of the variable.
+For Benders decomposition, the arguments will be `varname` the name
+of the variable and `varid` the index of the variable.
 
 ```julia
 function B_decomp(varname::Symbol, varid::Tuple) :: Tuple{Symbol, Union{Int, Tuple}}
@@ -61,13 +61,11 @@ the variable belongs.
 It may be `:B_MASTER` or `:B_SP`.
 The `Union{Int, Tuple}` is the index of this problem.
 
-To assign the decomposition function to the model, BlockDecomposition provides the function
+This function should be attached to the BlockModel using
 
-```julia
-function:: add_Benders_decomposition(model::JuMP.Model, B_decomp::Function)
+```@docs
+add_Benders_decomposition
 ```
-
-with `model` the model and `B_decomp` the Benders decomposition function.
 
 Now, we can write the decomposition function of our two ewamples. For the
 Capacitated Facility Location problem, we want to put variables ``y`` in
