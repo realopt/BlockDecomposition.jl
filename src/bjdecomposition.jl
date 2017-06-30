@@ -6,10 +6,16 @@ function add_Dantzig_Wolfe_decomposition(m::JuMP.Model, f::Function)
   m.ext[:block_decomposition].DantzigWolfe_decomposition_fct = f
 end
 
+
 function add_Dantzig_Wolfe_decomposition_on_variables(m::JuMP.Model, f::Function)
   m.ext[:block_decomposition].DantzigWolfe_decomposition_on_vars_fct = f
 end
 
+"""
+    add_Benders_decomposition(model::JuMP.Model, B_decomp::Function)
+
+assigns the decomposition function `B_decomp` to the `model`.
+"""
 function add_Benders_decomposition(m::JuMP.Model, f::Function)
   m.ext[:block_decomposition].Benders_decomposition_fct = f
 end

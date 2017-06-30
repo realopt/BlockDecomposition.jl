@@ -8,24 +8,13 @@ It is aimed mainly at developpers who would like to contribute to BlockDecomposi
 
 ## Decomposition data
 
-```julia
-function::set_constrs_decomposition!(s::AbstractMathProgSolver, data::Array)
+```@docs
+BlockDecomposition.BlockSolverInterface.set_constrs_decomposition!
 ```
 
-Send to the solver `s` in which subproblems are the constraints.
-Each element of the `data` array is a `Tuple` containing  `(constr_name::Symbol, constr_id::Tuple, sp_type::Symbol, sp_id::Tuple)`.
-`constr_name` and `constr_id` are the name and the index of the constraint in the JuMP model.
-`sp_type` and `sp_id` are the type and the index of the subproblem to which the constraint is assigned.
-
-```julia
-function::set_vars_decomposition!(s::AbstractMathProgSolver, data::Array)
+```@docs
+BlockDecomposition.BlockSolverInterface.set_vars_decomposition!
 ```
-
-Send to the solver `s` in which subproblems are the variables.
-Each element of the `data` array is a `Tuple` containing  `(var_name::Symbol, var_id::Tuple, sp_type::Symbol, sp_id::Tuple)`.
-`var_name` and `var_id` are the name and the index of the variable in the JuMP model.
-`sp_type` and `sp_id` are the type and the index of the subproblem to which the variable is assigned.
-
 
 BlockDecomposition creates the decomposition list for both constraints and
 variables regardless of the type of decomposition used. Types of subproblem are :
@@ -37,43 +26,26 @@ variables regardless of the type of decomposition used. Types of subproblem are 
 
 ## Additional data to the decomposition
 
-```julia
-function::set_oracles!(s::AbstractMathProgSolver, oracles::Array)
+```@docs
+BlockDecomposition.BlockSolverInterface.set_oracles!
 ```
 
-Send to the solver `s` the `list` with subproblems and oracles functions.
-Each element of the `oracles` array is a `Tuple` containing
-`(sp_id::Tuple, sp_type::Symbol, oracle::Function)` with `oracle`, the
-function defined by the user.
-
-```julia
-function::set_sp_mult!(s::AbstractMathProgSolver, multiplicities::Array)
+```@docs
+BlockDecomposition.BlockSolverInterface.set_sp_mult!
 ```
 
-Send to the solver `s` the multiplicity of each subproblem. Each element of
-the `multiplicities` array is a `Tuple` containing `(sp_id::Tuple, sp_type::Symbol, mult_lb, mult_ub)`
-with `mult_lb` the lower bound of the multiplicity and `mult_ub` the upper
-bound of the multiplicity.
-
-```julia
-function:: set_sp_prio!(s::AbstractMathProgSolver, priorities::Array)
+```@docs
+BlockDecomposition.BlockSolverInterface.set_sp_prio!
 ```
 
-Send to the solver `s` the list of subproblem priorities. Each element of
-the `data` array is a `Tuple` containing `(sp_id::Tuple, sp_type::Symbol, sp_prio)`.
-
-```julia
-function::set_var_branching_prio!(s::AbstractMathProgSolver, priorities::Array)
+```@docs
+BlockDecomposition.BlockSolverInterface.set_var_branching_prio!
 ```
-
-Send to the solver `s` the list of variables branching priorities.
-The number stored at the row `i` is the branching priority of the variable
-stored at the column `i` in the JuMP model.
 
 ## Additional data to the model
 
-```julia
-function::set_objective_bounds_and_magnitude!(s::AbstractMathProgSolver, magn, lb, ub)
+```@docs
+BlockDecomposition.BlockSolverInterface.set_objective_bounds_and_magnitude!
 ```
 
 Send to the solver `s` the magnitude `magn`, the lower bound `lb`
@@ -81,48 +53,29 @@ and the upper bound `ub` of the objective function.
 
 ## Costs and solutions
 
-```julia
-function::getblocksolution(m::AbstractMathProgModel)
+```@docs
+BlockDecomposition.BlockSolverInterface.getcurrentcost
 ```
 
-Get the disaggregated solution and store it in the attribute `ext[:BlockSolution]` of the JuMP model.
-
-```julia
-function::getcurrentcost(m::AbstractMathProgModel, vcol::Integer)
+```@docs
+BlockDecomposition.BlockSolverInterface.getdisaggregatedvalueofvariable
 ```
-
-Returns the current cost of the `vcol` ``{}^{th}`` variable.
-
 
 ## Oracle solver
 
 
-The oracle solver solution must be stored in an object of type inheriting from
-`OracleSolverData`. Following functions communicate between the solver and
-the oracle solver written in Julia.
-
-```julia
-function::set_oraclesolution_solution(o::OracleSolverData, x::JuMP.Variable, v::Real)
+```@docs
+BlockDecomposition.BlockSolverInterface.set_oraclesolution_solution
 ```
 
-Set the value of the variable `x` to `v` in the oracle solver solution stored
-in the `OracleSolverData` object `o`.
-
-```julia
-function::set_oraclesolution_objval(o::OracleSolverData, v::Real)
+```@docs
+BlockDecomposition.BlockSolverInterface.set_oraclesolution_objval
 ```
 
-Sets the objective value stored in the `OracleSolverData` object `o` to `v`.
-
-```julia
-function::set_oraclesolution_newsolution(o::OracleSolverData)
+```@docs
+BlockDecomposition.BlockSolverInterface.set_oraclesolution_newsolution
 ```
 
-Creates a new solution in the oracle solver solution. It is usefull, if the
-user wants to return several solutions.
-
-```julia
-function::get_oracle_phaseofstageapproach(o::OracleSolverData)
+```@docs
+BlockDecomposition.BlockSolverInterface.get_oracle_phaseofstageapproach
 ```
-
-Returns the phase of stage approach.
