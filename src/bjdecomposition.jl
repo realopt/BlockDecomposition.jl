@@ -31,10 +31,6 @@ function create_cstrs_vars_decomposition_list!(m::JuMP.Model)
   m.ext[:vars_decomposition_list] = create_vars_decomposition_list(m, A)
 end
 
-function isgeneratedmaster(m::JuMP.Model)
-  return !isempty(m.ext[:oracles]) || !isempty(m.ext[:generic_vars]) || !isempty(m.ext[:generic_cstrs])
-end
-
 function ismip(m::JuMP.Model)
   DW_dec_f = m.ext[:block_decomposition].DantzigWolfe_decomposition_fct
   B_dec_f = m.ext[:block_decomposition].Benders_decomposition_fct
@@ -102,39 +98,32 @@ function create_cstrs_decomposition_list(m::JuMP.Model, A)
   DW_dec_f = m.ext[:block_decomposition].DantzigWolfe_decomposition_fct
   B_dec_f = m.ext[:block_decomposition].Benders_decomposition_fct
   cstrs_list = Array{Tuple}(size(m.ext[:varcstr_report].cstrs_report))
+  mip = ismip(m)
 
   for (row_id, (name, cstr_id)) in enumerate(m.ext[:varcstr_report].cstrs_report)
-    if isgeneratedmaster(m) # the subproblem can't be a MIP
+    if !mip
       sp_type = :DW_MASTER
-    end
-
-    # Dantzig-Wolfe decomposition
-    if DW_dec_f != nothing
-      (sp_type, sp_id) = DW_decomposition(DW_dec_f, name, cstr_id)
-    end
-
-    # Benders decomposition
-    if B_dec_f != nothing
-      sp_type = :B_MASTER
-      nb_vars = 0
-      for i in nzrange(A, row_id)
-        (var_name, var_id) = m.ext[:varcstr_report].vars_report[rows[i]]
-        (var_sp_type, var_sp_id) = B_decomposition(B_dec_f, var_name, var_id)
-        if nb_vars == 0 || (nb_vars > 0 && var_sp_type != :B_MASTER)
-          # Check if the constraint is in the same subproblem
-          if nb_vars > 0 && sp_type != :B_MASTER && var_sp_id != sp_id
-            bjerror("A single constraint cannot belongs to two different subproblems. (constraint = $name & id = $cstr_id)")
+      if is_genericcstr(m, row_id) #Is it a generic constraint ?
+        sp_type = :ALL
+      elseif DW_dec_f != nothing # Dantzig-Wolfe decomposition
+        (sp_type, sp_id) = DW_decomposition(DW_dec_f, name, cstr_id)
+      elseif B_dec_f != nothing # Benders decomposition
+        sp_type = :B_MASTER
+        nb_vars = 0
+        for i in nzrange(A, row_id)
+          (var_name, var_id) = m.ext[:varcstr_report].vars_report[rows[i]]
+          (var_sp_type, var_sp_id) = B_decomposition(B_dec_f, var_name, var_id)
+          if nb_vars == 0 || (nb_vars > 0 && var_sp_type != :B_MASTER)
+            # Check if the constraint is in the same subproblem
+            if nb_vars > 0 && sp_type != :B_MASTER && var_sp_id != sp_id
+              bjerror("A single constraint cannot belongs to two different subproblems. (constraint = $name & id = $cstr_id)")
+            end
+            sp_type = var_sp_type
+            sp_id = var_sp_id
           end
-          sp_type = var_sp_type
-          sp_id = var_sp_id
+          nb_vars += 1
         end
-        nb_vars += 1
       end
-    end
-
-    # Is it a generated constraint ?
-    if sp_type == :DW_MASTER || sp_type == :B_MASTER || sp_type == :MIP
-      is_genericcstr(m, row_id) && (sp_type = :ALL)
     end
     cstrs_list[row_id] = (name, cstr_id, sp_type, sp_id)
     list_sp!(m, sp_type, sp_id)
@@ -163,7 +152,7 @@ function create_vars_decomposition_list(m::JuMP.Model, A)
   for (column_id, (name, var_id)) in enumerate(m.ext[:varcstr_report].vars_report)
     if !mip
       sp_type = :DW_MASTER
-      if is_genericvar(m, name) #Is it a dynamic variable ?
+      if is_genericvar(m, name) #Is it a generic variable ?
         sp_type = :ALL
       elseif B_dec_f != nothing # benders decomposition
         (sp_type, sp_id) = B_decomposition(B_dec_f, name, var_id)
