@@ -5,16 +5,24 @@ using .BlockSolverInterface
 
 import JuMP
 
-using Requires
-using JuMP
-# Usefull
+# This issue on JuliaLang ends with this comment (Closing as "don't use Requires.jl")
+# https://github.com/JuliaLang/julia/issues/20909
 
-@require BlockDecompositionExtras begin
-       using BlockDecompositionExtras
-end
-@require CPLEX begin
+# using Requires
+using JuMP
+
+# DEPENDENCY ON BlockDecompositionExtras IS NOW IMPLEMENTED BY REDEFINING THE FUNCTION
+# send_extras_to_solver
+
+# @require BlockDecompositionExtras begin
+#        using BlockDecompositionExtras
+# end
+
+# DEPENDENCY ON CPLEX IS MENDATORY (until we add a similar hook to be redefined in CPLEX)
+
+# @require CPLEX begin
        using CPLEX
-end
+# end
 
 export  BlockModel,
         BlockIdentificationData,

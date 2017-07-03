@@ -79,13 +79,17 @@ end
 ## Send data to BlockDecompositionExtras package
 send_extras!() = nothing
 
-@require BlockDecompositionExtras begin
+function send_extras_to_solver!(model) end
+export send_extras_to_solver!
+
+# @require BlockDecompositionExtras begin
   function send_extras!(model::JuMP.Model)
-    if applicable(BlockDecompositionExtras.send_extras_to_solver!, model)
-      BlockDecompositionExtras.send_extras_to_solver!(model)
-    end
+    # if applicable(BlockDecompositionExtras.send_extras_to_solver!, model)
+    #   BlockDecompositionExtras.send_extras_to_solver!(model)
+    # end
+    send_extras_to_solver!(model)
   end
-end
+# end
 
 getdisaggregatedvalue(x::JuMP.JuMPContainer) = warn("getdisaggregatedvalue of a JuMPContainer no longer available. Use getdisaggregatedvalue(x::JuMP.Variable).")
 getdisaggregatedvalue(model::JuMP.Model) = warn("getdisaggregatedvalue of a JuMP.Model no longer available. Use getdisaggregatedvalue(x::JuMP.Variable).")

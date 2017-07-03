@@ -1,6 +1,16 @@
-defineannotations() = nothing
+# # This could be another solution to the mendatory dependency on CPLEX
+# # but it requires CPLEX to be always imported before BlockDecomposition
+# # in defineannotations, deleting this if condition:
+# # if m.solver isa CPLEX.CplexSolver
+# # and adding thelse lines :
+# #
+# function newlongannotation(modelinner, bendersPartitionString, d) end
+# function setlongannotations(model.inner, a, b, c, indexArr, valArr) end
+# export newlongannotation, setlongannotations
 
-@require CPLEX begin
+# defineannotations() = nothing
+#
+# @require CPLEX begin
   function defineannotations(m::JuMP.Model, vars_decomposition)
     if m.solver isa CPLEX.CplexSolver
       JuMP.build(m)
@@ -25,4 +35,4 @@ defineannotations() = nothing
       end
     end
   end
-end
+# end
