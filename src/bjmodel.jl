@@ -40,8 +40,10 @@ function BlockModel(;solver = JuMP.UnsetSolver())
 
   # Callbacks
   m.ext[:oracles] = Array{Tuple{Tuple, Symbol, Function}}(0)
+
   m.ext[:generic_vars] = Dict{Symbol, Tuple{JuMP.Variable, Function}}()
   m.ext[:generic_cstrs] = Dict{Int, Tuple{JuMP.JuMP.ConstraintRef, String, Function}}()
+  m.ext[:cstrs_preproc] = Dict{Tuple{Symbol, Tuple}, Bool}() # (cstrname, sp) => bool
 
   # Columns counter for generic variables & constraints
   m.ext[:colscounter] = 0
