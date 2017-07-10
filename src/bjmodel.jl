@@ -36,7 +36,7 @@ function BlockModel(;solver = JuMP.UnsetSolver())
   m.ext[:sp_prio_tab] = nothing
   m.ext[:objective_data] = ObjectiveData(NaN, -Inf, Inf)
 
-  m.ext[:var_branch_prio_dict] = Dict{Symbol, Cdouble}() # varname => priority
+  m.ext[:var_branch_prio_dict] = Dict{Tuple{Symbol, Tuple, Symbol}, Cdouble}() # (varname, sp, where) => (priority)
 
   # Callbacks
   m.ext[:oracles] = Array{Tuple{Tuple, Symbol, Function}}(0)
@@ -61,17 +61,14 @@ function objectivevaluelowerbound(m::JuMP.Model, lb)
   m.ext[:objective_data].lb = lb
 end
 
-function variablebranchingpriority(x::JuMP.Variable, priority)
-  varname = x.m.colNames[x.col]
-  if varname == ""
-    bjerror("Cannot set the priority of a variable is in a variable container.")
-  end
-  x.m.ext[:var_branch_prio_dict][Symbol(varname)] = priority
+function branchingpriorityinmaster(x::JuMP.JuMPContainer, subproblem::Tuple{Symbol, Union{Tuple, Integer}}, priority)
+  varname = Symbol(x.meta[:model].varData[x].name)
+  x.meta[:model].ext[:var_branch_prio_dict][(varname, subproblem, :MASTER)] = priority
 end
 
-function variablebranchingpriority(x::JuMP.JuMPContainer, priority)
+function branchingpriorityinsubproblem(x::JuMP.JuMPContainer, subproblem::Tuple{Symbol, Union{Tuple, Integer}}, priority)
   varname = Symbol(x.meta[:model].varData[x].name)
-  x.meta[:model].ext[:var_branch_prio_dict][varname] = priority
+  x.meta[:model].ext[:var_branch_prio_dict][(varname, subproblem, :SUBPROBLEM)] = priority
 end
 
 function addspmultiplicity(m::JuMP.Model, sp_mult)
