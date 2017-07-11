@@ -51,29 +51,80 @@ function BlockModel(;solver = JuMP.UnsetSolver())
   m
 end
 
+"""
+    objectivevaluemagnitude(m::JuMP.Model, magnitude)
+
+Set the magnitude of the objective function of the model `m` to `magnitude`
+"""
 function objectivevaluemagnitude(m::JuMP.Model, magnitude)
   m.ext[:objective_data].magnitude = magnitude
 end
 
+"""
+    objectivevalueupperbound(m::JuMP.Model, ub)
+
+Set the upper bound of the objective function of the model `m` to `ub`
+"""
 function objectivevalueupperbound(m::JuMP.Model, ub)
   m.ext[:objective_data].ub = ub
 end
 
+"""
+    objectivevaluelowerbound(m::JuMP.Model, lb)
+
+Set the lower bound of the objective function of the model `m` to `lb`
+"""
 function objectivevaluelowerbound(m::JuMP.Model, lb)
   m.ext[:objective_data].lb = lb
 end
 
+"""
+    branchingpriorityinmaster(x::JuMP.JuMPContainer, subproblem::Tuple{Symbol, Union{Tuple, Integer}}, priority)
+
+Assign to the variables `x` defined in the subproblem `subproblem` the priority
+value `priority` in master.
+
+```julia
+branchingpriorityinmaster(x, (:B_SP, 1), 2)
+```
+The variable `x` defined in the Benders subproblem with id `1` will have the
+branching priority value `2`in the master.
+"""
 function branchingpriorityinmaster(x::JuMP.JuMPContainer, subproblem::Tuple{Symbol, Union{Tuple, Integer}}, priority)
   varname = Symbol(x.meta[:model].varData[x].name)
   x.meta[:model].ext[:var_branch_prio_dict][(varname, subproblem, :MASTER)] = priority
 end
 
+"""
+    branchingpriorityinsubproblem(x::JuMP.JuMPContainer, subproblem::Tuple{Symbol, Union{Tuple, Integer}}, priority)
+
+Assign to the variables `x` defined in the subproblem `subproblem` the priority
+value `priority` in subproblems.
+
+```julia
+branchingpriorityinsubproblem(x, (:B_SP, 1), 2)
+```
+The variable `x` defined in the Benders subproblem with id `1` will have the
+branching priority value `2`in subproblems.
+"""
 function branchingpriorityinsubproblem(x::JuMP.JuMPContainer, subproblem::Tuple{Symbol, Union{Tuple, Integer}}, priority)
   varname = Symbol(x.meta[:model].varData[x].name)
   x.meta[:model].ext[:var_branch_prio_dict][(varname, subproblem, :SUBPROBLEM)] = priority
 end
 
-function addspmultiplicity(m::JuMP.Model, sp_mult)
+"""
+    addspmultiplicity(m::JuMP.Model, sp_mult::Function)
+
+assign the multiplicity function `sp_mult` to the model `m`. The multiplicity
+function takes two arguments, the type of the subproblem `sp_type` and the id
+of the subproblem `sp_id`. It returns a `Pair` within the lower bound `lb` and
+the upper bound `ub` of the multiplicity.
+
+```julia
+  sp_mult(sp_type::Symbol, sp_id::Union{Integer, Tuple}) = (lb, ub)
+```
+"""
+function addspmultiplicity(m::JuMP.Model, sp_mult::Function)
   m.ext[:sp_mult_fct] = sp_mult
 end
 

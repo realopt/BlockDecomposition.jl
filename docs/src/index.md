@@ -21,6 +21,7 @@ Pages = [
     "installation.md",
     "introduction.md",
     "basic.md",
+    "callbacks.md",
     "advanced.md",
     "BlockSolverInterface.md"
 ]
