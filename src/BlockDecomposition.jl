@@ -3,7 +3,7 @@ module BlockDecomposition
 include("BlockSolverInterface.jl")
 using .BlockSolverInterface
 
-import JuMP
+importall JuMP
 
 # This issue on JuliaLang ends with this comment (Closing as "don't use Requires.jl")
 # https://github.com/JuliaLang/julia/issues/20909
@@ -47,11 +47,12 @@ export OracleSolverData,
        addoracletosp!,
        add_oracle_to_DWsp!,
        add_oracle_to_Bsp!,
-       addtosolution,
-       setsolutionobjval,
+       setsolutionvalue,
+       setsolutionbestobjval,
+       addsolution,
        getspid,
        getsptype,
-       attachnewsolution,
+       addsolution,
        getphaseofstageapproach
 
 import Base.convert, Base.show, Base.copy, Base.pointer

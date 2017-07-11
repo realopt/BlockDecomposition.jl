@@ -36,12 +36,12 @@ function getphaseofstageapproach(data::OracleSolverData)
 end
 
 """
-    attachnewsolution(data::OracleSolverData)
+    addsolution(data::OracleSolverData)
 
 It ends the current solution and create a new solution in the oracle solver
 solution. Note that the previous solutions cannot be modified anymore.
 """
-function attachnewsolution(data::OracleSolverData)
+function addsolution(data::OracleSolverData)
   if applicable(set_oraclesolution_newsolution, data)
     set_oraclesolution_newsolution(data)
   else
@@ -50,12 +50,12 @@ function attachnewsolution(data::OracleSolverData)
 end
 
 """
-    addtosolution(data::OracleSolverData, x, val::Real)
-    
+    setsolutionvalue!(data::OracleSolverData, x, val::Real)
+
 Assigns the value `val` to the variable `x` in the solution of the
 oracle solver
 """
-function addtosolution(data::OracleSolverData, x, val::Real)
+function setsolutionvalue(data::OracleSolverData, x, val::Real)
   if applicable(set_oraclesolution_solution, data, x, val)
     set_oraclesolution_solution(data, x, val)
   else
@@ -64,12 +64,12 @@ function addtosolution(data::OracleSolverData, x, val::Real)
 end
 
 """
-    setsolutionobjval(data::OracleSolverData, objval::Real)
+    setsolutionbestobjval!(data::OracleSolverData, objval::Real)
 
 Assigns the value `value` to the variable `x` in the solution of the
 oracle solver
 """
-function setsolutionobjval(data::OracleSolverData, objval::Real)
+function setsolutionbestobjval(data::OracleSolverData, objval::Real)
   if applicable(set_oraclesolution_objval, data, objval)
     set_oraclesolution_objval(data, objval)
   else
