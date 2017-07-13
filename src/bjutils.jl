@@ -25,6 +25,14 @@ isa_jumpvar(contnr) = isa(contnr, JuMP.Variable)
 contains_jumpcstr(contnr) = contains("$(typeof(contnr))", "JuMP.ConstraintRef")
 contains_jumpvar(contnr) = contains("$(typeof(contnr))", "JuMP.Variable")
 
+name(x::JuMP.JuMPContainer) = Symbol(x.meta[:model].varData[x].name)
+name(x::JuMP.Variable) = Symbol(x.m.colNames[x.col])
+
+jumpmodel(x::JuMP.JuMPContainer) = x.meta[:model]
+jumpmodel(c::JuMP.JuMPArray) = c.innerArray[end].m
+jumpmodel(x::JuMP.Variable) = x.m
+jumpmodel(c::JuMP.ConstraintRef) = c.m
+
 # Get the keys of an array of dimension dim
 type KeyArrayIterator
   a::Array

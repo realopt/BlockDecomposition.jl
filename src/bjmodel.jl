@@ -91,8 +91,9 @@ The variable `x` defined in the Benders subproblem with id `1` will have the
 branching priority value `2`in the master.
 """
 function branchingpriorityinmaster(x::JuMP.JuMPContainer, subproblem::Tuple{Symbol, Union{Tuple, Integer}}, priority)
-  varname = Symbol(x.meta[:model].varData[x].name)
-  x.meta[:model].ext[:var_branch_prio_dict][(varname, subproblem, :MASTER)] = priority
+  var_name = name(x)
+  model = jumpmodel(x)
+  model.ext[:var_branch_prio_dict][(var_name, subproblem, :MASTER)] = priority
 end
 
 """
@@ -108,8 +109,9 @@ The variable `x` defined in the Benders subproblem with id `1` will have the
 branching priority value `2`in subproblems.
 """
 function branchingpriorityinsubproblem(x::JuMP.JuMPContainer, subproblem::Tuple{Symbol, Union{Tuple, Integer}}, priority)
-  varname = Symbol(x.meta[:model].varData[x].name)
-  x.meta[:model].ext[:var_branch_prio_dict][(varname, subproblem, :SUBPROBLEM)] = priority
+  var_name = name(x)
+  model = jumpmodel(x)
+  model.ext[:var_branch_prio_dict][(var_name, subproblem, :SUBPROBLEM)] = priority
 end
 
 """

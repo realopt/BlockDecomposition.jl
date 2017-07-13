@@ -57,6 +57,8 @@ export OracleSolverData,
        addsolution,
        getphaseofstageapproach
 
+export name, jumpmodel
+
 import Base.convert, Base.show, Base.copy, Base.pointer
 
 include("bjutils.jl")
