@@ -90,6 +90,43 @@ function getcurcost(x::JuMP.Variable)
 end
 
 """
+    getcurub(x::JuMP.Variable)
+
+Returns the current ub of the varibale `x`.
+"""
+function getcurub(x::JuMP.Variable)
+  if applicable(getcurrentub, x.m.internalModel, x.col)
+    return getcurrentub(x.m.internalModel, x.col)
+  end
+  bjerror("Solver does not appear to support current ub.")
+end
+
+"""
+    getcurlb(x::JuMP.Variable)
+
+Returns the current lb of the varibale `x`.
+"""
+function getcurlb(x::JuMP.Variable)
+  if applicable(getcurrentlb, x.m.internalModel, x.col)
+    return getcurrentlb(x.m.internalModel, x.col)
+  end
+  bjerror("Solver does not appear to support current lb.")
+end
+
+
+"""
+    getcurdual(x::JuMP.Constraint)
+
+Returns the current dual of the constraint `x`.
+"""
+function getcurdual(x::JuMP.ConstraintRef)
+  if applicable(getmasterdual, x.m.internalModel, x.idx)
+    return getmasterdual(x.m.internalModel, x.idx)
+  end
+  bjerror("Solver does not appear to support current dual.")
+end
+
+"""
     getspid(data::OracleSolverData)
 
 Returns the subproblem index for which the oracle has been assigned.

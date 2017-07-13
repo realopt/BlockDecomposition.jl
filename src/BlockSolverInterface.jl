@@ -134,6 +134,33 @@ getcurrentcost() = nothing
 export getcurrentcost
 
 """
+    getcurrentub(m::AbstractMathProgModel, vcol::Integer)
+
+
+returns the current ub of the `vcol` ``{}^{th}`` variable.
+"""
+getcurrentub() = nothing
+export getcurrentub
+
+"""
+    getcurrentlb(m::AbstractMathProgModel, vcol::Integer)
+
+
+returns the current lb of the `vcol` ``{}^{th}`` variable.
+"""
+getcurrentlb() = nothing
+export getcurrentlb
+
+"""
+    getmasterdual(m::AbstractMathProgModel, crow::Integer)
+
+
+returns the current dual of the `crow` ``{}^{th}`` variable.
+"""
+getmasterdual() = nothing
+export getmasterdual
+
+"""
     getdisaggregatedvalueofvariable(m::AbstractMathProgModel, vcol::Integer)
 
 returns the disaggregated value of the `vcol` ``{}^{th}`` variable.
