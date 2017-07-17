@@ -60,15 +60,14 @@ function myKnapsackSolver(od::OracleSolverData)
     # Building the oracle solution
     for j in data.jobs
         # add to oracle solution variables x[machine,j] with values sol_x_m[j]
-        addtosolution(od, x[machine,j], sol_x_m[j])
+        setsolutionvalue(od, x[machine,j], sol_x_m[j])
     end
 
     # Set the objective value of the solution
-    setsolutionobjval(od, value)
+    setsolutionbestobjval(od, value)
 end
 ```
 
-In this code, we use the four main functions for oracles provided by BlockDecomposition.
 
 ```@docs
 getspid
@@ -79,11 +78,27 @@ getcurcost
 ```
 
 ```@docs
-addtosolution
+getcurub
 ```
 
 ```@docs
-setsolutionobjval
+getcurlb
+```
+
+```@docs
+getcurdual
+```
+
+```@docs
+setsolutionvalue
+```
+
+```@docs
+setsolutionbestobjval
+```
+
+```@docs
+addsolution
 ```
 
 ## Attach the oracle solver
@@ -93,10 +108,9 @@ the following function.
 
 ```@docs
 addoracletosp!
-````
+```
 
-In our example, we do
-
+In our example, for each subproblem with `m`, we assign the oracle `myKnapsackSolver`.
 ```julia
 for m in data.machines
     addoracletosp!(gap, m, myKnapsackSolver)
