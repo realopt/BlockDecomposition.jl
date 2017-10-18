@@ -16,6 +16,10 @@ end
 
 assigns the decomposition function `B_decomp` to the `model`.
 """
+function use_Benders_decomposition(m::JuMP.Model)
+  return m.ext[:block_decomposition].Benders_decomposition_fct != nothing
+end
+
 function add_Benders_decomposition(m::JuMP.Model, f::Function)
   m.ext[:block_decomposition].Benders_decomposition_fct = f
 end
@@ -106,7 +110,12 @@ function create_cstrs_decomposition_list(m::JuMP.Model, A)
       if is_genericcstr(m, row_id) #Is it a generic constraint ?
         sp_type = :ALL
       elseif DW_dec_f != nothing # Dantzig-Wolfe decomposition
-        (sp_type, sp_id) = DW_decomposition(DW_dec_f, name, cstr_id)
+        if name == :anonymous
+          warn("Anonymous constraint assigned to master problem during decomposition.")
+          sp_type = :DW_MASTER
+        else
+          (sp_type, sp_id) = DW_decomposition(DW_dec_f, name, cstr_id)
+        end
       elseif B_dec_f != nothing # Benders decomposition
         sp_type = :B_MASTER
         nb_vars = 0

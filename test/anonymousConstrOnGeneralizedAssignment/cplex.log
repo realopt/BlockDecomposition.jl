@@ -1,0 +1,776 @@
+CPXPARAM_Simplex_Tolerances_Optimality           9.9999999999999995e-08
+CPXPARAM_Simplex_Tolerances_Feasibility          9.9999999999999995e-08
+CPXPARAM_TimeLimit                               3600
+CPXPARAM_Preprocessing_Reduce                    1
+CPXPARAM_Preprocessing_Linear                    0
+CPXPARAM_MIP_Tolerances_MIPGap                   1.0000000000000001e-09
+CPXPARAM_MIP_Limits_Nodes                        20000
+
+Iteration log . . .
+Iteration:     1   Dual objective     =           120.000000
+CPXPARAM_Advance                                 0
+CPXPARAM_Simplex_Tolerances_Optimality           9.9999999999999995e-08
+CPXPARAM_TimeLimit                               1880.3169
+CPXPARAM_Preprocessing_Linear                    0
+CPXPARAM_MIP_Tolerances_MIPGap                   1.0000000000000001e-09
+CPXPARAM_MIP_Limits_Nodes                        20000
+Found incumbent of value 0.000000 after 0.00 sec. (0.00 ticks)
+Tried aggregator 1 time.
+MIP Presolve eliminated 1 rows and 0 columns.
+MIP Presolve added 1 rows and 1 columns.
+MIP Presolve modified 8 coefficients.
+Reduced MIP has 1 rows, 6 columns, and 6 nonzeros.
+Reduced MIP has 5 binaries, 1 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (0.01 ticks)
+Probing time = 0.00 sec. (0.00 ticks)
+Tried aggregator 1 time.
+MIP Presolve eliminated 1 rows and 1 columns.
+MIP Presolve added 1 rows and 1 columns.
+Reduced MIP has 1 rows, 6 columns, and 6 nonzeros.
+Reduced MIP has 5 binaries, 1 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (0.01 ticks)
+Probing time = 0.00 sec. (0.00 ticks)
+Clique table members: 1.
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 4 threads.
+Root relaxation solution time = 0.00 sec. (0.00 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0+    0                            0.0000     -578.0000              --- 
+*     0+    0                         -350.0000     -578.0000            65.14%
+*     0     0      integral     0     -462.0000     -462.0000        1    0.00%
+Elapsed time = 0.00 sec. (0.03 ticks, tree = 0.00 MB, solutions = 3)
+CPXPARAM_Advance                                 0
+CPXPARAM_Simplex_Tolerances_Optimality           9.9999999999999995e-08
+CPXPARAM_TimeLimit                               1880.307
+CPXPARAM_Preprocessing_Linear                    0
+CPXPARAM_MIP_Tolerances_MIPGap                   1.0000000000000001e-09
+CPXPARAM_MIP_Limits_Nodes                        20000
+Found incumbent of value 0.000000 after 0.00 sec. (0.00 ticks)
+Tried aggregator 1 time.
+MIP Presolve eliminated 0 rows and 2 columns.
+MIP Presolve added 1 rows and 1 columns.
+MIP Presolve modified 4 coefficients.
+Reduced MIP has 2 rows, 5 columns, and 8 nonzeros.
+Reduced MIP has 4 binaries, 1 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (0.01 ticks)
+Probing time = 0.00 sec. (0.00 ticks)
+Tried aggregator 1 time.
+MIP Presolve eliminated 1 rows and 1 columns.
+MIP Presolve added 1 rows and 1 columns.
+Reduced MIP has 2 rows, 5 columns, and 8 nonzeros.
+Reduced MIP has 4 binaries, 1 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (0.01 ticks)
+Probing time = 0.00 sec. (0.00 ticks)
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 4 threads.
+Root relaxation solution time = 0.00 sec. (0.00 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0+    0                         -114.0000     -571.0000           400.88%
+*     0+    0                         -459.0000     -571.0000            24.40%
+      0     0        cutoff           -459.0000     -459.0000        1    0.00%
+      0     0        cutoff           -459.0000     -459.0000        1    0.00%
+Elapsed time = 0.00 sec. (0.04 ticks, tree = 0.01 MB, solutions = 2)
+CPXPARAM_Advance                                 0
+CPXPARAM_Simplex_Tolerances_Optimality           9.9999999999999995e-08
+CPXPARAM_TimeLimit                               1880.307
+CPXPARAM_Preprocessing_Linear                    0
+CPXPARAM_MIP_Tolerances_MIPGap                   1.0000000000000001e-09
+CPXPARAM_MIP_Limits_Nodes                        20000
+Found incumbent of value 0.000000 after 0.00 sec. (0.00 ticks)
+Tried aggregator 1 time.
+MIP Presolve added 1 rows and 1 columns.
+Reduced MIP has 2 rows, 6 columns, and 9 nonzeros.
+Reduced MIP has 5 binaries, 1 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (0.01 ticks)
+Probing time = 0.00 sec. (0.00 ticks)
+Cover probing fixed 0 vars, tightened 1 bounds.
+Tried aggregator 1 time.
+MIP Presolve eliminated 1 rows and 1 columns.
+MIP Presolve added 1 rows and 1 columns.
+Reduced MIP has 2 rows, 6 columns, and 9 nonzeros.
+Reduced MIP has 5 binaries, 1 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (0.01 ticks)
+Probing time = 0.00 sec. (0.00 ticks)
+Clique table members: 1.
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 4 threads.
+Root relaxation solution time = 0.00 sec. (0.00 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0+    0                            0.0000     -584.0000              --- 
+*     0+    0                         -348.0000     -584.0000            67.82%
+      0     0     -414.1111     1     -348.0000     -414.1111        1   19.00%
+*     0+    0                         -354.0000     -414.1111            16.98%
+      0     0        cutoff           -354.0000     -354.0000        1    0.00%
+Elapsed time = 0.00 sec. (0.05 ticks, tree = 0.01 MB, solutions = 3)
+CPXPARAM_Simplex_Tolerances_Optimality           9.9999999999999995e-08
+CPXPARAM_Simplex_Tolerances_Feasibility          9.9999999999999995e-08
+CPXPARAM_TimeLimit                               3600
+CPXPARAM_Preprocessing_Reduce                    1
+CPXPARAM_Preprocessing_Linear                    0
+CPXPARAM_MIP_Tolerances_MIPGap                   1.0000000000000001e-09
+CPXPARAM_MIP_Limits_Nodes                        20000
+Using devex.
+
+Iteration log . . .
+Iteration:     1    Objective     =           378.000000
+
+Root node processing (before b&c):
+  Real time             =    0.00 sec. (0.03 ticks)
+Parallel b&c, 4 threads:
+  Real time             =    0.00 sec. (0.00 ticks)
+  Sync time (average)   =    0.00 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =    0.00 sec. (0.03 ticks)
+CPXPARAM_Advance                                 0
+CPXPARAM_Simplex_Tolerances_Optimality           9.9999999999999995e-08
+CPXPARAM_TimeLimit                               1880.307
+CPXPARAM_Preprocessing_Linear                    0
+CPXPARAM_MIP_Tolerances_MIPGap                   1.0000000000000001e-09
+CPXPARAM_MIP_Limits_Nodes                        20000
+Found incumbent of value 0.000000 after 0.00 sec. (0.00 ticks)
+Tried aggregator 1 time.
+MIP Presolve eliminated 1 rows and 0 columns.
+MIP Presolve added 1 rows and 1 columns.
+MIP Presolve modified 8 coefficients.
+Reduced MIP has 1 rows, 6 columns, and 6 nonzeros.
+Reduced MIP has 5 binaries, 1 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (0.01 ticks)
+Probing time = 0.00 sec. (0.00 ticks)
+Tried aggregator 1 time.
+MIP Presolve eliminated 1 rows and 1 columns.
+MIP Presolve added 1 rows and 1 columns.
+Reduced MIP has 1 rows, 6 columns, and 6 nonzeros.
+Reduced MIP has 5 binaries, 1 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (0.00 ticks)
+Probing time = 0.00 sec. (0.00 ticks)
+Clique table members: 1.
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 4 threads.
+Root relaxation solution time = 0.00 sec. (0.00 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0+    0                            0.0000     -317.4500              --- 
+*     0+    0                         -197.4500     -317.4500            60.77%
+*     0     0      integral     0     -246.0000     -246.0000        1    0.00%
+Elapsed time = 0.00 sec. (0.03 ticks, tree = 0.00 MB, solutions = 3)
+
+Root node processing (before b&c):
+  Real time             =    0.00 sec. (0.04 ticks)
+Parallel b&c, 4 threads:
+  Real time             =    0.00 sec. (0.00 ticks)
+  Sync time (average)   =    0.00 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =    0.00 sec. (0.04 ticks)
+CPXPARAM_Advance                                 0
+CPXPARAM_Simplex_Tolerances_Optimality           9.9999999999999995e-08
+CPXPARAM_TimeLimit                               1880.2971
+CPXPARAM_Preprocessing_Linear                    0
+CPXPARAM_MIP_Tolerances_MIPGap                   1.0000000000000001e-09
+CPXPARAM_MIP_Limits_Nodes                        20000
+Found incumbent of value 0.000000 after 0.00 sec. (0.00 ticks)
+Tried aggregator 1 time.
+MIP Presolve eliminated 0 rows and 2 columns.
+MIP Presolve added 1 rows and 1 columns.
+MIP Presolve modified 4 coefficients.
+Reduced MIP has 2 rows, 5 columns, and 8 nonzeros.
+Reduced MIP has 4 binaries, 1 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (0.01 ticks)
+Probing time = 0.00 sec. (0.00 ticks)
+Tried aggregator 1 time.
+MIP Presolve eliminated 1 rows and 1 columns.
+MIP Presolve added 1 rows and 1 columns.
+Reduced MIP has 2 rows, 5 columns, and 8 nonzeros.
+Reduced MIP has 4 binaries, 1 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (0.01 ticks)
+Probing time = 0.00 sec. (0.00 ticks)
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 4 threads.
+Root relaxation solution time = 0.00 sec. (0.00 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0+    0                          -60.0000     -310.4500           417.42%
+*     0+    0                         -252.4500     -310.4500            22.97%
+      0     0        cutoff           -252.4500     -252.4500        1    0.00%
+      0     0        cutoff           -252.4500     -252.4500        1    0.00%
+Elapsed time = 0.00 sec. (0.04 ticks, tree = 0.01 MB, solutions = 2)
+
+Root node processing (before b&c):
+  Real time             =    0.00 sec. (0.05 ticks)
+Parallel b&c, 4 threads:
+  Real time             =    0.00 sec. (0.00 ticks)
+  Sync time (average)   =    0.00 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =    0.00 sec. (0.05 ticks)
+CPXPARAM_Advance                                 0
+CPXPARAM_Simplex_Tolerances_Optimality           9.9999999999999995e-08
+CPXPARAM_TimeLimit                               1880.2971
+CPXPARAM_Preprocessing_Linear                    0
+CPXPARAM_MIP_Tolerances_MIPGap                   1.0000000000000001e-09
+CPXPARAM_MIP_Limits_Nodes                        20000
+Found incumbent of value 0.000000 after 0.00 sec. (0.00 ticks)
+Tried aggregator 1 time.
+MIP Presolve added 1 rows and 1 columns.
+Reduced MIP has 2 rows, 6 columns, and 9 nonzeros.
+Reduced MIP has 5 binaries, 1 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (0.01 ticks)
+Probing time = 0.00 sec. (0.00 ticks)
+Cover probing fixed 0 vars, tightened 1 bounds.
+Tried aggregator 1 time.
+MIP Presolve eliminated 1 rows and 1 columns.
+MIP Presolve added 1 rows and 1 columns.
+Reduced MIP has 2 rows, 6 columns, and 9 nonzeros.
+Reduced MIP has 5 binaries, 1 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (0.01 ticks)
+Probing time = 0.00 sec. (0.00 ticks)
+Clique table members: 1.
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 4 threads.
+Root relaxation solution time = 0.00 sec. (0.00 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0+    0                            0.0000     -323.4500              --- 
+*     0+    0                         -193.4500     -323.4500            67.20%
+      0     0     -222.2250     1     -193.4500     -222.2250        1   14.87%
+      0     0        cutoff           -193.4500                      1    0.00%
+Elapsed time = 0.00 sec. (0.05 ticks, tree = 0.01 MB, solutions = 2)
+CPXPARAM_Simplex_Tolerances_Optimality           9.9999999999999995e-08
+CPXPARAM_Simplex_Tolerances_Feasibility          9.9999999999999995e-08
+CPXPARAM_TimeLimit                               3600
+CPXPARAM_Preprocessing_Reduce                    1
+CPXPARAM_Preprocessing_Linear                    0
+CPXPARAM_MIP_Tolerances_MIPGap                   1.0000000000000001e-09
+CPXPARAM_MIP_Limits_Nodes                        20000
+Using devex.
+
+Iteration log . . .
+Iteration:     1    Objective     =            45.000000
+
+Root node processing (before b&c):
+  Real time             =    0.00 sec. (0.03 ticks)
+Parallel b&c, 4 threads:
+  Real time             =    0.00 sec. (0.00 ticks)
+  Sync time (average)   =    0.00 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =    0.00 sec. (0.03 ticks)
+CPXPARAM_Advance                                 0
+CPXPARAM_Simplex_Tolerances_Optimality           9.9999999999999995e-08
+CPXPARAM_TimeLimit                               1880.2971
+CPXPARAM_Preprocessing_Linear                    0
+CPXPARAM_MIP_Tolerances_MIPGap                   1.0000000000000001e-09
+CPXPARAM_MIP_Limits_Nodes                        20000
+Found incumbent of value 0.000000 after 0.00 sec. (0.00 ticks)
+Tried aggregator 1 time.
+MIP Presolve eliminated 1 rows and 0 columns.
+MIP Presolve added 1 rows and 1 columns.
+MIP Presolve modified 8 coefficients.
+Reduced MIP has 1 rows, 6 columns, and 6 nonzeros.
+Reduced MIP has 5 binaries, 1 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (0.01 ticks)
+Probing time = 0.00 sec. (0.00 ticks)
+Tried aggregator 1 time.
+MIP Presolve eliminated 1 rows and 1 columns.
+MIP Presolve added 1 rows and 1 columns.
+Reduced MIP has 1 rows, 6 columns, and 6 nonzeros.
+Reduced MIP has 5 binaries, 1 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (0.00 ticks)
+Probing time = 0.00 sec. (0.00 ticks)
+Clique table members: 1.
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 4 threads.
+Root relaxation solution time = 0.00 sec. (0.00 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0+    0                            0.0000     -135.1525              --- 
+*     0+    0                          -87.7525     -135.1525            54.02%
+      0     0     -101.8644     1      -87.7525     -101.8644        1   16.08%
+*     0+    0                         -100.8000     -101.8644             1.06%
+      0     0        cutoff           -100.8000                      1    0.00%
+Elapsed time = 0.00 sec. (0.04 ticks, tree = 0.01 MB, solutions = 3)
+
+Root node processing (before b&c):
+  Real time             =    0.00 sec. (0.04 ticks)
+Parallel b&c, 4 threads:
+  Real time             =    0.00 sec. (0.00 ticks)
+  Sync time (average)   =    0.00 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =    0.00 sec. (0.04 ticks)
+CPXPARAM_Advance                                 0
+CPXPARAM_Simplex_Tolerances_Optimality           9.9999999999999995e-08
+CPXPARAM_TimeLimit                               1880.2872
+CPXPARAM_Preprocessing_Linear                    0
+CPXPARAM_MIP_Tolerances_MIPGap                   1.0000000000000001e-09
+CPXPARAM_MIP_Limits_Nodes                        20000
+Found incumbent of value 0.000000 after 0.00 sec. (0.00 ticks)
+Tried aggregator 1 time.
+MIP Presolve eliminated 0 rows and 2 columns.
+MIP Presolve added 1 rows and 1 columns.
+MIP Presolve modified 4 coefficients.
+Reduced MIP has 2 rows, 5 columns, and 8 nonzeros.
+Reduced MIP has 4 binaries, 1 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (0.01 ticks)
+Probing time = 0.00 sec. (0.00 ticks)
+Tried aggregator 1 time.
+MIP Presolve eliminated 1 rows and 1 columns.
+MIP Presolve added 1 rows and 1 columns.
+Reduced MIP has 2 rows, 5 columns, and 8 nonzeros.
+Reduced MIP has 4 binaries, 1 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (0.01 ticks)
+Probing time = 0.00 sec. (0.00 ticks)
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 4 threads.
+Root relaxation solution time = 0.00 sec. (0.00 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0+    0                          -23.7000     -128.1525           440.73%
+*     0+    0                         -106.4525     -128.1525            20.38%
+      0     0        cutoff           -106.4525     -106.4525        1    0.00%
+      0     0        cutoff           -106.4525     -106.4525        1    0.00%
+Elapsed time = 0.00 sec. (0.04 ticks, tree = 0.01 MB, solutions = 2)
+
+Root node processing (before b&c):
+  Real time             =    0.00 sec. (0.05 ticks)
+Parallel b&c, 4 threads:
+  Real time             =    0.00 sec. (0.00 ticks)
+  Sync time (average)   =    0.00 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =    0.00 sec. (0.05 ticks)
+CPXPARAM_Advance                                 0
+CPXPARAM_Simplex_Tolerances_Optimality           9.9999999999999995e-08
+CPXPARAM_TimeLimit                               1880.2872
+CPXPARAM_Preprocessing_Linear                    0
+CPXPARAM_MIP_Tolerances_MIPGap                   1.0000000000000001e-09
+CPXPARAM_MIP_Limits_Nodes                        20000
+Found incumbent of value 0.000000 after 0.00 sec. (0.00 ticks)
+Tried aggregator 1 time.
+MIP Presolve added 1 rows and 1 columns.
+Reduced MIP has 2 rows, 6 columns, and 9 nonzeros.
+Reduced MIP has 5 binaries, 1 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (0.01 ticks)
+Probing time = 0.00 sec. (0.00 ticks)
+Cover probing fixed 0 vars, tightened 1 bounds.
+Tried aggregator 1 time.
+MIP Presolve eliminated 1 rows and 1 columns.
+MIP Presolve added 1 rows and 1 columns.
+Reduced MIP has 2 rows, 6 columns, and 9 nonzeros.
+Reduced MIP has 5 binaries, 1 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (0.01 ticks)
+Probing time = 0.00 sec. (0.00 ticks)
+Clique table members: 1.
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 4 threads.
+Root relaxation solution time = 0.00 sec. (0.00 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0+    0                            0.0000     -141.1525              --- 
+*     0+    0                          -83.7525     -141.1525            68.54%
+      0     0      -94.7763     1      -83.7525      -94.7763        1   13.16%
+      0     0        cutoff            -83.7525                      3    0.00%
+Elapsed time = 0.01 sec. (0.05 ticks, tree = 0.01 MB, solutions = 2)
+
+Root node processing (before b&c):
+  Real time             =    0.00 sec. (0.04 ticks)
+Parallel b&c, 4 threads:
+  Real time             =    0.00 sec. (0.00 ticks)
+  Sync time (average)   =    0.00 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =    0.00 sec. (0.04 ticks)
+CPXPARAM_Advance                                 0
+CPXPARAM_Simplex_Tolerances_Optimality           9.9999999999999995e-08
+CPXPARAM_TimeLimit                               1880.2773
+CPXPARAM_Preprocessing_Linear                    0
+CPXPARAM_MIP_Tolerances_MIPGap                   1.0000000000000001e-09
+CPXPARAM_MIP_Limits_Nodes                        20000
+Found incumbent of value 0.000000 after 0.00 sec. (0.00 ticks)
+Tried aggregator 1 time.
+MIP Presolve eliminated 1 rows and 5 columns.
+All rows and columns eliminated.
+Presolve time = 0.00 sec. (0.00 ticks)
+
+Root node processing (before b&c):
+  Real time             =    0.00 sec. (0.04 ticks)
+Parallel b&c, 4 threads:
+  Real time             =    0.00 sec. (0.00 ticks)
+  Sync time (average)   =    0.00 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =    0.00 sec. (0.04 ticks)
+CPXPARAM_Advance                                 0
+CPXPARAM_Simplex_Tolerances_Optimality           9.9999999999999995e-08
+CPXPARAM_TimeLimit                               1880.2773
+CPXPARAM_Preprocessing_Linear                    0
+CPXPARAM_MIP_Tolerances_MIPGap                   1.0000000000000001e-09
+CPXPARAM_MIP_Limits_Nodes                        20000
+Found incumbent of value 0.000000 after 0.00 sec. (0.00 ticks)
+Tried aggregator 1 time.
+MIP Presolve eliminated 1 rows and 6 columns.
+All rows and columns eliminated.
+Presolve time = 0.00 sec. (0.00 ticks)
+
+Root node processing (before b&c):
+  Real time             =    0.01 sec. (0.05 ticks)
+Parallel b&c, 4 threads:
+  Real time             =    0.00 sec. (0.00 ticks)
+  Sync time (average)   =    0.00 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =    0.01 sec. (0.05 ticks)
+CPXPARAM_Advance                                 0
+CPXPARAM_Simplex_Tolerances_Optimality           9.9999999999999995e-08
+CPXPARAM_TimeLimit                               1880.2773
+CPXPARAM_Preprocessing_Linear                    0
+CPXPARAM_MIP_Tolerances_MIPGap                   1.0000000000000001e-09
+CPXPARAM_MIP_Limits_Nodes                        20000
+Found incumbent of value 0.000000 after 0.00 sec. (0.00 ticks)
+Tried aggregator 1 time.
+MIP Presolve eliminated 1 rows and 5 columns.
+All rows and columns eliminated.
+Presolve time = 0.00 sec. (0.00 ticks)
+CPXPARAM_Simplex_Tolerances_Optimality           9.9999999999999995e-08
+CPXPARAM_Simplex_Tolerances_Feasibility          9.9999999999999995e-08
+CPXPARAM_TimeLimit                               3600
+CPXPARAM_Preprocessing_Reduce                    1
+CPXPARAM_Preprocessing_Linear                    0
+CPXPARAM_MIP_Tolerances_MIPGap                   1.0000000000000001e-09
+CPXPARAM_MIP_Limits_Nodes                        20000
+Using devex.
+
+Iteration log . . .
+Iteration:     1    Objective     =            45.000000
+
+Root node processing (before b&c):
+  Real time             =    0.00 sec. (0.01 ticks)
+Parallel b&c, 4 threads:
+  Real time             =    0.00 sec. (0.00 ticks)
+  Sync time (average)   =    0.00 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =    0.00 sec. (0.01 ticks)
+CPXPARAM_Advance                                 0
+CPXPARAM_Simplex_Tolerances_Optimality           9.9999999999999995e-08
+CPXPARAM_TimeLimit                               1880.2773
+CPXPARAM_Preprocessing_Linear                    0
+CPXPARAM_MIP_Tolerances_MIPGap                   1.0000000000000001e-09
+CPXPARAM_MIP_Limits_Nodes                        20000
+Found incumbent of value 0.000000 after 0.00 sec. (0.00 ticks)
+Tried aggregator 1 time.
+MIP Presolve eliminated 1 rows and 5 columns.
+All rows and columns eliminated.
+Presolve time = 0.00 sec. (0.00 ticks)
+
+Root node processing (before b&c):
+  Real time             =    0.00 sec. (0.01 ticks)
+Parallel b&c, 4 threads:
+  Real time             =    0.00 sec. (0.00 ticks)
+  Sync time (average)   =    0.00 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =    0.00 sec. (0.01 ticks)
+CPXPARAM_Advance                                 0
+CPXPARAM_Simplex_Tolerances_Optimality           9.9999999999999995e-08
+CPXPARAM_TimeLimit                               1880.2773
+CPXPARAM_Preprocessing_Linear                    0
+CPXPARAM_MIP_Tolerances_MIPGap                   1.0000000000000001e-09
+CPXPARAM_MIP_Limits_Nodes                        20000
+Found incumbent of value 0.000000 after 0.00 sec. (0.00 ticks)
+Tried aggregator 1 time.
+MIP Presolve eliminated 1 rows and 6 columns.
+All rows and columns eliminated.
+Presolve time = 0.00 sec. (0.00 ticks)
+
+Root node processing (before b&c):
+  Real time             =    0.00 sec. (0.01 ticks)
+Parallel b&c, 4 threads:
+  Real time             =    0.00 sec. (0.00 ticks)
+  Sync time (average)   =    0.00 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =    0.00 sec. (0.01 ticks)
+CPXPARAM_Advance                                 0
+CPXPARAM_Simplex_Tolerances_Optimality           9.9999999999999995e-08
+CPXPARAM_TimeLimit                               1880.2773
+CPXPARAM_Preprocessing_Linear                    0
+CPXPARAM_MIP_Tolerances_MIPGap                   1.0000000000000001e-09
+CPXPARAM_MIP_Limits_Nodes                        20000
+Found incumbent of value 0.000000 after 0.00 sec. (0.00 ticks)
+Tried aggregator 1 time.
+MIP Presolve eliminated 1 rows and 5 columns.
+All rows and columns eliminated.
+Presolve time = 0.00 sec. (0.00 ticks)
+CPXPARAM_Simplex_Tolerances_Optimality           9.9999999999999995e-08
+CPXPARAM_Simplex_Tolerances_Feasibility          9.9999999999999995e-08
+CPXPARAM_TimeLimit                               3600
+CPXPARAM_Preprocessing_Reduce                    1
+CPXPARAM_Preprocessing_Linear                    0
+CPXPARAM_MIP_Tolerances_MIPGap                   1.0000000000000001e-09
+CPXPARAM_MIP_Limits_Nodes                        20000
+Using devex.
+
+Iteration log . . .
+Iteration:     1    Objective     =            15.000000
+
+Root node processing (before b&c):
+  Real time             =    0.00 sec. (0.01 ticks)
+Parallel b&c, 4 threads:
+  Real time             =    0.00 sec. (0.00 ticks)
+  Sync time (average)   =    0.00 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =    0.00 sec. (0.01 ticks)
+CPXPARAM_Advance                                 0
+CPXPARAM_Simplex_Tolerances_Optimality           9.9999999999999995e-08
+CPXPARAM_TimeLimit                               1880.2773
+CPXPARAM_Preprocessing_Linear                    0
+CPXPARAM_MIP_Tolerances_MIPGap                   1.0000000000000001e-09
+CPXPARAM_MIP_Limits_Nodes                        20000
+Found incumbent of value 0.000000 after 0.00 sec. (0.00 ticks)
+Tried aggregator 1 time.
+MIP Presolve eliminated 1 rows and 5 columns.
+All rows and columns eliminated.
+Presolve time = 0.00 sec. (0.00 ticks)
+CPXPARAM_Simplex_Tolerances_Optimality           9.9999999999999995e-08
+CPXPARAM_Simplex_Tolerances_Feasibility          9.9999999999999995e-08
+CPXPARAM_TimeLimit                               3600
+CPXPARAM_Preprocessing_Reduce                    1
+CPXPARAM_Preprocessing_Linear                    0
+CPXPARAM_MIP_Tolerances_MIPGap                   1.0000000000000001e-09
+CPXPARAM_MIP_Limits_Nodes                        20000
+Using devex.
+
+Iteration log . . .
+Iteration:     1    Objective     =            15.000000
+
+Root node processing (before b&c):
+  Real time             =    0.00 sec. (0.01 ticks)
+Parallel b&c, 4 threads:
+  Real time             =    0.00 sec. (0.00 ticks)
+  Sync time (average)   =    0.00 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =    0.00 sec. (0.01 ticks)
+CPXPARAM_Advance                                 0
+CPXPARAM_Simplex_Tolerances_Optimality           9.9999999999999995e-08
+CPXPARAM_TimeLimit                               1880.2773
+CPXPARAM_Preprocessing_Linear                    0
+CPXPARAM_MIP_Tolerances_MIPGap                   1.0000000000000001e-09
+CPXPARAM_MIP_Limits_Nodes                        20000
+Found incumbent of value 0.000000 after 0.00 sec. (0.00 ticks)
+
+Root node processing (before b&c):
+  Real time             =    0.00 sec. (0.00 ticks)
+Parallel b&c, 4 threads:
+  Real time             =    0.00 sec. (0.00 ticks)
+  Sync time (average)   =    0.00 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =    0.00 sec. (0.00 ticks)
+CPXPARAM_Advance                                 0
+CPXPARAM_Simplex_Tolerances_Optimality           9.9999999999999995e-08
+CPXPARAM_TimeLimit                               1880.2674
+CPXPARAM_Preprocessing_Linear                    0
+CPXPARAM_MIP_Tolerances_MIPGap                   1.0000000000000001e-09
+CPXPARAM_MIP_Limits_Nodes                        20000
+Found incumbent of value 0.000000 after 0.00 sec. (0.00 ticks)
+Tried aggregator 1 time.
+MIP Presolve eliminated 1 rows and 5 columns.
+All rows and columns eliminated.
+Presolve time = 0.00 sec. (0.00 ticks)
+
+Root node processing (before b&c):
+  Real time             =    0.00 sec. (0.01 ticks)
+Parallel b&c, 4 threads:
+  Real time             =    0.00 sec. (0.00 ticks)
+  Sync time (average)   =    0.00 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =    0.00 sec. (0.01 ticks)
+CPXPARAM_Advance                                 0
+CPXPARAM_Simplex_Tolerances_Optimality           9.9999999999999995e-08
+CPXPARAM_TimeLimit                               1880.2773
+CPXPARAM_Preprocessing_Linear                    0
+CPXPARAM_MIP_Tolerances_MIPGap                   1.0000000000000001e-09
+CPXPARAM_MIP_Limits_Nodes                        20000
+Found incumbent of value 0.000000 after 0.00 sec. (0.00 ticks)
+
+Root node processing (before b&c):
+  Real time             =    0.00 sec. (0.00 ticks)
+Parallel b&c, 4 threads:
+  Real time             =    0.00 sec. (0.00 ticks)
+  Sync time (average)   =    0.00 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =    0.00 sec. (0.00 ticks)
+CPXPARAM_Advance                                 0
+CPXPARAM_Simplex_Tolerances_Optimality           9.9999999999999995e-08
+CPXPARAM_TimeLimit                               1880.2674
+CPXPARAM_Preprocessing_Linear                    0
+CPXPARAM_MIP_Tolerances_MIPGap                   1.0000000000000001e-09
+CPXPARAM_MIP_Limits_Nodes                        20000
+Found incumbent of value 0.000000 after 0.00 sec. (0.00 ticks)
+Tried aggregator 1 time.
+MIP Presolve eliminated 1 rows and 6 columns.
+All rows and columns eliminated.
+Presolve time = 0.00 sec. (0.00 ticks)
+
+Root node processing (before b&c):
+  Real time             =    0.00 sec. (0.01 ticks)
+Parallel b&c, 4 threads:
+  Real time             =    0.00 sec. (0.00 ticks)
+  Sync time (average)   =    0.00 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =    0.00 sec. (0.01 ticks)
+CPXPARAM_Advance                                 0
+CPXPARAM_Simplex_Tolerances_Optimality           9.9999999999999995e-08
+CPXPARAM_TimeLimit                               1880.2674
+CPXPARAM_Preprocessing_Linear                    0
+CPXPARAM_MIP_Tolerances_MIPGap                   1.0000000000000001e-09
+CPXPARAM_MIP_Limits_Nodes                        20000
+Found incumbent of value 0.000000 after 0.00 sec. (0.00 ticks)
+Tried aggregator 1 time.
+MIP Presolve eliminated 1 rows and 5 columns.
+MIP Presolve modified 3 coefficients.
+All rows and columns eliminated.
+Presolve time = 0.00 sec. (0.00 ticks)
+CPXPARAM_Simplex_Tolerances_Optimality           9.9999999999999995e-08
+CPXPARAM_Simplex_Tolerances_Feasibility          9.9999999999999995e-08
+CPXPARAM_TimeLimit                               3600
+CPXPARAM_Preprocessing_Reduce                    1
+CPXPARAM_Preprocessing_Linear                    0
+CPXPARAM_MIP_Tolerances_MIPGap                   1.0000000000000001e-09
+CPXPARAM_MIP_Limits_Nodes                        20000
+Using devex.
+
+Iteration log . . .
+Iteration:     1    Objective     =            15.000000
+
+Root node processing (before b&c):
+  Real time             =    0.00 sec. (0.01 ticks)
+Parallel b&c, 4 threads:
+  Real time             =    0.00 sec. (0.00 ticks)
+  Sync time (average)   =    0.00 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =    0.00 sec. (0.01 ticks)
+CPXPARAM_Advance                                 0
+CPXPARAM_Simplex_Tolerances_Optimality           9.9999999999999995e-08
+CPXPARAM_TimeLimit                               1880.2674
+CPXPARAM_Preprocessing_Linear                    0
+CPXPARAM_MIP_Tolerances_MIPGap                   1.0000000000000001e-09
+CPXPARAM_MIP_Limits_Nodes                        20000
+Found incumbent of value 0.000000 after 0.00 sec. (0.00 ticks)
+Tried aggregator 1 time.
+MIP Presolve eliminated 1 rows and 5 columns.
+All rows and columns eliminated.
+Presolve time = 0.00 sec. (0.00 ticks)
+
+Root node processing (before b&c):
+  Real time             =    0.00 sec. (0.01 ticks)
+Parallel b&c, 4 threads:
+  Real time             =    0.00 sec. (0.00 ticks)
+  Sync time (average)   =    0.00 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =    0.00 sec. (0.01 ticks)
+CPXPARAM_Advance                                 0
+CPXPARAM_Simplex_Tolerances_Optimality           9.9999999999999995e-08
+CPXPARAM_TimeLimit                               1880.2674
+CPXPARAM_Preprocessing_Linear                    0
+CPXPARAM_MIP_Tolerances_MIPGap                   1.0000000000000001e-09
+CPXPARAM_MIP_Limits_Nodes                        20000
+Found incumbent of value 0.000000 after 0.00 sec. (0.00 ticks)
+Tried aggregator 1 time.
+MIP Presolve eliminated 1 rows and 5 columns.
+MIP Presolve modified 3 coefficients.
+All rows and columns eliminated.
+Presolve time = 0.00 sec. (0.00 ticks)
+CPXPARAM_Simplex_Tolerances_Optimality           9.9999999999999995e-08
+CPXPARAM_Simplex_Tolerances_Feasibility          9.9999999999999995e-08
+CPXPARAM_TimeLimit                               3600
+CPXPARAM_Preprocessing_Reduce                    1
+CPXPARAM_Preprocessing_Linear                    0
+CPXPARAM_MIP_Tolerances_MIPGap                   1.0000000000000001e-09
+CPXPARAM_MIP_Limits_Nodes                        20000
+Using devex.
+
+Iteration log . . .
+Iteration:     1    Objective     =            13.000000
+
+Root node processing (before b&c):
+  Real time             =    0.00 sec. (0.01 ticks)
+Parallel b&c, 4 threads:
+  Real time             =    0.00 sec. (0.00 ticks)
+  Sync time (average)   =    0.00 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =    0.00 sec. (0.01 ticks)
+
+Root node processing (before b&c):
+  Real time             =    0.00 sec. (0.01 ticks)
+Parallel b&c, 4 threads:
+  Real time             =    0.00 sec. (0.00 ticks)
+  Sync time (average)   =    0.00 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =    0.00 sec. (0.01 ticks)
+CPXPARAM_Advance                                 0
+CPXPARAM_Simplex_Tolerances_Optimality           9.9999999999999995e-08
+CPXPARAM_TimeLimit                               1880.2674
+CPXPARAM_Preprocessing_Linear                    0
+CPXPARAM_MIP_Tolerances_MIPGap                   1.0000000000000001e-09
+CPXPARAM_MIP_Limits_Nodes                        20000
+Found incumbent of value 0.000000 after 0.00 sec. (0.00 ticks)
+
+Root node processing (before b&c):
+  Real time             =    0.00 sec. (0.00 ticks)
+Parallel b&c, 4 threads:
+  Real time             =    0.00 sec. (0.00 ticks)
+  Sync time (average)   =    0.00 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =    0.00 sec. (0.00 ticks)
+
+Root node processing (before b&c):
+  Real time             =    0.00 sec. (0.01 ticks)
+Parallel b&c, 4 threads:
+  Real time             =    0.00 sec. (0.00 ticks)
+  Sync time (average)   =    0.00 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =    0.00 sec. (0.01 ticks)
