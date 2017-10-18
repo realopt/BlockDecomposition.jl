@@ -1,7 +1,3 @@
-function use_DantzigWolfe(m::JuMP.Model)
-  return m.ext[:block_decomposition].DantzigWolfe_decomposition_fct != nothing
-end
-
 function add_Dantzig_Wolfe_decomposition(m::JuMP.Model, f::Function)
   m.ext[:block_decomposition].DantzigWolfe_decomposition_fct = f
 end
@@ -11,11 +7,16 @@ function add_Dantzig_Wolfe_decomposition_on_variables(m::JuMP.Model, f::Function
   m.ext[:block_decomposition].DantzigWolfe_decomposition_on_vars_fct = f
 end
 
+function use_DantzigWolfe(m::JuMP.Model)
+  return m.ext[:block_decomposition].DantzigWolfe_decomposition_fct != nothing
+end
+
 """
     add_Benders_decomposition(model::JuMP.Model, B_decomp::Function)
 
 assigns the decomposition function `B_decomp` to the `model`.
 """
+
 function add_Benders_decomposition(m::JuMP.Model, f::Function)
   m.ext[:block_decomposition].Benders_decomposition_fct = f
 end
@@ -23,6 +24,10 @@ end
 function add_Benders_decomposition_on_constraints(m::JuMP.Model, f::Function)
   error("Not supported")
   m.ext[:block_decomposition].Benders_decomposition_on_cstrs_fct = f
+end
+
+function use_Benders_decomposition(m::JuMP.Model)
+  return m.ext[:block_decomposition].Benders_decomposition_fct != nothing
 end
 
 function create_cstrs_vars_decomposition_list!(m::JuMP.Model)
@@ -106,7 +111,12 @@ function create_cstrs_decomposition_list(m::JuMP.Model, A)
       if is_genericcstr(m, row_id) #Is it a generic constraint ?
         sp_type = :ALL
       elseif DW_dec_f != nothing # Dantzig-Wolfe decomposition
-        (sp_type, sp_id) = DW_decomposition(DW_dec_f, name, cstr_id)
+        if name == :anonymous
+          warn("Anonymous constraint assigned to master problem during decomposition.")
+          sp_type = :DW_MASTER
+        else
+          (sp_type, sp_id) = DW_decomposition(DW_dec_f, name, cstr_id)
+        end
       elseif B_dec_f != nothing # Benders decomposition
         sp_type = :B_MASTER
         nb_vars = 0
