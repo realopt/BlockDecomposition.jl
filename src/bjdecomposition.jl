@@ -1,7 +1,3 @@
-function use_DantzigWolfe(m::JuMP.Model)
-  return m.ext[:block_decomposition].DantzigWolfe_decomposition_fct != nothing
-end
-
 function add_Dantzig_Wolfe_decomposition(m::JuMP.Model, f::Function)
   m.ext[:block_decomposition].DantzigWolfe_decomposition_fct = f
 end
@@ -11,14 +7,15 @@ function add_Dantzig_Wolfe_decomposition_on_variables(m::JuMP.Model, f::Function
   m.ext[:block_decomposition].DantzigWolfe_decomposition_on_vars_fct = f
 end
 
+function use_DantzigWolfe(m::JuMP.Model)
+  return m.ext[:block_decomposition].DantzigWolfe_decomposition_fct != nothing
+end
+
 """
     add_Benders_decomposition(model::JuMP.Model, B_decomp::Function)
 
 assigns the decomposition function `B_decomp` to the `model`.
 """
-function use_Benders_decomposition(m::JuMP.Model)
-  return m.ext[:block_decomposition].Benders_decomposition_fct != nothing
-end
 
 function add_Benders_decomposition(m::JuMP.Model, f::Function)
   m.ext[:block_decomposition].Benders_decomposition_fct = f
@@ -27,6 +24,10 @@ end
 function add_Benders_decomposition_on_constraints(m::JuMP.Model, f::Function)
   error("Not supported")
   m.ext[:block_decomposition].Benders_decomposition_on_cstrs_fct = f
+end
+
+function use_Benders_decomposition(m::JuMP.Model)
+  return m.ext[:block_decomposition].Benders_decomposition_fct != nothing
 end
 
 function create_cstrs_vars_decomposition_list!(m::JuMP.Model)

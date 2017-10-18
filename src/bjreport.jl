@@ -11,30 +11,16 @@ function report_cstrs_and_vars!(m::JuMP.Model)
   m.ext[:varcstr_report].vars_report = Array{Tuple{Symbol, Union{Tuple,Void}}}(nbcols)
   report_names_and_indexes!(m.ext[:varcstr_report], m.objDict)
 
-  #check_for_anonymous(m.ext[:varcstr_report].cstrs_report)
-  #check_for_anonymous(m.ext[:varcstr_report].vars_report)
-  #replaced by :
-
-  rename_anonymous(m, use_DantzigWolfe(m), use_Benders_decomposition(m))
+  check_and_name_anonymous(m)
 end
 
-function rename(report)
+function name_anonymous(report, name)
   anonymous = 0
   for i in 1:length(report)
     if !isassigned(report, i)
       anonymous += 1
-      report[i] = (:anonymous,(anonymous,))
+      report[i] = (name,(anonymous,))
     end
-  end
-end
-
-function rename_anonymous(model, usingDantzigWolfe, usingBendersDecomp)
-  if usingDantzigWolfe
-    rename(model.ext[:varcstr_report].cstrs_report)
-    check_for_anonymous(model.ext[:varcstr_report].vars_report)
-  else
-    check_for_anonymous(model.ext[:varcstr_report].cstrs_report)
-    check_for_anonymous(model.ext[:varcstr_report].vars_report)
   end
 end
 
@@ -45,6 +31,16 @@ function check_for_anonymous(report)
       errmsg = "BlockDecomposition does not support anonymous variables or constraints."
       bjerror(info, errmsg)
     end
+  end
+end
+
+function check_and_name_anonymous(model)
+  if use_DantzigWolfe(model)
+    name_anonymous(model.ext[:varcstr_report].cstrs_report, :anonymous)
+    check_for_anonymous(model.ext[:varcstr_report].vars_report)
+  else
+    check_for_anonymous(model.ext[:varcstr_report].cstrs_report)
+    check_for_anonymous(model.ext[:varcstr_report].vars_report)
   end
 end
 
