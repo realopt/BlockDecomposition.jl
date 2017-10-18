@@ -10,7 +10,6 @@ function report_cstrs_and_vars!(m::JuMP.Model)
   m.ext[:varcstr_report].cstrs_report = Array{Tuple{Symbol, Union{Tuple,Void}}}(nbrows)
   m.ext[:varcstr_report].vars_report = Array{Tuple{Symbol, Union{Tuple,Void}}}(nbcols)
   report_names_and_indexes!(m.ext[:varcstr_report], m.objDict)
-
   check_and_name_anonymous(m)
 end
 
@@ -36,7 +35,7 @@ end
 
 function check_and_name_anonymous(model)
   if use_DantzigWolfe(model)
-    name_anonymous(model.ext[:varcstr_report].cstrs_report, :anonymous)
+    name_anonymous(model.ext[:varcstr_report].cstrs_report, :anonymous_cstr)
     check_for_anonymous(model.ext[:varcstr_report].vars_report)
   else
     check_for_anonymous(model.ext[:varcstr_report].cstrs_report)
