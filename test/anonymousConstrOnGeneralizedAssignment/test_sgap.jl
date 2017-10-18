@@ -1,9 +1,5 @@
-#using JuMP, CPLEX
 using JuMP, BlockDecomposition,  BlockDecompositionExtras, BaPCod
 using Base.Test
-
-#using JuMP, BlockDecomposition, MockBlockSolver
-#using Base.Test
 
 include("data_sgap.jl")
 include("model_sgap.jl")
