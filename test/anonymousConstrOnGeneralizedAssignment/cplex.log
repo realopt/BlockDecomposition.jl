@@ -10,7 +10,7 @@ Iteration log . . .
 Iteration:     1   Dual objective     =           120.000000
 CPXPARAM_Advance                                 0
 CPXPARAM_Simplex_Tolerances_Optimality           9.9999999999999995e-08
-CPXPARAM_TimeLimit                               1880.3169
+CPXPARAM_TimeLimit                               1880.3267999999998
 CPXPARAM_Preprocessing_Linear                    0
 CPXPARAM_MIP_Tolerances_MIPGap                   1.0000000000000001e-09
 CPXPARAM_MIP_Limits_Nodes                        20000
@@ -21,7 +21,7 @@ MIP Presolve added 1 rows and 1 columns.
 MIP Presolve modified 8 coefficients.
 Reduced MIP has 1 rows, 6 columns, and 6 nonzeros.
 Reduced MIP has 5 binaries, 1 generals, 0 SOSs, and 0 indicators.
-Presolve time = 0.00 sec. (0.01 ticks)
+Presolve time = 0.01 sec. (0.01 ticks)
 Probing time = 0.00 sec. (0.00 ticks)
 Tried aggregator 1 time.
 MIP Presolve eliminated 1 rows and 1 columns.
@@ -42,10 +42,10 @@ Root relaxation solution time = 0.00 sec. (0.00 ticks)
 *     0+    0                            0.0000     -578.0000              --- 
 *     0+    0                         -350.0000     -578.0000            65.14%
 *     0     0      integral     0     -462.0000     -462.0000        1    0.00%
-Elapsed time = 0.00 sec. (0.03 ticks, tree = 0.00 MB, solutions = 3)
+Elapsed time = 0.03 sec. (0.03 ticks, tree = 0.00 MB, solutions = 3)
 CPXPARAM_Advance                                 0
 CPXPARAM_Simplex_Tolerances_Optimality           9.9999999999999995e-08
-CPXPARAM_TimeLimit                               1880.307
+CPXPARAM_TimeLimit                               1880.2971
 CPXPARAM_Preprocessing_Linear                    0
 CPXPARAM_MIP_Tolerances_MIPGap                   1.0000000000000001e-09
 CPXPARAM_MIP_Limits_Nodes                        20000
@@ -80,7 +80,7 @@ Root relaxation solution time = 0.00 sec. (0.00 ticks)
 Elapsed time = 0.00 sec. (0.04 ticks, tree = 0.01 MB, solutions = 2)
 CPXPARAM_Advance                                 0
 CPXPARAM_Simplex_Tolerances_Optimality           9.9999999999999995e-08
-CPXPARAM_TimeLimit                               1880.307
+CPXPARAM_TimeLimit                               1880.2872
 CPXPARAM_Preprocessing_Linear                    0
 CPXPARAM_MIP_Tolerances_MIPGap                   1.0000000000000001e-09
 CPXPARAM_MIP_Limits_Nodes                        20000
@@ -127,16 +127,16 @@ Iteration log . . .
 Iteration:     1    Objective     =           378.000000
 
 Root node processing (before b&c):
-  Real time             =    0.00 sec. (0.03 ticks)
+  Real time             =    0.03 sec. (0.03 ticks)
 Parallel b&c, 4 threads:
   Real time             =    0.00 sec. (0.00 ticks)
   Sync time (average)   =    0.00 sec.
   Wait time (average)   =    0.00 sec.
                           ------------
-Total (root+branch&cut) =    0.00 sec. (0.03 ticks)
+Total (root+branch&cut) =    0.03 sec. (0.03 ticks)
 CPXPARAM_Advance                                 0
 CPXPARAM_Simplex_Tolerances_Optimality           9.9999999999999995e-08
-CPXPARAM_TimeLimit                               1880.307
+CPXPARAM_TimeLimit                               1880.2872
 CPXPARAM_Preprocessing_Linear                    0
 CPXPARAM_MIP_Tolerances_MIPGap                   1.0000000000000001e-09
 CPXPARAM_MIP_Limits_Nodes                        20000
@@ -180,7 +180,7 @@ Parallel b&c, 4 threads:
 Total (root+branch&cut) =    0.00 sec. (0.04 ticks)
 CPXPARAM_Advance                                 0
 CPXPARAM_Simplex_Tolerances_Optimality           9.9999999999999995e-08
-CPXPARAM_TimeLimit                               1880.2971
+CPXPARAM_TimeLimit                               1880.2872
 CPXPARAM_Preprocessing_Linear                    0
 CPXPARAM_MIP_Tolerances_MIPGap                   1.0000000000000001e-09
 CPXPARAM_MIP_Limits_Nodes                        20000
@@ -224,7 +224,7 @@ Parallel b&c, 4 threads:
 Total (root+branch&cut) =    0.00 sec. (0.05 ticks)
 CPXPARAM_Advance                                 0
 CPXPARAM_Simplex_Tolerances_Optimality           9.9999999999999995e-08
-CPXPARAM_TimeLimit                               1880.2971
+CPXPARAM_TimeLimit                               1880.2773
 CPXPARAM_Preprocessing_Linear                    0
 CPXPARAM_MIP_Tolerances_MIPGap                   1.0000000000000001e-09
 CPXPARAM_MIP_Limits_Nodes                        20000
@@ -279,7 +279,7 @@ Parallel b&c, 4 threads:
 Total (root+branch&cut) =    0.00 sec. (0.03 ticks)
 CPXPARAM_Advance                                 0
 CPXPARAM_Simplex_Tolerances_Optimality           9.9999999999999995e-08
-CPXPARAM_TimeLimit                               1880.2971
+CPXPARAM_TimeLimit                               1880.2773
 CPXPARAM_Preprocessing_Linear                    0
 CPXPARAM_MIP_Tolerances_MIPGap                   1.0000000000000001e-09
 CPXPARAM_MIP_Limits_Nodes                        20000
@@ -325,7 +325,7 @@ Parallel b&c, 4 threads:
 Total (root+branch&cut) =    0.00 sec. (0.04 ticks)
 CPXPARAM_Advance                                 0
 CPXPARAM_Simplex_Tolerances_Optimality           9.9999999999999995e-08
-CPXPARAM_TimeLimit                               1880.2872
+CPXPARAM_TimeLimit                               1880.2773
 CPXPARAM_Preprocessing_Linear                    0
 CPXPARAM_MIP_Tolerances_MIPGap                   1.0000000000000001e-09
 CPXPARAM_MIP_Limits_Nodes                        20000
@@ -369,7 +369,7 @@ Parallel b&c, 4 threads:
 Total (root+branch&cut) =    0.00 sec. (0.05 ticks)
 CPXPARAM_Advance                                 0
 CPXPARAM_Simplex_Tolerances_Optimality           9.9999999999999995e-08
-CPXPARAM_TimeLimit                               1880.2872
+CPXPARAM_TimeLimit                               1880.2674
 CPXPARAM_Preprocessing_Linear                    0
 CPXPARAM_MIP_Tolerances_MIPGap                   1.0000000000000001e-09
 CPXPARAM_MIP_Limits_Nodes                        20000
@@ -401,7 +401,7 @@ Root relaxation solution time = 0.00 sec. (0.00 ticks)
 *     0+    0                          -83.7525     -141.1525            68.54%
       0     0      -94.7763     1      -83.7525      -94.7763        1   13.16%
       0     0        cutoff            -83.7525                      3    0.00%
-Elapsed time = 0.01 sec. (0.05 ticks, tree = 0.01 MB, solutions = 2)
+Elapsed time = 0.00 sec. (0.05 ticks, tree = 0.01 MB, solutions = 2)
 
 Root node processing (before b&c):
   Real time             =    0.00 sec. (0.04 ticks)
@@ -413,7 +413,7 @@ Parallel b&c, 4 threads:
 Total (root+branch&cut) =    0.00 sec. (0.04 ticks)
 CPXPARAM_Advance                                 0
 CPXPARAM_Simplex_Tolerances_Optimality           9.9999999999999995e-08
-CPXPARAM_TimeLimit                               1880.2773
+CPXPARAM_TimeLimit                               1880.2674
 CPXPARAM_Preprocessing_Linear                    0
 CPXPARAM_MIP_Tolerances_MIPGap                   1.0000000000000001e-09
 CPXPARAM_MIP_Limits_Nodes                        20000
@@ -433,7 +433,7 @@ Parallel b&c, 4 threads:
 Total (root+branch&cut) =    0.00 sec. (0.04 ticks)
 CPXPARAM_Advance                                 0
 CPXPARAM_Simplex_Tolerances_Optimality           9.9999999999999995e-08
-CPXPARAM_TimeLimit                               1880.2773
+CPXPARAM_TimeLimit                               1880.2674
 CPXPARAM_Preprocessing_Linear                    0
 CPXPARAM_MIP_Tolerances_MIPGap                   1.0000000000000001e-09
 CPXPARAM_MIP_Limits_Nodes                        20000
@@ -444,16 +444,16 @@ All rows and columns eliminated.
 Presolve time = 0.00 sec. (0.00 ticks)
 
 Root node processing (before b&c):
-  Real time             =    0.01 sec. (0.05 ticks)
+  Real time             =    0.00 sec. (0.05 ticks)
 Parallel b&c, 4 threads:
   Real time             =    0.00 sec. (0.00 ticks)
   Sync time (average)   =    0.00 sec.
   Wait time (average)   =    0.00 sec.
                           ------------
-Total (root+branch&cut) =    0.01 sec. (0.05 ticks)
+Total (root+branch&cut) =    0.00 sec. (0.05 ticks)
 CPXPARAM_Advance                                 0
 CPXPARAM_Simplex_Tolerances_Optimality           9.9999999999999995e-08
-CPXPARAM_TimeLimit                               1880.2773
+CPXPARAM_TimeLimit                               1880.2674
 CPXPARAM_Preprocessing_Linear                    0
 CPXPARAM_MIP_Tolerances_MIPGap                   1.0000000000000001e-09
 CPXPARAM_MIP_Limits_Nodes                        20000
@@ -484,7 +484,7 @@ Parallel b&c, 4 threads:
 Total (root+branch&cut) =    0.00 sec. (0.01 ticks)
 CPXPARAM_Advance                                 0
 CPXPARAM_Simplex_Tolerances_Optimality           9.9999999999999995e-08
-CPXPARAM_TimeLimit                               1880.2773
+CPXPARAM_TimeLimit                               1880.2674
 CPXPARAM_Preprocessing_Linear                    0
 CPXPARAM_MIP_Tolerances_MIPGap                   1.0000000000000001e-09
 CPXPARAM_MIP_Limits_Nodes                        20000
@@ -504,7 +504,7 @@ Parallel b&c, 4 threads:
 Total (root+branch&cut) =    0.00 sec. (0.01 ticks)
 CPXPARAM_Advance                                 0
 CPXPARAM_Simplex_Tolerances_Optimality           9.9999999999999995e-08
-CPXPARAM_TimeLimit                               1880.2773
+CPXPARAM_TimeLimit                               1880.2674
 CPXPARAM_Preprocessing_Linear                    0
 CPXPARAM_MIP_Tolerances_MIPGap                   1.0000000000000001e-09
 CPXPARAM_MIP_Limits_Nodes                        20000
@@ -524,7 +524,7 @@ Parallel b&c, 4 threads:
 Total (root+branch&cut) =    0.00 sec. (0.01 ticks)
 CPXPARAM_Advance                                 0
 CPXPARAM_Simplex_Tolerances_Optimality           9.9999999999999995e-08
-CPXPARAM_TimeLimit                               1880.2773
+CPXPARAM_TimeLimit                               1880.2574999999999
 CPXPARAM_Preprocessing_Linear                    0
 CPXPARAM_MIP_Tolerances_MIPGap                   1.0000000000000001e-09
 CPXPARAM_MIP_Limits_Nodes                        20000
@@ -555,7 +555,7 @@ Parallel b&c, 4 threads:
 Total (root+branch&cut) =    0.00 sec. (0.01 ticks)
 CPXPARAM_Advance                                 0
 CPXPARAM_Simplex_Tolerances_Optimality           9.9999999999999995e-08
-CPXPARAM_TimeLimit                               1880.2773
+CPXPARAM_TimeLimit                               1880.2574999999999
 CPXPARAM_Preprocessing_Linear                    0
 CPXPARAM_MIP_Tolerances_MIPGap                   1.0000000000000001e-09
 CPXPARAM_MIP_Limits_Nodes                        20000
@@ -586,7 +586,7 @@ Parallel b&c, 4 threads:
 Total (root+branch&cut) =    0.00 sec. (0.01 ticks)
 CPXPARAM_Advance                                 0
 CPXPARAM_Simplex_Tolerances_Optimality           9.9999999999999995e-08
-CPXPARAM_TimeLimit                               1880.2773
+CPXPARAM_TimeLimit                               1880.2574999999999
 CPXPARAM_Preprocessing_Linear                    0
 CPXPARAM_MIP_Tolerances_MIPGap                   1.0000000000000001e-09
 CPXPARAM_MIP_Limits_Nodes                        20000
@@ -602,7 +602,7 @@ Parallel b&c, 4 threads:
 Total (root+branch&cut) =    0.00 sec. (0.00 ticks)
 CPXPARAM_Advance                                 0
 CPXPARAM_Simplex_Tolerances_Optimality           9.9999999999999995e-08
-CPXPARAM_TimeLimit                               1880.2674
+CPXPARAM_TimeLimit                               1880.2574999999999
 CPXPARAM_Preprocessing_Linear                    0
 CPXPARAM_MIP_Tolerances_MIPGap                   1.0000000000000001e-09
 CPXPARAM_MIP_Limits_Nodes                        20000
@@ -622,7 +622,7 @@ Parallel b&c, 4 threads:
 Total (root+branch&cut) =    0.00 sec. (0.01 ticks)
 CPXPARAM_Advance                                 0
 CPXPARAM_Simplex_Tolerances_Optimality           9.9999999999999995e-08
-CPXPARAM_TimeLimit                               1880.2773
+CPXPARAM_TimeLimit                               1880.2574999999999
 CPXPARAM_Preprocessing_Linear                    0
 CPXPARAM_MIP_Tolerances_MIPGap                   1.0000000000000001e-09
 CPXPARAM_MIP_Limits_Nodes                        20000
@@ -638,7 +638,7 @@ Parallel b&c, 4 threads:
 Total (root+branch&cut) =    0.00 sec. (0.00 ticks)
 CPXPARAM_Advance                                 0
 CPXPARAM_Simplex_Tolerances_Optimality           9.9999999999999995e-08
-CPXPARAM_TimeLimit                               1880.2674
+CPXPARAM_TimeLimit                               1880.2574999999999
 CPXPARAM_Preprocessing_Linear                    0
 CPXPARAM_MIP_Tolerances_MIPGap                   1.0000000000000001e-09
 CPXPARAM_MIP_Limits_Nodes                        20000
@@ -658,7 +658,7 @@ Parallel b&c, 4 threads:
 Total (root+branch&cut) =    0.00 sec. (0.01 ticks)
 CPXPARAM_Advance                                 0
 CPXPARAM_Simplex_Tolerances_Optimality           9.9999999999999995e-08
-CPXPARAM_TimeLimit                               1880.2674
+CPXPARAM_TimeLimit                               1880.2574999999999
 CPXPARAM_Preprocessing_Linear                    0
 CPXPARAM_MIP_Tolerances_MIPGap                   1.0000000000000001e-09
 CPXPARAM_MIP_Limits_Nodes                        20000
@@ -690,7 +690,7 @@ Parallel b&c, 4 threads:
 Total (root+branch&cut) =    0.00 sec. (0.01 ticks)
 CPXPARAM_Advance                                 0
 CPXPARAM_Simplex_Tolerances_Optimality           9.9999999999999995e-08
-CPXPARAM_TimeLimit                               1880.2674
+CPXPARAM_TimeLimit                               1880.2574999999999
 CPXPARAM_Preprocessing_Linear                    0
 CPXPARAM_MIP_Tolerances_MIPGap                   1.0000000000000001e-09
 CPXPARAM_MIP_Limits_Nodes                        20000
@@ -710,7 +710,7 @@ Parallel b&c, 4 threads:
 Total (root+branch&cut) =    0.00 sec. (0.01 ticks)
 CPXPARAM_Advance                                 0
 CPXPARAM_Simplex_Tolerances_Optimality           9.9999999999999995e-08
-CPXPARAM_TimeLimit                               1880.2674
+CPXPARAM_TimeLimit                               1880.2574999999999
 CPXPARAM_Preprocessing_Linear                    0
 CPXPARAM_MIP_Tolerances_MIPGap                   1.0000000000000001e-09
 CPXPARAM_MIP_Limits_Nodes                        20000
@@ -751,7 +751,7 @@ Parallel b&c, 4 threads:
 Total (root+branch&cut) =    0.00 sec. (0.01 ticks)
 CPXPARAM_Advance                                 0
 CPXPARAM_Simplex_Tolerances_Optimality           9.9999999999999995e-08
-CPXPARAM_TimeLimit                               1880.2674
+CPXPARAM_TimeLimit                               1880.2574999999999
 CPXPARAM_Preprocessing_Linear                    0
 CPXPARAM_MIP_Tolerances_MIPGap                   1.0000000000000001e-09
 CPXPARAM_MIP_Limits_Nodes                        20000
