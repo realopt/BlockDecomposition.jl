@@ -1,4 +1,4 @@
-__precompile__()
+#__precompile__()
 
 module BlockDecomposition
 
@@ -38,6 +38,7 @@ export  BlockModel,
         objectivevaluemagnitude,
         objectivevalueupperbound,
         objectivevaluelowerbound,
+        artcostvalue,
         branchingpriorityinmaster,
         branchingpriorityinsubproblem,
         add_Dantzig_Wolfe_decomposition,

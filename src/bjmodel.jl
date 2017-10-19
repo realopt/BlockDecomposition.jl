@@ -2,6 +2,7 @@ type ObjectiveData
   magnitude
   lb
   ub
+  artcostvalue
 end
 
 type BlockDecompositionData
@@ -34,7 +35,7 @@ function BlockModel(;solver = JuMP.UnsetSolver())
   m.ext[:vars_decomposition_list] = nothing
   m.ext[:sp_mult_tab] = nothing
   m.ext[:sp_prio_tab] = nothing
-  m.ext[:objective_data] = ObjectiveData(NaN, -Inf, Inf)
+  m.ext[:objective_data] = ObjectiveData(NaN, -Inf, Inf, NaN)
 
   m.ext[:var_branch_prio_dict] = Dict{Tuple{Symbol, Tuple, Symbol}, Cdouble}() # (varname, sp, where) => (priority)
 
@@ -76,6 +77,11 @@ Set the lower bound of the objective function of the model `m` to `lb`
 """
 function objectivevaluelowerbound(m::JuMP.Model, lb)
   m.ext[:objective_data].lb = lb
+end
+
+# TODO documentation
+function artcostvalue(m::JuMP.Model, acv)
+  m.ext[:objective_data].artcostvalue = acv
 end
 
 """
