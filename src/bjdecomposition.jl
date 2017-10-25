@@ -111,7 +111,7 @@ function create_cstrs_decomposition_list(m::JuMP.Model, A)
       if is_genericcstr(m, row_id) #Is it a generic constraint ?
         sp_type = :ALL
       elseif DW_dec_f != nothing # Dantzig-Wolfe decomposition
-        if name == :anonymous
+        if name == :anonymous_cstr
           warn("Anonymous constraint assigned to master problem during decomposition.")
           sp_type = :DW_MASTER
         else
