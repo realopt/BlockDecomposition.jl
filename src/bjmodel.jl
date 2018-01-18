@@ -12,6 +12,13 @@ type BlockDecompositionData
 end
 BlockDecompositionData() = BlockDecompositionData(nothing, nothing, nothing, nothing)
 
+type initialSolutionData
+    initial_solution_fct
+    initialsolutions
+    currentSol
+end
+initialSolutionData() = initialSolutionData(nothing,nothing,nothing)
+
 function BlockModel(;solver = JuMP.UnsetSolver())
   m = JuMP.Model(solver = solver)
   JuMP.setsolvehook(m, bj_solve)
@@ -35,6 +42,7 @@ function BlockModel(;solver = JuMP.UnsetSolver())
   m.ext[:sp_mult_tab] = nothing
   m.ext[:sp_prio_tab] = nothing
   m.ext[:objective_data] = ObjectiveData(NaN, -Inf, Inf)
+  m.ext[:initial_sol] = initialSolutionData()
 
   m.ext[:var_branch_prio_dict] = Dict{Tuple{Symbol, Tuple, Symbol}, Cdouble}() # (varname, sp, where) => (priority)
 

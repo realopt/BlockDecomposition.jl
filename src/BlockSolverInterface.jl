@@ -88,6 +88,13 @@ and the upper bound `ub` of the objective function.
 set_objective_bounds_and_magnitude!() = nothing
 export set_objective_bounds_and_magnitude!
 
+"""
+    set_initial_sol!(s::AbstractMathProgSolver, solution)
+provides `solution` to the solver `s` as initial solution.
+"""
+
+set_initial_sol!() = nothing
+export set_initial_sol!
 
 """
     set_oraclesolution_newsolution(o::OracleSolverData)
@@ -169,3 +176,11 @@ getdisaggregatedvalueofvariable() = nothing
 export getdisaggregatedvalueofvariable
 
 end
+
+"""
+    set_initialsolution_solution(spid::Int, x::JuMP.Variable, v::Real)
+
+Set the value of the variable `x` to `v` in the initial solution numer spid.
+"""
+set_initialsolution() = nothing
+export set_initialsolution

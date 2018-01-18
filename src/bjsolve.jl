@@ -8,6 +8,9 @@ function bj_solve(model;
   create_sp_tab!(model)
   create_sp_mult_tab!(model)
   create_sp_prio_tab!(model)
+  if model.ext[:initial_sol].initial_solution_fct != nothing
+      create_initial_solution_list_DW!(model)
+  end
 
   # Step 2 : Send decomposition (& others) data to the solver
   # Cstrs decomposition : mandatory
@@ -24,6 +27,8 @@ function bj_solve(model;
   send_to_solver!(model, set_var_branching_prio!, :var_branch_prio_dict, false)
   # Oracles
   send_to_solver!(model, set_oracles!, :oracles, false)
+  # Initial solution
+  send_to_solver!(model, set_initial_sol!, :initial_sol, false)
 
   if applicable(send_extras!, model) # works with BlockDecompositionExtras
     send_extras!(model)
