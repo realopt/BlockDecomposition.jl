@@ -45,7 +45,10 @@ export  BlockModel,
         add_Benders_decomposition,
         addspmultiplicity,
         addsppriority,
-        show
+        show,
+        setinitialsolutionvalue_DW,
+        provideinitialsolution_DW,
+        use_initial_solution_fct_DW
 
 # Oracles
 export OracleSolverData,

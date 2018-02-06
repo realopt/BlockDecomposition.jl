@@ -1,5 +1,5 @@
 function add_Dantzig_Wolfe_decomposition(m::JuMP.Model, f::Function)
-  m.ext[:block_decomposition].DantzigWolfe_decomposition_fct = f
+    m.ext[:block_decomposition].DantzigWolfe_decomposition_fct = f
 end
 
 
@@ -263,4 +263,73 @@ function fill_sp_prio_tab!(m::JuMP.Model, tab::Symbol, sp_type::Symbol)
       push!(m.ext[:sp_prio_tab], (sp_id, sp_type, priority))
     end
   end
+end
+
+"""
+    use_initial_solution_fct_DW(m::JuMP.Model, f::Function)
+
+defines `f` as the function to use to provide initial solution.
+"""
+function use_initial_solution_fct_DW(m::JuMP.Model, f::Function)
+  if m.ext[:block_decomposition].DantzigWolfe_decomposition_fct == nothing
+      error("No Dantzig Wolfe decomposition found to provide initial solutions to.")
+  end
+
+  m.ext[:initial_sol].initial_solution_fct = f
+end
+
+"""
+    setinitialsolutionvalue(model::JuMP.Model, x, val::Real)
+
+adds value `val` of variable `x` in the current solution to fix as initial solution.
+"""
+function setinitialsolutionvalue_DW(model::JuMP.Model, x, val)
+    try
+        setinitialsolutionvalue(model, x, val)
+    catch
+        error("Types provided for initial solution are not compatible with Cdouble convertion.")
+    end
+
+end
+
+function setinitialsolutionvalue(model::JuMP.Model, x, val::Real)
+    if model.ext[:initial_sol].initialsolutions == nothing
+        model.ext[:initial_sol].initialsolutions = []
+        model.ext[:initial_sol].currentSol = [[],[]]
+    end
+
+    push!(model.ext[:initial_sol].currentSol[1],x)
+    push!(model.ext[:initial_sol].currentSol[2],val)
+end
+
+"""
+    provideinitialsolution_DW(model::JuMP.Model, spid::Int)
+
+provides current solution as initial solution for the subprobme `spid`.
+"""
+function provideinitialsolution_DW(model::JuMP.Model, spid::Int)
+    if model.ext[:initial_sol].currentSol == nothing
+        bjerror("No solution provided.")
+    end
+
+    push!(model.ext[:initial_sol].currentSol,[spid])
+    push!(model.ext[:initial_sol].initialsolutions, model.ext[:initial_sol].currentSol)
+    model.ext[:initial_sol].currentSol = [[],[]]
+end
+
+"""
+    create_initial_solution_list_DW!(m::JuMP.Model)
+
+creates initial solutions using user's function.
+"""
+function create_initial_solution_list_DW!(m::JuMP.Model)
+    if m.ext[:block_decomposition].DantzigWolfe_decomposition_fct == nothing
+        bjerror("No Dantzig Wolfe decomposition to provide initial solution to.")
+    end
+
+    if m.ext[:initial_sol].initial_solution_fct != nothing
+        m.ext[:initial_sol].initial_solution_fct()
+    else
+        bjerror("No function defined to compute initial solution.")
+    end
 end
