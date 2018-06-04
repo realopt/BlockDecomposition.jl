@@ -24,6 +24,8 @@ function bj_solve(model;
   send_to_solver!(model, set_var_branching_prio!, :var_branch_prio_dict, false)
   # Oracles
   send_to_solver!(model, set_oracles!, :oracles, false)
+  # Branching rules
+  send_to_solver!(model, set_branching_rules!, :branching_rules, false)
 
   if applicable(send_extras!, model) # works with BlockDecompositionExtras
     send_extras!(model)

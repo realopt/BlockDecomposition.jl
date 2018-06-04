@@ -168,4 +168,12 @@ returns the disaggregated value of the `vcol` ``{}^{th}`` variable.
 getdisaggregatedvalueofvariable() = nothing
 export getdisaggregatedvalueofvariable
 
+"""
+    set_branching_rules!(s::AbstractMathProgSolver, rules::Dict{Symbol, Any})
+
+sends to the solver `s` a Dictionary `rules`. The key is the name of the branching rule
+and the content are the parameters. Names of branching rules depend on solvers.
+"""
+set_branching_rules!() = nothing
+export set_branching_rules!
 end

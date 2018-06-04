@@ -45,6 +45,7 @@ export  BlockModel,
         add_Benders_decomposition,
         addspmultiplicity,
         addsppriority,
+        addbranching,
         show
 
 # Oracles
