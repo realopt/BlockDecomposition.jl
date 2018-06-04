@@ -37,6 +37,7 @@ function BlockModel(;solver = JuMP.UnsetSolver())
   m.ext[:objective_data] = ObjectiveData(NaN, -Inf, Inf)
 
   m.ext[:var_branch_prio_dict] = Dict{Tuple{Symbol, Tuple, Symbol}, Cdouble}() # (varname, sp, where) => (priority)
+  m.ext[:branching_rules] = Dict{Symbol, Any}()
 
   # Callbacks
   m.ext[:oracles] = Array{Tuple{Tuple, Symbol, Function}}(0)
@@ -141,9 +142,6 @@ create a branching rule named `rule` on variable `varname`. Agruments are provid
 by the used and store in a list of pair. Arguments are checked by the solver.
 """
 function addbranching(model::JuMP.Model, rule::Symbol, varname::Symbol; args...)
-  if !haskey(model.ext, :branching_rules)
-    model.ext[:branching_rules] = Dict{Symbol, Any}()
-  end
   if !haskey(model.ext[:branching_rules], rule)
     model.ext[:branching_rules][rule] = Vector{Tuple}()
   end
