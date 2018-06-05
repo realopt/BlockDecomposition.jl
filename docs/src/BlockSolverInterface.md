@@ -42,6 +42,10 @@ BlockDecomposition.BlockSolverInterface.set_sp_prio!
 BlockDecomposition.BlockSolverInterface.set_var_branching_prio!
 ```
 
+```@docs
+BlockDecomposition.BlockSolverInterface.set_branching_rules!
+```
+
 ## Additional data to the model
 
 ```@docs

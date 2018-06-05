@@ -168,4 +168,19 @@ returns the disaggregated value of the `vcol` ``{}^{th}`` variable.
 getdisaggregatedvalueofvariable() = nothing
 export getdisaggregatedvalueofvariable
 
+"""
+    set_branching_rules!(s::AbstractMathProgSolver, rules::Dict{Symbol, Any})
+
+sends to the solver `s` a Dictionary `rules`. The key is the name of the branching rule
+and the content is an array of branching instances. The array contains Tuple of variables name and parameters.
+Parameters are stored in an array of tuple (name_of_parameter, value_of_parameter).
+
+For instance,
+
+    rules = (:branching_rule_name => [(:x, [(:priority, 1)]), (:y, [(:priority, 1)])])
+
+Names of branching rules depend on solvers.
+"""
+set_branching_rules!() = nothing
+export set_branching_rules!
 end

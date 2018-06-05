@@ -21,3 +21,7 @@ branchingpriorityinmaster
 ```@docs
 branchingpriorityinsubproblem
 ```
+
+```@docs
+addbranching
+```

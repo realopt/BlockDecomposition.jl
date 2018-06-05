@@ -8,7 +8,7 @@ We introduce them using the example of Generalized Assignment Problem.
 
 ## Introduction
 
-Cosider a set of machines `Machines = 1:M` and a set of jobs `Jobs = 1:J`.
+Consider a set of machines `Machines = 1:M` and a set of jobs `Jobs = 1:J`.
 A machine `m` has a resource capacity `Capacity[m]`. When we assign a job
 `j` to a machine `m`, the job has a cost `Cost[m,j]` and consumes
 `Weight[m,j]` resources of the machine `m`. The goal is to minimize the jobs
@@ -21,13 +21,13 @@ gap = BlockModel(solver = solver)
 @variable(gap, x[m in Machines, j in Jobs], Bin)
 
 @constraint(gap, cov[0, j in Jobs],
-               sum{ x[m,j], m in Machines } >= 1)
+               sum(x[m,j] for m in Machines) >= 1)
 
 @constraint(gap, knp[m in Machines],
-               sum{Weight[m,j]*x[m,j], j in Jobs} <= Capacity[m])
+               sum(Weight[m,j]*x[m,j] for j in Jobs) <= Capacity[m])
 
 @objective(gap, Min,
-               sum{Cost[m,j]*x[m,j], m in Machines, j in Jobs})
+               sum(Cost[m,j]*x[m,j] for m in Machines, j in Jobs))
 
 function dw_fct(cstrname::Symbol, cstrid::Tuple) :: Tuple{Symbol, Tuple}
     if cstrname == :cov           # cov constraints will be assigned in the
