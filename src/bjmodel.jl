@@ -139,7 +139,7 @@ end
     addbranching(model::JuMP.Model, rule::Symbol, varname::Symbol; args...)
 
 create a branching rule named `rule` on variable `varname`. Agruments are provided
-by the used and store in a list of pair. Arguments are checked by the solver.
+by the used and store in an array of pair. Arguments are checked by the solver.
 """
 function addbranching(model::JuMP.Model, rule::Symbol, varname::Symbol; args...)
   if !haskey(model.ext[:branching_rules], rule)

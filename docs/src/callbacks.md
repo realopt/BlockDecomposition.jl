@@ -8,7 +8,7 @@ We introduce them using the example of Generalized Assignment Problem.
 
 ## Introduction
 
-Cosider a set of machines `Machines = 1:M` and a set of jobs `Jobs = 1:J`.
+Consider a set of machines `Machines = 1:M` and a set of jobs `Jobs = 1:J`.
 A machine `m` has a resource capacity `Capacity[m]`. When we assign a job
 `j` to a machine `m`, the job has a cost `Cost[m,j]` and consumes
 `Weight[m,j]` resources of the machine `m`. The goal is to minimize the jobs
