@@ -1,4 +1,4 @@
-Copyright (c) 2017: RealOpt.
+Copyright (c) 2017: RealOpt team (INRIA - Bordeaux university - CNRS)
 
 The BlockDecomposition Julia package is licensed under the **[MPL]** version 2.0:
 
