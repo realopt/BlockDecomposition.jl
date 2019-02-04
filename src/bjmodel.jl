@@ -46,8 +46,8 @@ function BlockModel(;solver = JuMP.UnsetSolver())
   m.ext[:generic_cstrs] = Dict{Int, Tuple{JuMP.JuMP.ConstraintRef, String, Function}}()
   m.ext[:cstrs_preproc] = Dict{Tuple{Symbol, Tuple}, Bool}() # (cstrname, sp) => bool
 
-  m.ext[:facultative_cuts_cb] = Vector{Function}()
-  m.ext[:core_cuts_cb] = Vector{Function}()
+  m.ext[:facultative_cuts_cb] = nothing
+  m.ext[:core_cuts_cb] = nothing
 
   # Columns counter for generic variables & constraints
   m.ext[:colscounter] = 0

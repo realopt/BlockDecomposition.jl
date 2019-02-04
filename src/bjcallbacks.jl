@@ -1,10 +1,16 @@
 function addfacultativecutcallback(model::JuMP.Model, f::Function)
-  push!(model.ext[:facultative_cuts_cb], f)
+  if model.ext[:facultative_cuts_cb] != nothing
+    error("Facultative cuts callback already defined.")
+  end
+  model.ext[:facultative_cuts_cb] = f
   return
 end
 
 function addcorecutcallback(model::JuMP.Model, f::Function)
-  push!(model.ext[:core_cuts_cb], f)
+  if model.ext[:core_cuts_cb] != nothing
+    error("Core cuts callback alread defined.")
+  end
+  model.ext[:core_cuts_cb] = f
   return
 end
 
