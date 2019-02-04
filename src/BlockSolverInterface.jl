@@ -183,4 +183,15 @@ Names of branching rules depend on solvers.
 """
 set_branching_rules!() = nothing
 export set_branching_rules!
+
+
+set_corecuts_cb!() = nothing
+export set_corecuts_cb!
+
+set_facultativecuts_cb!() = nothing
+export set_facultativecuts_cb!
+
+getvalvariable() = nothing
+export getvalvariable
+
 end

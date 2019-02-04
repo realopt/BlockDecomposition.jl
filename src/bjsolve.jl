@@ -26,6 +26,9 @@ function bj_solve(model;
   send_to_solver!(model, set_oracles!, :oracles, false)
   # Branching rules
   send_to_solver!(model, set_branching_rules!, :branching_rules, false)
+  # Core & facultative cuts callbacks
+  send_to_solver!(model, set_corecuts_cb!, :core_cuts_cb, false)
+  send_to_solver!(model, set_facultativecuts_cb!, :facultative_cuts_cb, false)
 
   if applicable(send_extras!, model) # works with BlockDecompositionExtras
     send_extras!(model)
