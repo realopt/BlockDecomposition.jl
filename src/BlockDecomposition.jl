@@ -79,6 +79,5 @@ include("bjsolve.jl")
 include("bjdecomposition.jl")
 include("bjcplex.jl")
 include("bjcallbacks.jl")
-include("bjexpression.jl")
 
 end # module
