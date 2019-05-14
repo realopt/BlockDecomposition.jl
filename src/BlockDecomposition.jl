@@ -12,6 +12,7 @@ importall JuMP
 
 # using Requires
 using JuMP
+using MathProgBase
 
 # DEPENDENCY ON BlockDecompositionExtras IS NOW IMPLEMENTED BY REDEFINING THE FUNCTION
 # send_extras_to_solver
@@ -59,7 +60,10 @@ export OracleSolverData,
        getspid,
        getsptype,
        addsolution,
-       getphaseofstageapproach
+       addfacultativecutcallback,
+       addcorecutcallback,
+       getphaseofstageapproach,
+       getvalue
 
 export name, jumpmodel
 
@@ -74,5 +78,7 @@ include("bjoracles.jl")
 include("bjsolve.jl")
 include("bjdecomposition.jl")
 include("bjcplex.jl")
+include("bjcallbacks.jl")
+include("bjexpression.jl")
 
 end # module

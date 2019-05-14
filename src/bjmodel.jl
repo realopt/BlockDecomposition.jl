@@ -38,6 +38,7 @@ function BlockModel(;solver = JuMP.UnsetSolver())
 
   m.ext[:var_branch_prio_dict] = Dict{Tuple{Symbol, Tuple, Symbol}, Cdouble}() # (varname, sp, where) => (priority)
   m.ext[:branching_rules] = Dict{Symbol, Any}()
+  m.ext[:branching_expression] = Array{Tuple{Array, Array, Float64}}(0)
 
   # Callbacks
   m.ext[:oracles] = Array{Tuple{Tuple, Symbol, Function}}(0)
@@ -45,6 +46,9 @@ function BlockModel(;solver = JuMP.UnsetSolver())
   m.ext[:generic_vars] = Dict{Symbol, Tuple{JuMP.Variable, Function}}()
   m.ext[:generic_cstrs] = Dict{Int, Tuple{JuMP.JuMP.ConstraintRef, String, Function}}()
   m.ext[:cstrs_preproc] = Dict{Tuple{Symbol, Tuple}, Bool}() # (cstrname, sp) => bool
+
+  m.ext[:facultative_cuts_cb] = nothing
+  m.ext[:core_cuts_cb] = nothing
 
   # Columns counter for generic variables & constraints
   m.ext[:colscounter] = 0
@@ -95,6 +99,21 @@ function branchingpriorityinmaster(x::JuMP.JuMPContainer, subproblem::Tuple{Symb
   var_name = name(x)
   model = jumpmodel(x)
   model.ext[:var_branch_prio_dict][(var_name, subproblem, :MASTER)] = priority
+end
+
+function branchingpriorityinmaster(expressions::JuMP.JuMPContainer, priority)
+    for i in 1:length(expressions)
+        branchingpriorityinmaster(expressions[i], priority)
+    end
+    return
+end
+
+function branchingpriorityinmaster(expression::JuMP.GenericAffExpr, priority)
+    model = expression.vars[1].m
+    coeffs = Cdouble.(expression.coeffs)
+    varids = [Cint(var.col) for var in expression.vars]
+    push!(model.ext[:branching_expression], (coeffs, varids, float(priority)))
+    return
 end
 
 """
