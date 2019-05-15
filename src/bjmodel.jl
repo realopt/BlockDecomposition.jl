@@ -102,9 +102,12 @@ function branchingpriorityinmaster(x::JuMP.JuMPContainer, subproblem::Tuple{Symb
 end
 
 function branchingpriorityinmaster(expressions::JuMP.JuMPContainer, name, priority)
-    model = expressions[1].vars[1].m
+    exp_keys = keys(expressions)
+    state = start(exp_keys)
+    (i, state) = next(exp_keys, state)
+    model = expressions[i...].vars[1].m
     model.ext[:branching_expression][Symbol(name)] = Array{Tuple{Array, Array, Array, Float64}}(0)
-    for index in keys(expressions)
+    for index in exp_keys
         coeffs = Cdouble.(expressions[index...].coeffs)
         varids = [Cint(var.col) for var in expressions[index...].vars]
         push!(model.ext[:branching_expression][Symbol(name)], (index, coeffs, varids, float(priority)) )
