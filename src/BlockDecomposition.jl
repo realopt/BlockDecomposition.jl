@@ -24,7 +24,7 @@ using MathProgBase
 # DEPENDENCY ON CPLEX IS MENDATORY (until we add a similar hook to be redefined in CPLEX)
 
 # @require CPLEX begin
-       using CPLEX
+#       using CPLEX
 # end
 
 export  BlockModel,
@@ -77,7 +77,7 @@ include("bjexpand.jl")
 include("bjoracles.jl")
 include("bjsolve.jl")
 include("bjdecomposition.jl")
-include("bjcplex.jl")
+#include("bjcplex.jl")
 include("bjcallbacks.jl")
 
 end # module
