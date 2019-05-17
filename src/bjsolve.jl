@@ -44,9 +44,9 @@ function bj_solve(model;
   model.ext[:colscounter] = model.numCols
   model.ext[:rowscounter] = length(model.ext[:cstrs_decomposition_list])
 
-  if applicable(defineannotations, model, model.ext[:vars_decomposition_list])
-    defineannotations(model, model.ext[:vars_decomposition_list])
-  end
+  #if applicable(defineannotations, model, model.ext[:vars_decomposition_list])
+  #  defineannotations(model, model.ext[:vars_decomposition_list])
+  #end
 
   # Step 3 : Build + solve
   a = JuMP.solve(model, suppress_warnings=suppress_warnings,
