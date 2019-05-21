@@ -112,7 +112,7 @@ function create_cstrs_decomposition_list(m::JuMP.Model, A)
         sp_type = :ALL
       elseif DW_dec_f != nothing # Dantzig-Wolfe decomposition
         if name == :anonymous_cstr
-          warn("Anonymous constraint assigned to master problem during decomposition.")
+          #warn("Anonymous constraint assigned to master problem during decomposition.")
           sp_type = :DW_MASTER
         else
           (sp_type, sp_id) = DW_decomposition(DW_dec_f, name, cstr_id)
