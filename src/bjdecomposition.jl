@@ -32,7 +32,7 @@ end
 
 function create_cstrs_vars_decomposition_list!(m::JuMP.Model)
   A = prepConstrMatrix(m)
-  m.ext[:cstrs_decomposition_list] = create_cstrs_decomposition_list(m, A')
+  m.ext[:cstrs_decomposition_list] = create_cstrs_decomposition_list(m, sparse(A'))
   m.ext[:vars_decomposition_list] = create_vars_decomposition_list(m, A)
 end
 
@@ -102,7 +102,7 @@ function create_cstrs_decomposition_list(m::JuMP.Model, A)
   rows = rowvals(A)
   DW_dec_f = m.ext[:block_decomposition].DantzigWolfe_decomposition_fct
   B_dec_f = m.ext[:block_decomposition].Benders_decomposition_fct
-  cstrs_list = Array{Tuple}(size(m.ext[:varcstr_report].cstrs_report))
+  cstrs_list = Array{Tuple}(undef, size(m.ext[:varcstr_report].cstrs_report))
   mip = ismip(m)
 
   for (row_id, (name, cstr_id)) in enumerate(m.ext[:varcstr_report].cstrs_report)
@@ -156,7 +156,7 @@ function create_vars_decomposition_list(m::JuMP.Model, A)
   DW_dec_f = m.ext[:block_decomposition].DantzigWolfe_decomposition_fct
   DW_dec_on_vars_f = m.ext[:block_decomposition].DantzigWolfe_decomposition_on_vars_fct
   B_dec_f = m.ext[:block_decomposition].Benders_decomposition_fct
-  vars_list = Array{Tuple}(size(m.ext[:varcstr_report].vars_report))
+  vars_list = Array{Tuple}(undef, size(m.ext[:varcstr_report].vars_report))
   mip = ismip(m)
 
   for (column_id, (name, var_id)) in enumerate(m.ext[:varcstr_report].vars_report)
@@ -208,7 +208,7 @@ end
 
 function create_sp_mult_tab!(m::JuMP.Model)
   if m.ext[:sp_mult_fct] != nothing
-    m.ext[:sp_mult_tab] = Array{Tuple}(0)
+    m.ext[:sp_mult_tab] = Array{Tuple}(undef, 0)
     fill_sp_mult_tab!(m, :sp_list_dw, :DW_SP)
     fill_sp_mult_tab!(m, :sp_list_b, :B_SP)
   end

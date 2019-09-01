@@ -1,7 +1,9 @@
-type BlockDecompositionError <: Exception
+mutable struct BlockDecompositionError <: Exception
   info
   message
 end
+
+warn(s) = println("BlockDecompositionWarning : ", s)
 
 bjerror(message) = throw(BlockDecompositionError(nothing, message))
 bjerror(info,message) = throw(BlockDecompositionError(info, message))
@@ -22,8 +24,9 @@ isa_jumpcontnr(contnr) = (isa_jumpdict(contnr) || isa_jumparray(contnr))
 isa_array(contnr) = isa(contnr, Array)
 isa_jumpcstr(contnr) = isa(contnr, JuMP.ConstraintRef)
 isa_jumpvar(contnr) = isa(contnr, JuMP.Variable)
-contains_jumpcstr(contnr) = contains("$(typeof(contnr))", "JuMP.ConstraintRef")
-contains_jumpvar(contnr) = contains("$(typeof(contnr))", "JuMP.Variable")
+contains_in_type(contnr, t1, t2) = contains("$(typeof(contnr))", t1) && contains("$(typeof(contnr))", t2)
+contains_jumpcstr(contnr) = contains_in_type(contnr, "JuMP.", "ConstraintRef")
+contains_jumpvar(contnr) = contains_in_type(contnr, "JuMP.", "Variable")
 
 name(x::JuMP.JuMPContainer) = Symbol(x.meta[:model].varData[x].name)
 name(x::JuMP.Variable) = Symbol(x.m.colNames[x.col])
@@ -34,7 +37,7 @@ jumpmodel(x::JuMP.Variable) = x.m
 jumpmodel(c::JuMP.ConstraintRef) = c.m
 
 # Get the keys of an array of dimension dim
-type KeyArrayIterator
+#=mutable struct KeyArrayIterator
   a::Array
   len::Int
   dim::Int
@@ -61,7 +64,7 @@ function Base.next(key::KeyArrayIterator, state)
     index[k] = ceil(state / size_prod) - mod
   end
   return (tuple(index...), state+1)
-end
+end =#
 
 # Copy from affexpr.jl:88
 function assert_isfinite(a::JuMP.AffExpr)
@@ -95,11 +98,11 @@ function prepConstrMatrix(m::JuMP.Model)
         nnz += length(linconstr[c].terms.coeffs)
     end
     # Non-zero row indices
-    I = Array{Int}(nnz)
+    I = Array{Int}(undef, nnz)
     # Non-zero column indices
-    J = Array{Int}(nnz)
+    J = Array{Int}(undef, nnz)
     # Non-zero values
-    V = Array{Float64}(nnz)
+    V = Array{Float64}(undef, nnz)
 
     # Fill it up!
     # Number of nonzeros seen so far
@@ -123,5 +126,5 @@ function prepConstrMatrix(m::JuMP.Model)
     end
 
     # sparse() handles merging duplicate terms and removing zeros
-    A = sparse(I,J,V,numRows,m.numCols)
+    return sparse(I,J,V,numRows,m.numCols)
 end

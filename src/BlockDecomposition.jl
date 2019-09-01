@@ -1,11 +1,11 @@
-__precompile__()
+#__precompile__()
 
 module BlockDecomposition
 
 include("BlockSolverInterface.jl")
 using .BlockSolverInterface
 
-importall JuMP
+#importall JuMP
 
 # This issue on JuliaLang ends with this comment (Closing as "don't use Requires.jl")
 # https://github.com/JuliaLang/julia/issues/20909
@@ -13,6 +13,7 @@ importall JuMP
 # using Requires
 using JuMP
 using MathProgBase
+using SparseArrays
 
 # DEPENDENCY ON BlockDecompositionExtras IS NOW IMPLEMENTED BY REDEFINING THE FUNCTION
 # send_extras_to_solver

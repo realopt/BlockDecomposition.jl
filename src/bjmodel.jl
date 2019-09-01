@@ -1,10 +1,10 @@
-type ObjectiveData
+mutable struct ObjectiveData
   magnitude
   lb
   ub
 end
 
-type BlockDecompositionData
+mutable struct BlockDecompositionData
   DantzigWolfe_decomposition_fct
   DantzigWolfe_decomposition_on_vars_fct
   Benders_decomposition_fct
@@ -41,7 +41,7 @@ function BlockModel(;solver = JuMP.UnsetSolver())
   m.ext[:branching_expression] = Dict{Symbol, Array{Tuple{Tuple, Array, Array, Float64}}}()
 
   # Callbacks
-  m.ext[:oracles] = Array{Tuple{Tuple, Symbol, Function}}(0)
+  m.ext[:oracles] = Array{Tuple{Tuple, Symbol, Function}}(undef, 0)
 
   m.ext[:generic_vars] = Dict{Symbol, Tuple{JuMP.Variable, Function}}()
   m.ext[:generic_cstrs] = Dict{Int, Tuple{JuMP.JuMP.ConstraintRef, String, Function}}()

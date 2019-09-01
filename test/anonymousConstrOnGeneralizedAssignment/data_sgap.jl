@@ -1,6 +1,6 @@
 import Base.show, Base.print
 
-type DataGap
+mutable struct DataGap
   machines::UnitRange{Int}
   jobs::UnitRange{Int}
   weight::Matrix{Int}

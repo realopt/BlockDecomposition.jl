@@ -1,6 +1,6 @@
 import Base.show, Base.print
 
-type DataFl
+mutable struct DataFl
   customers::UnitRange{Int}
   factories::UnitRange{Int}
   capacities::Vector{Int}
