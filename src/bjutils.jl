@@ -3,7 +3,7 @@ mutable struct BlockDecompositionError <: Exception
   message
 end
 
-warn(s) = println("BlockDecompositionWarning : ", s)
+@warn(s) = println("BlockDecompositionWarning : ", s)
 
 bjerror(message) = throw(BlockDecompositionError(nothing, message))
 bjerror(info,message) = throw(BlockDecompositionError(info, message))

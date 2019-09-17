@@ -74,7 +74,7 @@ function send_to_solver!(model::JuMP.Model, f::Function, k::Symbol, mandatory::B
       f(model.solver, model.ext[k])
     else
       if mandatory
-        warn("Your solver does not support function $f.")
+        @warn("Your solver does not support function $f.")
       end
     end
   else
@@ -97,13 +97,13 @@ export send_extras_to_solver!
   end
 # end
 
-getdisaggregatedvalue(x::JuMP.JuMPContainer) = warn("getdisaggregatedvalue of a JuMPContainer no longer available. Use getdisaggregatedvalue(x::JuMP.Variable).")
-getdisaggregatedvalue(model::JuMP.Model) = warn("getdisaggregatedvalue of a JuMP.Model no longer available. Use getdisaggregatedvalue(x::JuMP.Variable).")
+getdisaggregatedvalue(x::JuMP.JuMPContainer) = @warn("getdisaggregatedvalue of a JuMPContainer no longer available. Use getdisaggregatedvalue(x::JuMP.Variable).")
+getdisaggregatedvalue(model::JuMP.Model) = @warn("getdisaggregatedvalue of a JuMP.Model no longer available. Use getdisaggregatedvalue(x::JuMP.Variable).")
 
 function getdisaggregatedvalue(x::JuMP.Variable)
   if applicable(getdisaggregatedvalueofvariable, x.m.internalModel, x.col)
     return getdisaggregatedvalueofvariable(x.m.internalModel, x.col)
   else
-    warn("Your solver seems to not support disaggregated solutions.")
+    @warn("Your solver seems to not support disaggregated solutions.")
   end
 end
