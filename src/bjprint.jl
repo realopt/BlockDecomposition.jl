@@ -10,8 +10,7 @@ end
 
 # copied from JuMP print
 # Modified to print a JuMPContainer of Vector{Float64}
-Base.show(io::IO, j::JuMP.JuMPContainer{Vector{Float64}}) = print(io, val_str(j))
-function val_str{N}(j::JuMP.JuMPArray{Vector{Float64},N})
+function val_str(j::JuMP.JuMPArray{Vector{Float64},N}) where N
     m = j.meta[:model] # _getmodel(j)
     data = m.varData[j] # printdata(j)
     out_str = "$(data.name): $N dimensions:\n"
@@ -63,3 +62,4 @@ function val_str{N}(j::JuMP.JuMPArray{Vector{Float64},N})
     val_str_rec(1,Any[],"")
     return out_str
 end
+Base.show(io::IO, j::JuMP.JuMPContainer{Vector{Float64}}) = print(io, val_str(j))

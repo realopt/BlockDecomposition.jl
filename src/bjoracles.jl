@@ -31,7 +31,7 @@ function getphaseofstageapproach(data::OracleSolverData)
   if applicable(get_oracle_phaseofstageapproach, data)
     get_oracle_phaseofstageapproach(data)
   else
-    Base.warn("Solver does not appear to support phase of stage approach.")
+    Base.@warn("Solver does not appear to support phase of stage approach.")
   end
 end
 
@@ -45,7 +45,7 @@ function addsolution(data::OracleSolverData)
   if applicable(set_oraclesolution_newsolution, data)
     set_oraclesolution_newsolution(data)
   else
-    Base.warn("Solver does not appear to support multi solutions oracle.")
+    Base.@warn("Solver does not appear to support multi solutions oracle.")
   end
 end
 
@@ -59,7 +59,7 @@ function setsolutionvalue(data::OracleSolverData, x, val::Real)
   if applicable(set_oraclesolution_solution, data, x, val)
     set_oraclesolution_solution(data, x, val)
   else
-    Base.warn("Solver does not appear to support oracle solver.")
+    Base.@warn("Solver does not appear to support oracle solver.")
   end
 end
 
@@ -73,7 +73,7 @@ function setsolutionbestobjval(data::OracleSolverData, objval::Real)
   if applicable(set_oraclesolution_objval, data, objval)
     set_oraclesolution_objval(data, objval)
   else
-    Base.warn("Solver doest not appear to support oracle solver.")
+    Base.@warn("Solver doest not appear to support oracle solver.")
   end
 end
 

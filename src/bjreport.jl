@@ -1,14 +1,16 @@
-type VarCstrReport
+mutable struct VarCstrReport
   cstrs_report
   vars_report
 end
 VarCstrReport() = VarCstrReport(nothing, nothing)
 
+contains(p, s) = findnext(s, p, 1) != nothing
+
 function report_cstrs_and_vars!(m::JuMP.Model)
   nbrows = length(m.linconstr)
   nbcols = length(m.colNames)
-  m.ext[:varcstr_report].cstrs_report = Array{Tuple{Symbol, Union{Tuple,Void}}}(nbrows)
-  m.ext[:varcstr_report].vars_report = Array{Tuple{Symbol, Union{Tuple,Void}}}(nbcols)
+  m.ext[:varcstr_report].cstrs_report = Array{Tuple{Symbol, Union{Tuple,Cvoid}}}(undef, nbrows)
+  m.ext[:varcstr_report].vars_report = Array{Tuple{Symbol, Union{Tuple,Cvoid}}}(undef, nbcols)
   report_names_and_indexes!(m.ext[:varcstr_report], m.objDict)
   check_and_name_anonymous(m)
 end
